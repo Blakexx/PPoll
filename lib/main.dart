@@ -273,6 +273,8 @@ class CreatePollState extends State<CreatePoll>{
     )));
   }
 
+  bool isConnecting = false;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -310,14 +312,14 @@ class CreatePollState extends State<CreatePoll>{
                       color:Colors.black12,
                       child: new Row(
                           children: [
-                            new Text("One choice per user",style: new TextStyle(fontSize:17.0,color:Colors.white)),
-                            new Expanded(child: new Switch(
+                            new Expanded(child: new Text(" One choice per user",style: new TextStyle(fontSize:17.0,color:Colors.white))),
+                            new Switch(
                               value: oneChoice,
                               onChanged: (s){
                                 setState((){oneChoice = s;});
                               },
                               activeColor: Colors.black
-                            ))
+                            )
                           ]
                       )
                     )
@@ -329,23 +331,23 @@ class CreatePollState extends State<CreatePoll>{
                           color:Colors.black12,
                           child: new Row(
                               children: [
-                                new Text("Permanent",style: new TextStyle(fontSize:17.0,color:Colors.white)),
-                                new Expanded(child: new Switch(
+                                new Expanded(child: new Text(" Permanent",style: new TextStyle(fontSize:17.0,color:Colors.white))),
+                                new Switch(
                                     value: perm,
                                     onChanged: (s){
                                       setState((){perm = s;});
                                     },
                                     activeColor: Colors.black
-                                ))
+                                )
                               ]
                           )
                       )
                   ),
                   new Container(height:30.0),
-                  new Container(height:60.0,width:200.0,child:new RaisedButton(
+                  !isConnecting?new Container(height:60.0,width:200.0,child:new RaisedButton(
                     shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                     child: new Text("Submit",style: new TextStyle(fontSize:25.0,color:Colors.white)),
-                    onPressed: (){
+                    onPressed: ()  async{
                       if(question!=null && !choices.contains(null)){
                         String key = "";
                         Random r = new Random();
@@ -354,11 +356,13 @@ class CreatePollState extends State<CreatePoll>{
                           key+=nums[r.nextInt(36)];
                         }
                         print(key);
-                        print(question);
-                        print(choices);
-                        print(oneChoice);
+                        String serverData = "{\n"+"\t\"data\": {\n\t\t\"q\": \""+question+"\",\n\t\t\"c\": \""+choices.toString().substring(1,choices.toString().length-1).replaceAll(",", "")+"\",\n\t\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\"\n\t}\n}";
+                        print(serverData);
+                        setState((){isConnecting = true;});
+                        setState((){isConnecting = false;});
                         return showDialog(
                           context: context,
+                          barrierDismissible: false,
                           builder: (context){
                             return new AlertDialog(
                               title:new Text("Success"),
@@ -378,7 +382,10 @@ class CreatePollState extends State<CreatePoll>{
                         );
                       }
                     }
-                  )),
+                  )):new Container(
+                    height:60.0,width:60.0,
+                    child: new CircularProgressIndicator()
+                  ),
                   new Container(height:30.0)
                 ]
               )

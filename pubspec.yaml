@@ -9,7 +9,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons:
   path_provider:
-  flutter_webview_plugin:
   url_launcher:
   flutter_list_drag_and_drop:
   charts_flutter:
