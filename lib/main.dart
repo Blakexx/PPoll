@@ -43,24 +43,41 @@ List<Color> colors = [
 
 SettingsInfo settings = new SettingsInfo();
 
+String userId;
+
 void main(){
-  settings.readData().then((list){
-    if(list==null||list.length!=1){
-      color = 17;
-      settings.writeData("0").then((f){
-        runApp(new DynamicTheme(
-          themedWidgetBuilder: (context, theme){
-            return new MaterialApp(
-                theme: theme,
-                home: new HomePage()
-            );
-          },
-          data: (brightness) => new ThemeData(fontFamily: "Poppins",brightness: Brightness.light, canvasColor: colors[color],buttonColor: Colors.black38),
-          defaultBrightness: Brightness.light,
-        ));
+  settings.readData().then((list) async{
+    if(list==null){
+      bool usedId = false;
+      do{
+        userId = "";
+        Random r = new Random();
+        List<String> nums = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+        for(int i = 0;i<16;i++){
+          userId+=(r.nextInt(2)==0?nums[r.nextInt(36)]:nums[r.nextInt(36)].toLowerCase());
+        }
+        await http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users/"+userId+".json")).then((r){
+          usedId = r.body!="null";
+        });
+      }while(usedId);
+      http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users/"+userId+".json"),body:"\"\"").then((r){
+        color = 16;
+        settings.writeData("16 "+userId).then((f){
+          runApp(new DynamicTheme(
+            themedWidgetBuilder: (context, theme){
+              return new MaterialApp(
+                  theme: theme,
+                  home: new HomePage()
+              );
+            },
+            data: (brightness) => new ThemeData(fontFamily: "Poppins",brightness: Brightness.light, canvasColor: colors[color],buttonColor: Colors.black38),
+            defaultBrightness: Brightness.light,
+          ));
+        });
       });
     }else{
       color = int.parse(list[0]);
+      userId = list[1];
       runApp(new DynamicTheme(
         themedWidgetBuilder: (context, theme){
           return new MaterialApp(
@@ -153,7 +170,7 @@ class HomePageState extends State<HomePage>{
                 !f.hasFocus?new Text("PPoll",style: new TextStyle(fontSize:80.0*MediaQuery.of(context).size.width/375.0,fontWeight: FontWeight.w100)):new Container(),
                 new Container(height: 75.0*MediaQuery.of(context).size.width/375.0,width:250.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                  child: new Text("Create a poll",style: new TextStyle(fontSize:30.0,color:Colors.white70)),
+                  child: new Text("Create a Poll",style: new TextStyle(fontSize:30.0,color:Colors.white70)),
                   onPressed: (){
                     Navigator.push(context,new MaterialPageRoute(builder: (context) => new CreatePoll()));
                   },
@@ -175,7 +192,8 @@ class HomePageState extends State<HomePage>{
                   onChanged:  (s){
                     input = s;
                   },
-                  focusNode: f
+                  focusNode: f,
+                  inputFormatters: [new UpperCaseTextFormatter()]
                 ))),
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -227,16 +245,26 @@ class ColorSelection extends StatelessWidget{
   }
 }
 
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue,
+      TextEditingValue newValue) {
+    return newValue.copyWith(text: newValue.text.toUpperCase());
+  }
+}
+
 class CreatePoll extends StatefulWidget{
   @override
   CreatePollState createState() => new CreatePollState();
 }
 
+bool removing = false;
+
 class CreatePollState extends State<CreatePoll>{
 
-  int optionCount = 1;
+  static int optionCount;
 
-  List<Widget> list = [];
+  static List<Widget> list = [];
 
   bool oneChoice = true;
 
@@ -251,10 +279,13 @@ class CreatePollState extends State<CreatePoll>{
   @override
   void initState(){
     super.initState();
+    optionCount = 2;
     question = "";
     choices.clear();
+    list.clear();
+    list.add(new Option(0));
     list.add(new Option(1));
-    choices.length = 1;
+    choices.length = 2;
     list.add(new Container(height: 50.0,padding: EdgeInsets.only(left:30.0,right:30.0),child: new RaisedButton(
         child: new ListTile(
             leading: new Icon(Icons.add,color:Colors.white),
@@ -262,7 +293,7 @@ class CreatePollState extends State<CreatePoll>{
         ),
         onPressed: (){
           if(optionCount<20){
-            list.insert(list.length-1,new Option(++optionCount));
+            list.insert(list.length-1,new Option(optionCount++));
             if(s.position.pixels>0.0){
               s.jumpTo(s.position.pixels+50);
             }
@@ -278,7 +309,14 @@ class CreatePollState extends State<CreatePoll>{
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Create a Poll",style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
+      appBar: new AppBar(title: new Text("Create a Poll",style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54,actions:[
+        new IconButton(
+          icon: new Icon(!removing?Icons.delete:Icons.check),
+          onPressed: (){
+            setState((){removing = !removing;});
+          }
+        )
+      ]),
       body: new Container(
         child: new Center(
           child: new ListView(
@@ -296,7 +334,7 @@ class CreatePollState extends State<CreatePoll>{
                       border: InputBorder.none,
                       counterText: "",
                     ),
-                    onSubmitted: (s){
+                    onChanged: (s){
                       question = s;
                     }
                   )),
@@ -312,7 +350,7 @@ class CreatePollState extends State<CreatePoll>{
                       color:Colors.black12,
                       child: new Row(
                           children: [
-                            new Expanded(child: new Text(" One choice per user",style: new TextStyle(fontSize:17.0,color:Colors.white))),
+                            new Expanded(child: new Text(" Allow multiple selections",style: new TextStyle(fontSize:17.0,color:Colors.white))),
                             new Switch(
                               value: oneChoice,
                               onChanged: (s){
@@ -325,13 +363,13 @@ class CreatePollState extends State<CreatePoll>{
                     )
                   ),
                   new Container(
-                      padding: EdgeInsets.only(top:10.0,left:10.0,right:10.0),
+                      padding: EdgeInsets.only(left:10.0,right:10.0,top:5.0),
                       child: new Container(
                           height: 50.0,
                           color:Colors.black12,
                           child: new Row(
                               children: [
-                                new Expanded(child: new Text(" Permanent",style: new TextStyle(fontSize:17.0,color:Colors.white))),
+                                new Expanded(child: new Text(" Allow multiple responses",style: new TextStyle(fontSize:17.0,color:Colors.white))),
                                 new Switch(
                                     value: perm,
                                     onChanged: (s){
@@ -350,22 +388,29 @@ class CreatePollState extends State<CreatePoll>{
                     onPressed: ()  async{
                       if(question!=null && !choices.contains(null)){
                         setState((){isConnecting = true;});
-                        bool isUsed(String key){
-                          return false;
-                        };
                         String key = "";
                         Random r = new Random();
+                        bool used = false;
                         do{
                           key = "";
                           for(int i = 0; i<4;i++){
                             List<String> nums = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
                             key+=nums[r.nextInt(36)];
                           }
-                        }while(isUsed(key));
+                          print(key);
+                          await http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data"+key+".json")).then((r){
+                            used = r.body!="null";
+                          });
+                        }while(used);
+                        String answers = "";
+                        for(int i = 0; i<choices.length;i++){
+                          answers+="0 ";
+                        }
+                        answers = answers.substring(0,answers.length-1);
                         print(key);
-                        String serverData = "{\n"+"\t\"data\": {\n\t\t\"q\": \""+question+"\",\n\t\t\"c\": \""+choices.toString().substring(1,choices.toString().length-1).replaceAll(",", "")+"\",\n\t\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\"\n\t}\n}";
+                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": \""+choices.toString().substring(1,choices.toString().length-1).replaceAll(",", "")+"\",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\",\n\t\"a\": \""+answers+"\"\n}";
                         print(serverData);
-                        http.post("http://ptsv2.com/t/dmk76-1529733682/post",body:json.decode(serverData)["data"]).then((r){
+                        http.post("https://ppoll-polls.firebaseio.com/data/"+key+".json",body:serverData).then((r){
                           setState((){isConnecting = false;});
                           return showDialog(
                               context: context,
@@ -413,20 +458,37 @@ class Option extends StatefulWidget{
 }
 
 class OptionState extends State<Option>{
+  FocusNode f = new FocusNode();
   @override
   Widget build(BuildContext context) {
-    return new Container(height: 50.0,padding: EdgeInsets.only(left:30.0,right:30.0),child: new TextField(
-      decoration: new InputDecoration(
-      hintText: 'Option '+widget.position.toString(),
-      filled: true,
-      fillColor: Colors.white,
-      border: InputBorder.none,
-      counterText: "",
-      ),
-      onSubmitted: (s){
-        CreatePollState.choices[widget.position-1] = s;
-      }
-    ));
+    return new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?30.0:0.0,right:30.0),child: new Row(children: [
+      removing?new IconButton(
+          icon: new Icon(Icons.delete),
+          onPressed: (){
+            if(CreatePollState.list.length>3){
+              CreatePollState.optionCount--;
+              CreatePollState.choices.removeAt(widget.position);
+              CreatePollState.list.removeAt(widget.position);
+              for(int i = 0; i<CreatePollState.list.length-1;i++){
+                (CreatePollState.list[i] as Option).position = i;
+              }
+              context.ancestorStateOfType(new TypeMatcher<CreatePollState>()).setState((){});
+            }
+          }
+      ):new Container(width:0.0,height:0.0),
+      new Expanded(child: new TextField(
+        focusNode: f,
+        decoration: new InputDecoration(
+        hintText: 'Option '+(widget.position+1).toString(),
+        filled: true,
+        fillColor: Colors.white30,
+        border: InputBorder.none,
+        counterText: "",
+        ),
+        onChanged: (s){
+          CreatePollState.choices[widget.position] = s;
+        }
+      ))]));
   }
 }
 
@@ -471,7 +533,7 @@ class SettingsInfo{
       final file = await _localFile;
       String contents = await file.readAsString();
 
-      if(contents.split(" ").length!=1){
+      if(contents.split(" ").length!=2){
         return null;
       }
 
