@@ -213,13 +213,13 @@ class HomePageState extends State<HomePage>{
                             if(map[map.keys.toList()[0]]["b"].toString().substring(2,3) == "0") {
                               if (map[map.keys.toList()[0]]["i"]==null||!map[map.keys.toList()[0]]["i"].contains(userId)) {
                                 print("User has not answered yet");
-                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],true,map[map.keys.toList()[0]]["i"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
+                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],true,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
                               }else {
                                 print("User has already answered");
                               }
                             }else{
                               print("Multible responses allowed");
-                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],false,map[map.keys.toList()[0]]["i"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
+                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],false,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
                             }
                           }else{
                             print("item does not exist");
@@ -283,7 +283,7 @@ class CreatePollState extends State<CreatePoll>{
 
   static List<Widget> list = [];
 
-  bool oneChoice = true;
+  bool oneChoice = false;
 
   bool perm = false;
 
@@ -482,30 +482,23 @@ class ViewOrVote extends StatefulWidget{
 
 class ViewOrVoteState extends State<ViewOrVote>{
 
-  List<Widget> options = new List<Widget>();
-
   String choice;
 
-  List<bool> checked = new List<bool>();
+  Map<String,bool> checked = new Map<String,bool>();
+
+  List<String> choicesString = new List<String>();
 
   @override
   void initState(){
     super.initState();
-    checked.length = widget.choices.length;
-    options.length = widget.choices.length;
-    for(int i = 0; i<options.length;i++){
-      options[i] = widget.oneChoice?new RadioListTile<String>(
-        title: new Text(widget.choices[i]),
-        value: widget.choices[i],
-        groupValue: choice,
-        onChanged: (String value){setState((){if(widget.vote){choice = value;}});}
-      ):new CheckboxListTile(
-        title: new Text(widget.choices[i]),
-        onChanged: (b){
-          checked[i] = b;
-        },
-        value: false
-      );
+    if(!widget.oneChoice){
+      for(String s in widget.choices){
+        checked.putIfAbsent(s, ()=>false);
+      }
+    }else{
+      for(int i = 0; i<widget.choices.length;i++){
+        choicesString.add(widget.choices[i].toString());
+      }
     }
   }
 
@@ -519,7 +512,28 @@ class ViewOrVoteState extends State<ViewOrVote>{
             children: [
               new Text(widget.question),
               new Column(
-                children: options
+                children: widget.oneChoice?choicesString.map((String key){
+                  return new RadioListTile(
+                      value: key,
+                      title: new Text(key),
+                      groupValue: choice,
+                      onChanged: (v){
+                        setState((){
+                          choice = v;
+                        });
+                      }
+                  );
+                }).toList():checked.keys.map((String key){
+                  return new CheckboxListTile(
+                      title: new Text(key),
+                      value: checked[key],
+                      onChanged: (v){
+                        setState((){
+                          checked[key] = v;
+                        });
+                      }
+                  );
+                }).toList()
               )
             ]
           )
