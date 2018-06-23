@@ -60,7 +60,7 @@ void main(){
           usedId = r.body!="null";
         });
       }while(usedId);
-      http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users/"+userId+".json"),body:"\"\"").then((r){
+      http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users/"+userId+".json"),body:"0").then((r){
         color = 16;
         settings.writeData("16 "+userId).then((f){
           runApp(new DynamicTheme(
@@ -272,7 +272,9 @@ class CreatePollState extends State<CreatePoll>{
 
   static List<String> choices = [];
 
-  static String question = "";
+  static String question;
+
+  int totalCount = 2;
 
   ScrollController s = new ScrollController();
 
@@ -280,11 +282,11 @@ class CreatePollState extends State<CreatePoll>{
   void initState(){
     super.initState();
     optionCount = 2;
-    question = "";
+    question = null;
     choices.clear();
     list.clear();
-    list.add(new Option(0));
-    list.add(new Option(1));
+    list.add(new Option(0,new GlobalKey()));
+    list.add(new Option(1,new GlobalKey()));
     choices.length = 2;
     list.add(new Container(height: 50.0,padding: EdgeInsets.only(left:30.0,right:30.0),child: new RaisedButton(
         child: new ListTile(
@@ -293,7 +295,7 @@ class CreatePollState extends State<CreatePoll>{
         ),
         onPressed: (){
           if(optionCount<20){
-            list.insert(list.length-1,new Option(optionCount++));
+            list.insert(list.length-1,new Option(optionCount++,new GlobalKey()));
             if(s.position.pixels>0.0){
               s.jumpTo(s.position.pixels+50);
             }
@@ -313,6 +315,9 @@ class CreatePollState extends State<CreatePoll>{
         new IconButton(
           icon: new Icon(!removing?Icons.delete:Icons.check),
           onPressed: (){
+            for(int i = 0; i<CreatePollState.list.length-1;i++){
+              (CreatePollState.list[i] as Option).key.currentState.setState((){});
+            }
             setState((){removing = !removing;});
           }
         )
@@ -397,7 +402,6 @@ class CreatePollState extends State<CreatePoll>{
                             List<String> nums = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
                             key+=nums[r.nextInt(36)];
                           }
-                          print(key);
                           await http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data"+key+".json")).then((r){
                             used = r.body!="null";
                           });
@@ -408,7 +412,7 @@ class CreatePollState extends State<CreatePoll>{
                         }
                         answers = answers.substring(0,answers.length-1);
                         print(key);
-                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": \""+choices.toString().substring(1,choices.toString().length-1).replaceAll(",", "")+"\",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\",\n\t\"a\": \""+answers+"\"\n}";
+                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+choices.map((String str)=>"\""+str+"\"").toString().substring(1,choices.map((String str)=>"\""+str+"\"").toString().length-1)+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\",\n\t\"a\": \""+answers+"\",\n\t\"i\": {}\n}";
                         print(serverData);
                         http.post("https://ppoll-polls.firebaseio.com/data/"+key+".json",body:serverData).then((r){
                           setState((){isConnecting = false;});
@@ -451,8 +455,9 @@ class CreatePollState extends State<CreatePoll>{
 }
 
 class Option extends StatefulWidget{
+  GlobalKey key;
   int position;
-  Option(this.position);
+  Option(this.position,this.key):super(key:key);
   @override
   OptionState createState() => new OptionState();
 }
@@ -471,6 +476,7 @@ class OptionState extends State<Option>{
               CreatePollState.list.removeAt(widget.position);
               for(int i = 0; i<CreatePollState.list.length-1;i++){
                 (CreatePollState.list[i] as Option).position = i;
+                (CreatePollState.list[i] as Option).key.currentState.setState((){});
               }
               context.ancestorStateOfType(new TypeMatcher<CreatePollState>()).setState((){});
             }
