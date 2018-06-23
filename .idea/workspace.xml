@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -24,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="323" column="9" lean-forward="true" selection-start-line="323" selection-start-column="9" selection-end-line="323" selection-end-column="9" />
+            <state relative-caret-position="350">
+              <caret line="156" column="28" lean-forward="true" selection-start-line="156" selection-start-column="28" selection-end-line="156" selection-end-column="28" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -47,21 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>onSubmit</find>
-      <find>question</find>
-      <find>permanent</find>
-      <find>one</find>
-      <find>[&quot;1</find>
-      <find>allow multible</find>
-      <find>http.post</find>
-      <find>http.po</find>
-      <find>textField</find>
-      <find>code</find>
-      <find>allow mu</find>
-      <find>d</find>
-      <find>remove</find>
-      <find>icons.remov</find>
-      <find>.length</find>
       <find>justAd</find>
       <find>.insert`</find>
       <find>.length-</find>
@@ -77,6 +61,21 @@
       <find>is</find>
       <find>children: list</find>
       <find>setState((){remo</find>
+      <find>print(d</find>
+      <find>data</find>
+      <find>print(s</find>
+      <find>View</find>
+      <find>http.get</find>
+      <find>.charAt</find>
+      <find>i\&quot;</find>
+      <find>!=&quot;nu</find>
+      <find>does not</find>
+      <find>new App</find>
+      <find>vieworvote</find>
+      <find>gridtile</find>
+      <find>settings.writeD</find>
+      <find>settings</find>
+      <find>Icons.p</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -373,8 +372,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="323" column="9" lean-forward="true" selection-start-line="323" selection-start-column="9" selection-end-line="323" selection-end-column="9" />
+        <state relative-caret-position="350">
+          <caret line="156" column="28" lean-forward="true" selection-start-line="156" selection-start-column="28" selection-end-line="156" selection-end-column="28" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

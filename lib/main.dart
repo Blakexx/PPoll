@@ -108,7 +108,7 @@ class HomePageState extends State<HomePage>{
   @override
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: new AppBar(
+      appBar: !f.hasFocus?new AppBar(
           backgroundColor: Colors.transparent,
           leading: new IconButton(
               icon: new Icon(Icons.palette),
@@ -160,7 +160,7 @@ class HomePageState extends State<HomePage>{
             )
           ],
         elevation: 0.0
-      ),
+      ):new PreferredSize(child: new Container(),preferredSize: new Size(0.0,0.0)),
       body: new Container(
         child: new Center(
             child: new Column(
@@ -207,7 +207,24 @@ class HomePageState extends State<HomePage>{
                     new Container(height: 50.0, width: 100.0,child: new RaisedButton(
                       child: new Text("Vote",style: new TextStyle(fontSize: 20.0,color:Colors.white70)),
                       onPressed: (){
-
+                        http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json")).then((r){
+                          Map<String,dynamic> map = json.decode(r.body);
+                          if(r.body!="null") {
+                            if(map[map.keys.toList()[0]]["b"].toString().substring(2,3) == "0") {
+                              if (map[map.keys.toList()[0]]["i"]==null||!map[map.keys.toList()[0]]["i"].contains(userId)) {
+                                print("User has not answered yet");
+                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],true,map[map.keys.toList()[0]]["i"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
+                              }else {
+                                print("User has already answered");
+                              }
+                            }else{
+                              print("Multible responses allowed");
+                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],false,map[map.keys.toList()[0]]["i"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
+                            }
+                          }else{
+                            print("item does not exist");
+                          }
+                        });
                       }
                     )),
                   ]
@@ -236,7 +253,7 @@ class ColorSelection extends StatelessWidget{
             ),
             onTapUp: (t){
               color = index;
-              settings.writeData(color.toString());
+              settings.writeData(color.toString()+" "+userId);
               DynamicTheme.of(context).setThemeData(new ThemeData(fontFamily: "Poppins",brightness: Brightness.light, canvasColor: colors[color],buttonColor:Colors.black38));
               Navigator.of(context).pop();
             }
@@ -281,6 +298,7 @@ class CreatePollState extends State<CreatePoll>{
   @override
   void initState(){
     super.initState();
+    removing = false;
     optionCount = 2;
     question = null;
     choices.clear();
@@ -406,14 +424,9 @@ class CreatePollState extends State<CreatePoll>{
                             used = r.body!="null";
                           });
                         }while(used);
-                        String answers = "";
-                        for(int i = 0; i<choices.length;i++){
-                          answers+="0 ";
-                        }
-                        answers = answers.substring(0,answers.length-1);
-                        print(key);
-                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+choices.map((String str)=>"\""+str+"\"").toString().substring(1,choices.map((String str)=>"\""+str+"\"").toString().length-1)+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\",\n\t\"a\": \""+answers+"\",\n\t\"i\": {}\n}";
-                        print(serverData);
+                        List<int> answers = new List<int>(choices.length);
+                        answers = answers.map((i)=>0).toList();
+                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+choices.map((String str)=>"\""+str+"\"").toString().substring(1,choices.map((String str)=>"\""+str+"\"").toString().length-1)+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
                         http.post("https://ppoll-polls.firebaseio.com/data/"+key+".json",body:serverData).then((r){
                           setState((){isConnecting = false;});
                           return showDialog(
@@ -445,6 +458,68 @@ class CreatePollState extends State<CreatePoll>{
                   ),
                   new Container(height:30.0)
                 ]
+              )
+            ]
+          )
+        )
+      )
+    );
+  }
+}
+
+class ViewOrVote extends StatefulWidget{
+  String question;
+  List<dynamic> choices;
+  bool oneResponse;
+  bool oneChoice;
+  List<dynamic> scores;
+  String code;
+  bool vote;
+    ViewOrVote(this.code,this.vote,this.question,this.choices,this.oneResponse,this.oneChoice,this.scores);
+  @override
+  ViewOrVoteState createState() => new ViewOrVoteState();
+}
+
+class ViewOrVoteState extends State<ViewOrVote>{
+
+  List<Widget> options = new List<Widget>();
+
+  String choice;
+
+  List<bool> checked = new List<bool>();
+
+  @override
+  void initState(){
+    super.initState();
+    checked.length = widget.choices.length;
+    options.length = widget.choices.length;
+    for(int i = 0; i<options.length;i++){
+      options[i] = widget.oneChoice?new RadioListTile<String>(
+        title: new Text(widget.choices[i]),
+        value: widget.choices[i],
+        groupValue: choice,
+        onChanged: (String value){setState((){if(widget.vote){choice = value;}});}
+      ):new CheckboxListTile(
+        title: new Text(widget.choices[i]),
+        onChanged: (b){
+          checked[i] = b;
+        },
+        value: false
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context){
+    return new Scaffold(
+      appBar: new AppBar(title:new Text(widget.code,style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
+      body: new Container(
+        child: new Center(
+          child: new ListView(
+            children: [
+              new Text(widget.question),
+              new Column(
+                children: options
               )
             ]
           )
