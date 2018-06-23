@@ -349,37 +349,45 @@ class CreatePollState extends State<CreatePoll>{
                     child: new Text("Submit",style: new TextStyle(fontSize:25.0,color:Colors.white)),
                     onPressed: ()  async{
                       if(question!=null && !choices.contains(null)){
+                        setState((){isConnecting = true;});
+                        bool isUsed(String key){
+                          return false;
+                        };
                         String key = "";
                         Random r = new Random();
-                        for(int i = 0; i<4;i++){
-                          List<String> nums = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-                          key+=nums[r.nextInt(36)];
-                        }
+                        do{
+                          key = "";
+                          for(int i = 0; i<4;i++){
+                            List<String> nums = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+                            key+=nums[r.nextInt(36)];
+                          }
+                        }while(isUsed(key));
                         print(key);
                         String serverData = "{\n"+"\t\"data\": {\n\t\t\"q\": \""+question+"\",\n\t\t\"c\": \""+choices.toString().substring(1,choices.toString().length-1).replaceAll(",", "")+"\",\n\t\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\"\n\t}\n}";
                         print(serverData);
-                        setState((){isConnecting = true;});
-                        setState((){isConnecting = false;});
-                        return showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (context){
-                            return new AlertDialog(
-                              title:new Text("Success"),
-                              content:new Text("Your poll has been created with the code "+key),
-                              actions: [
-                                new RaisedButton(
-                                  child: new Text("Okay",style:new TextStyle(color: Colors.black)),
-                                  onPressed: (){
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context).pop();
-                                  },
-                                  color: Colors.grey
-                                )
-                              ]
-                            );
-                          }
-                        );
+                        http.post("http://ptsv2.com/t/dmk76-1529733682/post",body:json.decode(serverData)["data"]).then((r){
+                          setState((){isConnecting = false;});
+                          return showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context){
+                                return new AlertDialog(
+                                    title:new Text("Success"),
+                                    content:new Text("Your poll has been created with the code "+key),
+                                    actions: [
+                                      new RaisedButton(
+                                          child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                          onPressed: (){
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context).pop();
+                                          },
+                                          color: Colors.grey
+                                      )
+                                    ]
+                                );
+                              }
+                          );
+                        });
                       }
                     }
                   )):new Container(
