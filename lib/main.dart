@@ -216,13 +216,49 @@ class HomePageState extends State<HomePage>{
                                 Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],true,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
                               }else {
                                 print("User has already answered");
+                                showDialog(
+                                    context: context,
+                                    builder: (context){
+                                      return new AlertDialog(
+                                          title:new Text("Error"),
+                                          content: new Text("You have already answered this poll."),
+                                          actions: [
+                                            new RaisedButton(
+                                              child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                              onPressed: (){
+                                                Navigator.of(context).pop();
+                                              },
+                                              color: Colors.grey
+                                            )
+                                          ]
+                                      );
+                                    }
+                                );
                               }
                             }else{
-                              print("Multible responses allowed");
+                              print("Multible responses allowed.");
                               Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],false,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
                             }
                           }else{
                             print("item does not exist");
+                            showDialog(
+                              context: context,
+                              builder: (context){
+                                return new AlertDialog(
+                                  title:new Text("Error"),
+                                  content: new Text("Invalid code"),
+                                  actions: [
+                                    new RaisedButton(
+                                      child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                      onPressed: (){
+                                        Navigator.of(context).pop();
+                                      },
+                                      color: Colors.grey
+                                    )
+                                  ]
+                                );
+                              }
+                            );
                           }
                         });
                       }
@@ -429,7 +465,7 @@ class CreatePollState extends State<CreatePoll>{
                         String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+choices.map((String str)=>"\""+str+"\"").toString().substring(1,choices.map((String str)=>"\""+str+"\"").toString().length-1)+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
                         http.post("https://ppoll-polls.firebaseio.com/data/"+key+".json",body:serverData).then((r){
                           setState((){isConnecting = false;});
-                          return showDialog(
+                          /*return showDialog(
                               context: context,
                               barrierDismissible: false,
                               builder: (context){
@@ -448,7 +484,22 @@ class CreatePollState extends State<CreatePoll>{
                                     ]
                                 );
                               }
-                          );
+                          );*/
+                          Navigator.push(context,new MaterialPageRoute(builder: (context) => new WillPopScope(onWillPop:(){return new Future<bool>(()=>Navigator.of(context).pop(true));},child: new Scaffold(
+                            appBar: new AppBar(title:new Text("Success",style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
+                            body:new Container(
+                              child: new Center(
+                                child: new Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    new Text("Your poll has been created with the code"),
+                                    new Text(key,style:new TextStyle(fontSize:120.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold))
+                                  ]
+                                )
+                              )
+                            )
+                          ))));
                         });
                       }
                     }
