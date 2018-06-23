@@ -176,7 +176,7 @@ class HomePageState extends State<HomePage>{
                   },
                 )),
                 new Container(),new Container(),
-                new Container(width: 150.0,child: new Center(child: new TextField(
+                new Container(width: 120.0,child: new Center(child: new TextField(
                   style: new TextStyle(fontSize: 25.0,color:Colors.black),
                   controller: c,
                   maxLength: 4,
@@ -199,14 +199,109 @@ class HomePageState extends State<HomePage>{
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     new Container(height: 50.0,width: 100.0,child: new RaisedButton(
+                      shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
                       child: new Text("View",style: new TextStyle(fontSize: 20.0,color:Colors.white70)),
                       onPressed: (){
-
+                        if(input==null||input.length<4){
+                          return showDialog(
+                              context: context,
+                              builder: (context){
+                                return new AlertDialog(
+                                    title:new Text("Error"),
+                                    content: new Text("Invalid code"),
+                                    actions: [
+                                      new RaisedButton(
+                                          child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                          onPressed: (){
+                                            Navigator.of(context).pop();
+                                          },
+                                          color: Colors.grey
+                                      )
+                                    ]
+                                );
+                              }
+                          );
+                        }
+                        http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json")).then((r){
+                          Map<String,dynamic> map = json.decode(r.body);
+                          if(r.body!="null") {
+                            if(map[map.keys.toList()[0]]["b"].toString().substring(2,3) == "0") {
+                              if (map[map.keys.toList()[0]]["i"]==null||!map[map.keys.toList()[0]]["i"].contains(userId)) {
+                                print("User has not answered yet");
+                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],true,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
+                              }else {
+                                print("User has already answered");
+                                showDialog(
+                                    context: context,
+                                    builder: (context){
+                                      return new AlertDialog(
+                                          title:new Text("Error"),
+                                          content: new Text("You have already answered this poll."),
+                                          actions: [
+                                            new RaisedButton(
+                                                child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                onPressed: (){
+                                                  Navigator.of(context).pop();
+                                                },
+                                                color: Colors.grey
+                                            )
+                                          ]
+                                      );
+                                    }
+                                );
+                              }
+                            }else{
+                              print("Multible responses allowed.");
+                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],false,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
+                            }
+                          }else{
+                            print("item does not exist");
+                            showDialog(
+                                context: context,
+                                builder: (context){
+                                  return new AlertDialog(
+                                      title:new Text("Error"),
+                                      content: new Text("Poll not found"),
+                                      actions: [
+                                        new RaisedButton(
+                                            child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                            onPressed: (){
+                                              Navigator.of(context).pop();
+                                            },
+                                            color: Colors.grey
+                                        )
+                                      ]
+                                  );
+                                }
+                            );
+                          }
+                        });
                       }
                     )),
                     new Container(height: 50.0, width: 100.0,child: new RaisedButton(
                       child: new Text("Vote",style: new TextStyle(fontSize: 20.0,color:Colors.white70)),
+                      shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
                       onPressed: (){
+                        if(input==null||input.length<4){
+                          return showDialog(
+                              context: context,
+                              builder: (context){
+                                return new AlertDialog(
+                                    title:new Text("Error"),
+                                    content: new Text("Invalid code"),
+                                    actions: [
+                                      new RaisedButton(
+                                          child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                          onPressed: (){
+                                            Navigator.of(context).pop();
+                                          },
+                                          color: Colors.grey
+                                      )
+                                    ]
+                                );
+                              }
+                          );
+                        }
                         http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json")).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
@@ -246,7 +341,7 @@ class HomePageState extends State<HomePage>{
                               builder: (context){
                                 return new AlertDialog(
                                   title:new Text("Error"),
-                                  content: new Text("Invalid code"),
+                                  content: new Text("Poll not found"),
                                   actions: [
                                     new RaisedButton(
                                       child: new Text("Okay",style:new TextStyle(color: Colors.black)),
@@ -364,7 +459,7 @@ class CreatePollState extends State<CreatePoll>{
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return new WillPopScope(child: new Scaffold(
       appBar: new AppBar(title: new Text("Create a Poll",style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54,actions:[
         new IconButton(
           icon: new Icon(!removing?Icons.delete:Icons.check),
@@ -465,26 +560,6 @@ class CreatePollState extends State<CreatePoll>{
                         String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+choices.map((String str)=>"\""+str+"\"").toString().substring(1,choices.map((String str)=>"\""+str+"\"").toString().length-1)+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
                         http.post("https://ppoll-polls.firebaseio.com/data/"+key+".json",body:serverData).then((r){
                           setState((){isConnecting = false;});
-                          /*return showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (context){
-                                return new AlertDialog(
-                                    title:new Text("Success"),
-                                    content:new Text("Your poll has been created with the code "+key),
-                                    actions: [
-                                      new RaisedButton(
-                                          child: new Text("Okay",style:new TextStyle(color: Colors.black)),
-                                          onPressed: (){
-                                            Navigator.of(context).pop();
-                                            Navigator.of(context).pop();
-                                          },
-                                          color: Colors.grey
-                                      )
-                                    ]
-                                );
-                              }
-                          );*/
                           Navigator.push(context,new MaterialPageRoute(builder: (context) => new WillPopScope(onWillPop:(){return new Future<bool>(()=>Navigator.of(context).pop(true));},child: new Scaffold(
                             appBar: new AppBar(title:new Text("Success",style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
                             body:new Container(
@@ -493,7 +568,7 @@ class CreatePollState extends State<CreatePoll>{
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    new Text("Your poll has been created with the code"),
+                                    new Text("Your poll has been created with the code",style:new TextStyle(fontSize:15.0*MediaQuery.of(context).size.width/360.0)),
                                     new Text(key,style:new TextStyle(fontSize:120.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold))
                                   ]
                                 )
@@ -501,6 +576,26 @@ class CreatePollState extends State<CreatePoll>{
                             )
                           ))));
                         });
+                      }else{
+                        showDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (context){
+                                return new AlertDialog(
+                                    title:new Text("Error"),
+                                    content:new Text("Please complete all the fields"),
+                                    actions: [
+                                      new RaisedButton(
+                                          child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                          onPressed: (){
+                                            Navigator.of(context).pop();
+                                          },
+                                          color: Colors.grey
+                                      )
+                                    ]
+                                );
+                              }
+                          );
                       }
                     }
                   )):new Container(
@@ -514,7 +609,50 @@ class CreatePollState extends State<CreatePoll>{
           )
         )
       )
-    );
+    ),
+    onWillPop: (){
+      bool hasEnteredChoices = false;
+      for(int i = 0; i<choices.length;i++){
+        if(choices[i]!=null){
+          hasEnteredChoices = true;
+          break;
+        }
+      }
+      if(question!=null||hasEnteredChoices){
+        bool yes = true;
+        showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (context){
+              return new AlertDialog(
+                  title:new Text("Are you sure?"),
+                  content:new Text("Any changes will be lost"),
+                  actions: [
+                    new RaisedButton(
+                        child: new Text("No",style:new TextStyle(color: Colors.black)),
+                        onPressed: (){
+                          yes = false;
+                          Navigator.of(context).pop();
+                        },
+                        color: Colors.grey
+                    ),
+                    new RaisedButton(
+                        child: new Text("Yes",style:new TextStyle(color: Colors.black)),
+                        onPressed: (){
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                        color: Colors.grey
+                    ),
+                  ]
+              );
+            }
+        );
+        return new Future<bool>(()=>false);
+      }else{
+        return new Future<bool>(()=>true);
+      }
+    });
   }
 }
 
@@ -563,7 +701,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
             children: [
               new Text(widget.question),
               new Column(
-                children: widget.oneChoice?choicesString.map((String key){
+                children: widget.vote?widget.oneChoice?choicesString.map((String key){
                   return new RadioListTile(
                       value: key,
                       title: new Text(key),
@@ -584,6 +722,10 @@ class ViewOrVoteState extends State<ViewOrVote>{
                         });
                       }
                   );
+                }).toList():widget.oneChoice?choicesString.map((String key){
+
+                }).toList():checked.keys.map((String key){
+
                 }).toList()
               )
             ]
