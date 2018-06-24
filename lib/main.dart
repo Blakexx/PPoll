@@ -682,7 +682,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
               new Text(widget.question),
               new Column(
                 children: widget.vote?(widget.oneChoice?choicesString.map((String key){
-                  return new RadioListTile(
+                  return new Padding(padding: EdgeInsets.only(top:5.0),child: new Container(color:Colors.black26,child:new RadioListTile(
                       value: key,
                       title: new Text(key),
                       groupValue: choice,
@@ -691,9 +691,9 @@ class ViewOrVoteState extends State<ViewOrVote>{
                           choice = v;
                         });
                       }
-                  );
+                  )));
                 }).toList():checked.keys.map((String key){
-                  return new CheckboxListTile(
+                  return new Padding(padding:EdgeInsets.only(top:5.0),child: new Container(color:Colors.black26,child:new CheckboxListTile(
                       title: new Text(key),
                       value: checked[key],
                       onChanged: (v){
@@ -701,7 +701,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                           checked[key] = v;
                         });
                       }
-                  );
+                  )));
                 }).toList()):(widget.oneChoice?choicesString.map((String key){
                   return new Padding(padding:EdgeInsets.only(top:5.0),child:new Container(color:Colors.black26,child:new ListTile(
                     title: new Text(key),
@@ -716,16 +716,58 @@ class ViewOrVoteState extends State<ViewOrVote>{
                     ))
                   )));
                 }).toList():checked.keys.map((String key){
-                  print(widget.scores);
-                  return new ListTile(
+                  return new Padding(padding:EdgeInsets.only(top:5.0),child:new Container(color:Colors.black26,child:new ListTile(
                       title: new Text(key),
-                      subtitle: new Container(height:50.0,child:new LinearProgressIndicator(
-                          value: widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b))
+                      subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
+                          value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0
                       )),
-                      trailing: widget.scores[choicesString.indexOf(key)]
-                  );
+                      trailing: new Container(width:35.0,child:new Column(
+                          children: [
+                            new Text(widget.scores[checked.keys.toList().indexOf(key)].toString()),
+                            new Text((widget.scores.reduce((a,b)=>a+b)!=0?(widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%")
+                          ]
+                      ))
+                  )));
                 }).toList())
-              )
+              ),
+              widget.vote?new Padding(padding: EdgeInsets.only(top:20.0),child:new Column(crossAxisAlignment: CrossAxisAlignment.center,children:[new Container(
+                height:65.0,width:150.0,
+                child:new RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
+                  onPressed: (){
+                    if(widget.oneChoice){
+                      widget.scores[choicesString.indexOf(choice)]++;
+                    }else{
+                      for(int i = 0; i<widget.scores.length;i++){
+                        if(checked.values.toList()[i]){
+                          widget.scores[i]++;
+                        }
+                      }
+                    }
+                    if((widget.oneChoice&&choice!=null) || !widget.oneChoice){
+                      Map<String,dynamic> map;
+                      http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+".json")).then((r){
+                        map = json.decode(r.body);
+                        http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/"+map.keys.toList()[0]+"/"+"a.json"),body:widget.scores.toString()).then((r){
+                          if(widget.oneResponse){
+                            List<dynamic> users = map[map.keys.toList()[0]]["i"];
+                            if(users!=null){
+                              users.add(userId);
+                              users.map((s)=>"\""+s+"\"");
+                            }
+                            http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/"+map.keys.toList()[0]+"/"+"i.json"),body:(users!=null?users.toString():"[\""+userId+"\"]")).then((r){
+                              setState((){widget.vote=false;});
+                            });
+                          }else{
+                            setState((){widget.vote=false;});
+                          }
+                        });
+                      });
+                    }
+                  },
+                  child: new Text("Submit",style:new TextStyle(color:Colors.white,fontSize:25.0))
+                ))]
+              )):new Container()
             ]
           )
         )

@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -26,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="557" column="63" lean-forward="true" selection-start-line="557" selection-start-column="63" selection-end-line="557" selection-end-column="63" />
+            <state relative-caret-position="-437">
+              <caret line="722" column="25" lean-forward="true" selection-start-line="722" selection-start-column="25" selection-end-line="722" selection-end-column="25" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -49,13 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Icons.p</find>
-      <find>new Radio</find>
-      <find>new View</find>
-      <find>new Switch</find>
-      <find>List&lt;dy</find>
-      <find>showDia</find>
-      <find>//</find>
       <find>print(&quot;</find>
       <find>showDial</find>
       <find>,style:new TextStyle(color: Colors.black)</find>
@@ -68,7 +58,6 @@
       <find>.contains</find>
       <find>inval</find>
       <find>textfield</find>
-      <find>shape:</find>
       <find>rounded</find>
       <find>View</find>
       <find>10.0</find>
@@ -79,6 +68,14 @@
       <find>viewOrVote</find>
       <find>viewOrVoteSt</find>
       <find>Invalid</find>
+      <find>Linea</find>
+      <find>shape:</find>
+      <find>shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),</find>
+      <find>shape:</find>
+      <find>http.post</find>
+      <find>vote=fals</find>
+      <find>i:</find>
+      <find>user has not</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -431,8 +428,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="557" column="63" lean-forward="true" selection-start-line="557" selection-start-column="63" selection-end-line="557" selection-end-column="63" />
+        <state relative-caret-position="-437">
+          <caret line="722" column="25" lean-forward="true" selection-start-line="722" selection-start-column="25" selection-end-line="722" selection-end-column="25" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
