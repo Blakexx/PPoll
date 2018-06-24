@@ -48,7 +48,10 @@ String userId;
 void main(){
   settings.readData().then((list) async{
     if(list==null){
-      bool usedId = false;
+      List<dynamic> users;
+      await http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users.json")).then((r){
+        users = json.decode(r.body);
+      });
       do{
         userId = "";
         Random r = new Random();
@@ -56,11 +59,12 @@ void main(){
         for(int i = 0;i<16;i++){
           userId+=(r.nextInt(2)==0?nums[r.nextInt(36)]:nums[r.nextInt(36)].toLowerCase());
         }
-        await http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users/"+userId+".json")).then((r){
-          usedId = r.body!="null";
-        });
-      }while(usedId);
-      http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users/"+userId+".json"),body:"0").then((r){
+      }while(users!=null&&users.contains(userId));
+      if(users==null){
+        users = new List<dynamic>();
+      }
+      users.add(userId);
+      http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users.json"),body:users.map((s)=>"\""+s+"\"").toList().toString()).then((r){
         color = 16;
         settings.writeData("16 "+userId).then((f){
           runApp(new DynamicTheme(
@@ -227,7 +231,6 @@ class HomePageState extends State<HomePage>{
                           if(r.body!="null") {
                             Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],map[map.keys.toList()[0]]["b"].toString().substring(2,3)=="0",map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
                           }else{
-                            print("item does not exist");
                             showDialog(
                                 context: context,
                                 builder: (context){
@@ -279,10 +282,8 @@ class HomePageState extends State<HomePage>{
                           if(r.body!="null") {
                             if(map[map.keys.toList()[0]]["b"].toString().substring(2,3) == "0") {
                               if (map[map.keys.toList()[0]]["i"]==null||!map[map.keys.toList()[0]]["i"].contains(userId)) {
-                                print("User has not answered yet");
                                 Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],true,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
                               }else {
-                                print("User has already answered");
                                 showDialog(
                                     context: context,
                                     builder: (context){
@@ -303,11 +304,9 @@ class HomePageState extends State<HomePage>{
                                 );
                               }
                             }else{
-                              print("Multible responses allowed.");
                               Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],false,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
                             }
                           }else{
-                            print("item does not exist");
                             showDialog(
                               context: context,
                               builder: (context){
@@ -753,9 +752,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
                             List<dynamic> users = map[map.keys.toList()[0]]["i"];
                             if(users!=null){
                               users.add(userId);
-                              users.map((s)=>"\""+s+"\"");
                             }
-                            http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/"+map.keys.toList()[0]+"/"+"i.json"),body:(users!=null?users.toString():"[\""+userId+"\"]")).then((r){
+                            http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/"+map.keys.toList()[0]+"/"+"i.json"),body:(users!=null?users.map((s)=>"\""+s+"\"").toList().toString():"[\""+userId+"\"]")).then((r){
                               setState((){widget.vote=false;});
                             });
                           }else{
