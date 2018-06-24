@@ -225,35 +225,7 @@ class HomePageState extends State<HomePage>{
                         http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json")).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
-                            if(map[map.keys.toList()[0]]["b"].toString().substring(2,3) == "0") {
-                              if (map[map.keys.toList()[0]]["i"]==null||!map[map.keys.toList()[0]]["i"].contains(userId)) {
-                                print("User has not answered yet");
-                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],true,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
-                              }else {
-                                print("User has already answered");
-                                showDialog(
-                                    context: context,
-                                    builder: (context){
-                                      return new AlertDialog(
-                                          title:new Text("Error"),
-                                          content: new Text("You have already answered this poll."),
-                                          actions: [
-                                            new RaisedButton(
-                                                child: new Text("Okay",style:new TextStyle(color: Colors.black)),
-                                                onPressed: (){
-                                                  Navigator.of(context).pop();
-                                                },
-                                                color: Colors.grey
-                                            )
-                                          ]
-                                      );
-                                    }
-                                );
-                              }
-                            }else{
-                              print("Multible responses allowed.");
-                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],false,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
-                            }
+                            Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],map[map.keys.toList()[0]]["b"].toString().substring(2,3)=="0",map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
                           }else{
                             print("item does not exist");
                             showDialog(
@@ -540,7 +512,7 @@ class CreatePollState extends State<CreatePoll>{
                     shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                     child: new Text("Submit",style: new TextStyle(fontSize:25.0,color:Colors.white)),
                     onPressed: ()  async{
-                      if(question!=null && !choices.contains(null)){
+                      if(question!=null && !choices.contains(null)&&choices.toSet().length==choices.length&&question!=""&&!choices.contains("")){
                         setState((){isConnecting = true;});
                         String key = "";
                         Random r = new Random();
@@ -577,13 +549,21 @@ class CreatePollState extends State<CreatePoll>{
                           ))));
                         });
                       }else{
+                        String s = "";
+                        if((question==null||choices.contains(null)||question==""||choices.contains(""))&&choices.toSet().length!=choices.length){
+                          s="Please complete all the fields without duplicates";
+                        }else if(question==null||choices.contains(null)||question==""||choices.contains("")){
+                          s="Please complete all the fields";
+                        }else if(choices.toSet().length!=choices.length){
+                          s="Please do not include duplicates";
+                        }
                         showDialog(
                               context: context,
                               barrierDismissible: true,
                               builder: (context){
                                 return new AlertDialog(
                                     title:new Text("Error"),
-                                    content:new Text("Please complete all the fields"),
+                                    content:new Text(s),
                                     actions: [
                                       new RaisedButton(
                                           child: new Text("Okay",style:new TextStyle(color: Colors.black)),
@@ -701,7 +681,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
             children: [
               new Text(widget.question),
               new Column(
-                children: widget.vote?widget.oneChoice?choicesString.map((String key){
+                children: widget.vote?(widget.oneChoice?choicesString.map((String key){
                   return new RadioListTile(
                       value: key,
                       title: new Text(key),
@@ -722,11 +702,29 @@ class ViewOrVoteState extends State<ViewOrVote>{
                         });
                       }
                   );
-                }).toList():widget.oneChoice?choicesString.map((String key){
-
+                }).toList()):(widget.oneChoice?choicesString.map((String key){
+                  return new Padding(padding:EdgeInsets.only(top:5.0),child:new Container(color:Colors.black26,child:new ListTile(
+                    title: new Text(key),
+                    subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
+                      value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0
+                    )),
+                    trailing: new Container(width:35.0,child:new Column(
+                      children: [
+                        new Text(widget.scores[choicesString.indexOf(key)].toString()),
+                        new Text((widget.scores.reduce((a,b)=>a+b)!=0?(widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%")
+                      ]
+                    ))
+                  )));
                 }).toList():checked.keys.map((String key){
-
-                }).toList()
+                  print(widget.scores);
+                  return new ListTile(
+                      title: new Text(key),
+                      subtitle: new Container(height:50.0,child:new LinearProgressIndicator(
+                          value: widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b))
+                      )),
+                      trailing: widget.scores[choicesString.indexOf(key)]
+                  );
+                }).toList())
               )
             ]
           )
