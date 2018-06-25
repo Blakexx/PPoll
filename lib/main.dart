@@ -783,22 +783,26 @@ class Option extends StatefulWidget{
 }
 
 class OptionState extends State<Option>{
+  bool isRemoved = false;
   FocusNode f = new FocusNode();
   @override
   Widget build(BuildContext context) {
-    return new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?30.0:0.0,right:30.0),child: new Row(children: [
+    return new AnimatedOpacity(opacity:isRemoved?0.0:1.0,duration:new Duration(milliseconds:300),child:new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?30.0:0.0,right:30.0),child: new Row(children: [
       removing?new IconButton(
           icon: new Icon(Icons.delete),
           onPressed: (){
-            if(CreatePollState.list.length>3){
+            if(CreatePollState.optionCount>2){
               CreatePollState.optionCount--;
-              CreatePollState.choices.removeAt(widget.position);
-              CreatePollState.list.removeAt(widget.position);
-              for(int i = 0; i<CreatePollState.list.length-1;i++){
-                (CreatePollState.list[i] as Option).position = i;
-                (CreatePollState.list[i] as Option).key.currentState.setState((){});
-              }
-              context.ancestorStateOfType(new TypeMatcher<CreatePollState>()).setState((){});
+              setState((){isRemoved = true;});
+              new Timer(new Duration(milliseconds:301),(){
+                CreatePollState.choices.removeAt(widget.position);
+                CreatePollState.list.removeAt(widget.position);
+                for(int i = 0; i<CreatePollState.list.length-1;i++){
+                  (CreatePollState.list[i] as Option).position = i;
+                  (CreatePollState.list[i] as Option).key.currentState.setState((){});
+                }
+                context.ancestorStateOfType(new TypeMatcher<CreatePollState>()).setState((){});
+              });
             }
           }
       ):new Container(width:0.0,height:0.0),
@@ -814,7 +818,7 @@ class OptionState extends State<Option>{
         onChanged: (s){
           CreatePollState.choices[widget.position] = s;
         }
-      ))]));
+      ))])));
   }
 }
 
