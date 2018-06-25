@@ -413,13 +413,15 @@ class CreatePollState extends State<CreatePoll>{
             title: new Text("Add",style: new TextStyle(color:Colors.white))
         ),
         onPressed: (){
-          if(optionCount<20){
-            list.insert(list.length-1,new Option(optionCount++,new GlobalKey()));
-            if(s.position.pixels>0.0){
-              s.jumpTo(s.position.pixels+50);
+          if(!isRemoving){
+            if(optionCount<20){
+              list.insert(list.length-1,new Option(optionCount++,new GlobalKey()));
+              if(s.position.pixels>0.0){
+                s.jumpTo(s.position.pixels+50);
+              }
+              choices.length = optionCount;
+              setState((){});
             }
-            choices.length = optionCount;
-            setState((){});
           }
         }
     )));
@@ -775,6 +777,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
 }
 
 class Option extends StatefulWidget{
+  bool isRemoved = false;
   GlobalKey key;
   int position;
   Option(this.position,this.key):super(key:key);
@@ -782,24 +785,30 @@ class Option extends StatefulWidget{
   OptionState createState() => new OptionState();
 }
 
+bool isRemoving = false;
+
 class OptionState extends State<Option>{
-  bool isRemoved = false;
   FocusNode f = new FocusNode();
   @override
   Widget build(BuildContext context) {
-    return new AnimatedOpacity(opacity:isRemoved?0.0:1.0,duration:new Duration(milliseconds:300),child:new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?30.0:0.0,right:30.0),child: new Row(children: [
+    return new AnimatedOpacity(opacity:widget.isRemoved?0.0:1.0,duration:new Duration(milliseconds:300),child:new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?30.0:0.0,right:30.0),child: new Row(children: [
       removing?new IconButton(
           icon: new Icon(Icons.delete),
           onPressed: (){
             if(CreatePollState.optionCount>2){
+              isRemoving = true;
               CreatePollState.optionCount--;
-              setState((){isRemoved = true;});
+              setState((){widget.isRemoved = true;});
               new Timer(new Duration(milliseconds:301),(){
                 CreatePollState.choices.removeAt(widget.position);
                 CreatePollState.list.removeAt(widget.position);
+                isRemoving = false;
                 for(int i = 0; i<CreatePollState.list.length-1;i++){
                   (CreatePollState.list[i] as Option).position = i;
                   (CreatePollState.list[i] as Option).key.currentState.setState((){});
+                  if(i!=widget.position&&(CreatePollState.list[i] as Option).isRemoved){
+                    isRemoving = true;
+                  }
                 }
                 context.ancestorStateOfType(new TypeMatcher<CreatePollState>()).setState((){});
               });
