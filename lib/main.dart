@@ -48,7 +48,7 @@ String userId;
 void main(){
   settings.readData().then((list) async{
     if(list==null){
-      List<dynamic> users;
+      Map<String,dynamic> users;
       await http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users.json")).then((r){
         users = json.decode(r.body);
       });
@@ -59,12 +59,11 @@ void main(){
         for(int i = 0;i<16;i++){
           userId+=(r.nextInt(2)==0?nums[r.nextInt(36)]:nums[r.nextInt(36)].toLowerCase());
         }
-      }while(users!=null&&users.contains(userId));
+      }while(users!=null&&users.keys.contains(userId));
       if(users==null){
-        users = new List<dynamic>();
+        users = new Map<String,dynamic>();
       }
-      users.add(userId);
-      http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users.json"),body:users.map((s)=>"\""+s+"\"").toList().toString()).then((r){
+      http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users/"+userId+".json"),body:"0").then((r){
         color = 16;
         settings.writeData("16 "+userId).then((f){
           runApp(new DynamicTheme(
@@ -516,16 +515,17 @@ class CreatePollState extends State<CreatePoll>{
                         String key = "";
                         Random r = new Random();
                         bool used = false;
+                        Map<String,dynamic> usedMap;
+                        await http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json"))).then((r){
+                          usedMap = json.decode(r.body);
+                        });
                         do{
                           key = "";
                           for(int i = 0; i<4;i++){
                             List<String> nums = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
                             key+=nums[r.nextInt(36)];
                           }
-                          await http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data"+key+".json")).then((r){
-                            used = r.body!="null";
-                          });
-                        }while(used);
+                        }while(usedMap.keys.contains(key));
                         List<int> answers = new List<int>(choices.length);
                         answers = answers.map((i)=>0).toList();
                         String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+choices.map((String str)=>"\""+str+"\"").toString().substring(1,choices.map((String str)=>"\""+str+"\"").toString().length-1)+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
