@@ -228,7 +228,7 @@ class HomePageState extends State<HomePage>{
                         http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json")).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
-                            Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],map[map.keys.toList()[0]]["b"].toString().substring(2,3)=="0",map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
+                            Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"])));
                           }else{
                             showDialog(
                                 context: context,
@@ -279,9 +279,9 @@ class HomePageState extends State<HomePage>{
                         http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json")).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
-                            if(map[map.keys.toList()[0]]["b"].toString().substring(2,3) == "0") {
-                              if (map[map.keys.toList()[0]]["i"]==null||!map[map.keys.toList()[0]]["i"].contains(userId)) {
-                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],true,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
+                            if(map["b"].toString().substring(2,3) == "0") {
+                              if (map["i"]==null||!map["i"].contains(userId)) {
+                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],true,map["b"].toString().substring(0,1)=="0",map["a"])));
                               }else {
                                 showDialog(
                                     context: context,
@@ -303,7 +303,7 @@ class HomePageState extends State<HomePage>{
                                 );
                               }
                             }else{
-                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map[map.keys.toList()[0]]["q"],map[map.keys.toList()[0]]["c"],false,map[map.keys.toList()[0]]["b"].toString().substring(0,1)=="0",map[map.keys.toList()[0]]["a"])));
+                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],false,map["b"].toString().substring(0,1)=="0",map["a"])));
                             }
                           }else{
                             showDialog(
@@ -525,11 +525,11 @@ class CreatePollState extends State<CreatePoll>{
                             List<String> nums = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
                             key+=nums[r.nextInt(36)];
                           }
-                        }while(usedMap.keys.contains(key));
+                        }while(usedMap!=null&&usedMap.keys.contains(key));
                         List<int> answers = new List<int>(choices.length);
                         answers = answers.map((i)=>0).toList();
                         String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+choices.map((String str)=>"\""+str+"\"").toString().substring(1,choices.map((String str)=>"\""+str+"\"").toString().length-1)+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
-                        http.post("https://ppoll-polls.firebaseio.com/data/"+key+".json",body:serverData).then((r){
+                        http.put("https://ppoll-polls.firebaseio.com/data/"+key+".json",body:serverData).then((r){
                           setState((){isConnecting = false;});
                           Navigator.push(context,new MaterialPageRoute(builder: (context) => new WillPopScope(onWillPop:(){return new Future<bool>(()=>Navigator.of(context).pop(true));},child: new Scaffold(
                             appBar: new AppBar(title:new Text("Success",style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
@@ -747,13 +747,13 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       Map<String,dynamic> map;
                       http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+".json")).then((r){
                         map = json.decode(r.body);
-                        http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/"+map.keys.toList()[0]+"/"+"a.json"),body:widget.scores.toString()).then((r){
+                        http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json"),body:widget.scores.toString()).then((r){
                           if(widget.oneResponse){
-                            List<dynamic> users = map[map.keys.toList()[0]]["i"];
+                            List<dynamic> users = map["i"];
                             if(users!=null){
                               users.add(userId);
                             }
-                            http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/"+map.keys.toList()[0]+"/"+"i.json"),body:(users!=null?users.map((s)=>"\""+s+"\"").toList().toString():"[\""+userId+"\"]")).then((r){
+                            http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/i.json"),body:(users!=null?users.map((s)=>"\""+s+"\"").toList().toString():"[\""+userId+"\"]")).then((r){
                               setState((){widget.vote=false;});
                             });
                           }else{
