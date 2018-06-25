@@ -469,7 +469,7 @@ class CreatePollState extends State<CreatePoll>{
                     children: list
                   ),
                   new Container(height:40.0),
-                  new Container(
+                  new GestureDetector(onTapUp: (d){setState((){oneChoice = !oneChoice;});}, child:new Container(
                     padding: EdgeInsets.only(left:10.0,right:10.0),
                     child: new Container(
                       height: 50.0,
@@ -487,15 +487,15 @@ class CreatePollState extends State<CreatePoll>{
                           ]
                       )
                     )
-                  ),
-                  new Container(
+                  )),
+                  new GestureDetector(onTapUp: (d){setState((){perm = !perm;});},child:new Container(
                       padding: EdgeInsets.only(left:10.0,right:10.0,top:5.0),
                       child: new Container(
                           height: 50.0,
                           color:Colors.black12,
                           child: new Row(
                               children: [
-                                new Expanded(child: new Text(" Allow multiple responses",style: new TextStyle(fontSize:17.0,color:Colors.white))),
+                                new Expanded(child: new Text(" Allow multiple submissions",style: new TextStyle(fontSize:17.0,color:Colors.white))),
                                 new Switch(
                                     value: perm,
                                     onChanged: (s){
@@ -506,7 +506,7 @@ class CreatePollState extends State<CreatePoll>{
                               ]
                           )
                       )
-                  ),
+                  )),
                   new Container(height:30.0),
                   !isConnecting?new Container(height:60.0,width:200.0,child:new RaisedButton(
                     shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
