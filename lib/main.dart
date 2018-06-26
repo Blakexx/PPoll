@@ -969,7 +969,7 @@ class OptionState extends State<Option>{
       removing?new IconButton(
           icon: new Icon(Icons.delete),
           onPressed: (){
-            if(CreatePollState.optionCount>2){
+            if(!widget.isRemoved&&CreatePollState.optionCount>2){
               isRemoving = true;
               CreatePollState.optionCount--;
               setState((){widget.isRemoved = true;});
