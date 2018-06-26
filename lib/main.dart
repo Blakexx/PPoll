@@ -474,7 +474,10 @@ class SearchPageState extends State<SearchPage>{
         child: new Center(
           child: new RefreshIndicator(child: data!=null?new ListView.builder(
             itemBuilder: (context,i){
-              return new Padding(padding: EdgeInsets.only(top:5.0),child:new Container(
+              return new Padding(padding: EdgeInsets.only(top:5.0),child:new GestureDetector(onTapUp: (t){
+                Map<String,dynamic> map = sortedMap[sortedMap.keys.toList()[i]];
+                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(sortedMap.keys.toList()[i],false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0")));
+              },child:new Container(
                 height: 50.0,
                 child: new ListTile(
                   leading: new Container(
@@ -484,7 +487,7 @@ class SearchPageState extends State<SearchPage>{
                   title: new Text(sortedMap[sortedMap.keys.toList()[i]]["a"].reduce((n1,n2)=>n1+n2).toString()),
                 ),
                 color: Colors.black38
-              ));
+              )));
             },
             itemCount: sortedMap.length
           ):new CircularProgressIndicator(),
