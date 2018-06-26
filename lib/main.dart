@@ -120,9 +120,8 @@ class HomePageState extends State<HomePage>{
                     context: context,
                     builder: (context){
                       return new Container(
-                        // Specify some width
                         width: MediaQuery.of(context).size.width * .7,
-                        child: new GridView.count(
+                        child: new BackdropFilter(filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),child: new GridView.count(
                             crossAxisCount: 3,
                             childAspectRatio: 1.0,
                             padding: const EdgeInsets.all(4.0),
@@ -148,7 +147,7 @@ class HomePageState extends State<HomePage>{
                               new ColorSelection(16),
                               new ColorSelection(17)
                             ]
-                        ),
+                        )),
                       );
                     }
                 );
