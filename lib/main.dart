@@ -561,7 +561,7 @@ class CreatePollState extends State<CreatePoll>{
     list.add(new Option(0,new GlobalKey()));
     list.add(new Option(1,new GlobalKey()));
     choices.length = 2;
-    list.add(new Container(height: 50.0,padding: EdgeInsets.only(left:30.0,right:30.0),child: new RaisedButton(
+    list.add(new Container(height: 50.0,padding: EdgeInsets.only(left:25.0,right:25.0),child: new RaisedButton(
         child: new ListTile(
             leading: new Icon(Icons.add,color:Colors.white),
             title: new Text("Add",style: new TextStyle(color:Colors.white))
@@ -606,7 +606,7 @@ class CreatePollState extends State<CreatePoll>{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   new Text(""),
-                  new Container(height: 50.0,padding: EdgeInsets.only(left:30.0,right:30.0),child: new TextField(
+                  new Padding(padding:EdgeInsets.only(bottom:8.0),child:new Container(height: 50.0,padding: EdgeInsets.only(left:20.0,right:20.0),child: new TextField(
                     decoration: new InputDecoration(
                       hintText: 'Question',
                       filled: true,
@@ -617,8 +617,7 @@ class CreatePollState extends State<CreatePoll>{
                     onChanged: (s){
                       question = s;
                     }
-                  )),
-                  new Text(""),
+                  ))),
                   new Column(
                     children: list
                   ),
@@ -965,7 +964,7 @@ class OptionState extends State<Option>{
   FocusNode f = new FocusNode();
   @override
   Widget build(BuildContext context) {
-    return new AnimatedOpacity(opacity:widget.isRemoved?0.0:1.0,duration:new Duration(milliseconds:300),child:new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?30.0:0.0,right:30.0),child: new Row(children: [
+    return new AnimatedOpacity(opacity:widget.isRemoved?0.0:1.0,duration:new Duration(milliseconds:300),child:new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?25.0:0.0,right:25.0),child: new Row(children: [
       removing?new IconButton(
           icon: new Icon(Icons.delete),
           onPressed: (){
