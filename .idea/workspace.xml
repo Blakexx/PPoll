@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="960" column="0" lean-forward="true" selection-start-line="960" selection-start-column="0" selection-end-line="960" selection-end-column="0" />
+            <state relative-caret-position="253">
+              <caret line="664" column="63" lean-forward="false" selection-start-line="664" selection-start-column="63" selection-end-line="664" selection-end-column="63" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -46,7 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>i:</find>
       <find>user has not</find>
       <find>users</find>
       <find>await h</find>
@@ -76,6 +75,7 @@
       <find>tempMap = da</find>
       <find>leadi</find>
       <find>OptionSt</find>
+      <find>Allow m</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -500,8 +500,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="960" column="0" lean-forward="true" selection-start-line="960" selection-start-column="0" selection-end-line="960" selection-end-column="0" />
+        <state relative-caret-position="253">
+          <caret line="664" column="63" lean-forward="false" selection-start-line="664" selection-start-column="63" selection-end-line="664" selection-end-column="63" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

@@ -624,7 +624,7 @@ class CreatePollState extends State<CreatePoll>{
                   ),
                   new Container(height:40.0),
                   new GestureDetector(onTapUp: (d){setState((){oneChoice = !oneChoice;});}, child:new Container(
-                    padding: EdgeInsets.only(left:10.0,right:10.0),
+                    padding: EdgeInsets.only(left:5.0,right:5.0),
                     child: new Container(
                       height: 50.0,
                       color:Colors.black12,
@@ -643,7 +643,7 @@ class CreatePollState extends State<CreatePoll>{
                     )
                   )),
                   new GestureDetector(onTapUp: (d){setState((){perm = !perm;});},child:new Container(
-                      padding: EdgeInsets.only(left:10.0,right:10.0,top:5.0),
+                      padding: EdgeInsets.only(left:5.0,right:5.0,top:5.0),
                       child: new Container(
                           height: 50.0,
                           color:Colors.black12,
@@ -662,7 +662,7 @@ class CreatePollState extends State<CreatePoll>{
                       )
                   )),
                   new GestureDetector(onTapUp: (d){setState((){public = !public;});},child:new Container(
-                      padding: EdgeInsets.only(left:10.0,right:10.0,top:5.0),
+                      padding: EdgeInsets.only(left:5.0,right:5.0,top:5.0),
                       child: new Container(
                           height: 50.0,
                           color:Colors.black12,
