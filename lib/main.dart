@@ -386,12 +386,19 @@ class SearchPageState extends State<SearchPage>{
     SplayTreeMap<String, dynamic> sortedMap;
     if(data!=null){
       tempMap = data;
+      print(tempMap);
       tempMap.removeWhere((key,value){
         return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
       });
+      print(tempMap);
       sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
-        return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+        if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+          return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+        }else{
+          return o1.compareTo(o2);
+        }
       });
+      print(sortedMap);
     }
     return new Scaffold(
       appBar: new AppBar(
@@ -405,7 +412,11 @@ class SearchPageState extends State<SearchPage>{
                 return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
-                return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                  return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                }else{
+                  return o1.compareTo(o2);
+                }
               });
               setState((){});
             },
@@ -439,7 +450,11 @@ class SearchPageState extends State<SearchPage>{
                   return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
                 });
                 sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
-                  return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                  if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                    return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                  }else{
+                    return o1.compareTo(o2);
+                  }
                 });
                 setState((){c.complete();});
               });
