@@ -408,7 +408,7 @@ class SearchPageState extends State<SearchPage>{
     }
     return new Scaffold(
       appBar: new AppBar(
-          title:data==null||!inSearch?new Text(
+          title:data==null||(!inSearch&&!hasSearched)?new Text(
               "Search",style: new TextStyle(color:Colors.white)
           ):new TextField(
             controller: c,
@@ -437,10 +437,11 @@ class SearchPageState extends State<SearchPage>{
           ),
           backgroundColor: Colors.black54,
         actions: [
-          hasSearched?new IconButton(
+          hasSearched&&!f.hasFocus?new IconButton(
             icon: new Icon(Icons.close),
             onPressed: (){
               search = "";
+              c.text = "";
               tempMap.clear();
               tempMap.addAll(data);
               tempMap.removeWhere((key,value){
@@ -455,11 +456,11 @@ class SearchPageState extends State<SearchPage>{
               });
               setState((){hasSearched = false;});
             },
-          ):inSearch?new IconButton(
+          ):inSearch||f.hasFocus?new IconButton(
             icon: new Icon(Icons.clear),
             onPressed: (){
               search = "";
-              setState((){c.text = search;});
+              setState((){c.text = search;inSearch=true;});
             },
           ):new IconButton(
             icon: new Icon(Icons.search),
