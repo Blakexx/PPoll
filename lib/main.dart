@@ -411,9 +411,15 @@ class SearchPageState extends State<SearchPage>{
           title:data==null||(!inSearch&&!hasSearched)?new Text(
               "Search",style: new TextStyle(color:Colors.white)
           ):new TextField(
+            style: new TextStyle(fontSize:20.0,color: Colors.white),
             controller: c,
             autofocus: true,
             autocorrect: false,
+            decoration: new InputDecoration(
+              border: InputBorder.none,
+              hintText: "Search",
+              hintStyle: new TextStyle(color:Colors.white30)
+            ),
             focusNode: f,
             onChanged: (s){
               search = s;
