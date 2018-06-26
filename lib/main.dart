@@ -380,17 +380,24 @@ class SearchPageState extends State<SearchPage>{
 
   String search = "";
 
+  bool inSearch = false;
+
+  bool hasSearched = false;
+
+  FocusNode f = new FocusNode();
+
+  TextEditingController c = new TextEditingController();
+
   @override
   Widget build(BuildContext context){
     Map<String, dynamic> tempMap;
     SplayTreeMap<String, dynamic> sortedMap;
     if(data!=null){
-      tempMap = data;
-      print(tempMap);
+      tempMap = new Map<String,dynamic>();
+      tempMap.addAll(data);
       tempMap.removeWhere((key,value){
         return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
       });
-      print(tempMap);
       sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
         if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
           return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
@@ -398,16 +405,23 @@ class SearchPageState extends State<SearchPage>{
           return o1.compareTo(o2);
         }
       });
-      print(sortedMap);
     }
     return new Scaffold(
       appBar: new AppBar(
-          title:data==null?new Text(
+          title:data==null||!inSearch?new Text(
               "Search",style: new TextStyle(color:Colors.white)
           ):new TextField(
+            controller: c,
+            autofocus: true,
+            autocorrect: false,
+            focusNode: f,
+            onChanged: (s){
+              search = s;
+            },
             onSubmitted: (s){
               search = s;
-              tempMap = data;
+              tempMap.clear();
+              tempMap.addAll(data);
               tempMap.removeWhere((key,value){
                 return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
               });
@@ -418,10 +432,42 @@ class SearchPageState extends State<SearchPage>{
                   return o1.compareTo(o2);
                 }
               });
-              setState((){});
+              setState((){hasSearched = true;inSearch = false;});
             },
           ),
-          backgroundColor: Colors.black54
+          backgroundColor: Colors.black54,
+        actions: [
+          hasSearched?new IconButton(
+            icon: new Icon(Icons.close),
+            onPressed: (){
+              search = "";
+              tempMap.clear();
+              tempMap.addAll(data);
+              tempMap.removeWhere((key,value){
+                return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
+              });
+              sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
+                if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                  return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                }else{
+                  return o1.compareTo(o2);
+                }
+              });
+              setState((){hasSearched = false;});
+            },
+          ):inSearch?new IconButton(
+            icon: new Icon(Icons.clear),
+            onPressed: (){
+              search = "";
+              setState((){c.text = search;});
+            },
+          ):new IconButton(
+            icon: new Icon(Icons.search),
+            onPressed: (){
+              setState((){inSearch = true;});
+            }
+          )
+        ]
       ),
       body: new Container(
         child: new Center(
@@ -445,7 +491,8 @@ class SearchPageState extends State<SearchPage>{
               Completer c = new Completer<Null>();
               http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json"))).then((r){
                 data = json.decode(r.body);
-                tempMap = data;
+                tempMap.clear();
+                tempMap.addAll(data);
                 tempMap.removeWhere((key,value){
                   return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
                 });
