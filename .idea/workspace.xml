@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="131" column="52" lean-forward="true" selection-start-line="131" selection-start-column="52" selection-end-line="131" selection-end-column="52" />
+            <state relative-caret-position="169">
+              <caret line="481" column="105" lean-forward="true" selection-start-line="481" selection-start-column="105" selection-end-line="481" selection-end-column="105" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -46,9 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.keys</find>
-      <find>.keys.toList()[0]</find>
-      <find>createPollState</find>
       <find>print(</find>
       <find>CreatePollState</find>
       <find>please en</find>
@@ -70,12 +67,15 @@
       <find>OptionSt</find>
       <find>Allow m</find>
       <find>OptionState</find>
-      <find>Icons.add</find>
       <find>Question</find>
       <find>SearchPageState</find>
       <find>new ViewOrVot</find>
       <find>Search</find>
       <find>GridView</find>
+      <find>25.0</find>
+      <find>Icons.add</find>
+      <find>ViewOrV</find>
+      <find>SearcHPageSt</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -500,8 +500,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="131" column="52" lean-forward="true" selection-start-line="131" selection-start-column="52" selection-end-line="131" selection-end-column="52" />
+        <state relative-caret-position="169">
+          <caret line="481" column="105" lean-forward="true" selection-start-line="481" selection-start-column="105" selection-end-line="481" selection-end-column="105" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

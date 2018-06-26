@@ -483,13 +483,13 @@ class SearchPageState extends State<SearchPage>{
                 Map<String,dynamic> map = sortedMap[sortedMap.keys.toList()[i]];
                 Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(sortedMap.keys.toList()[i],false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0")));
               },child:new Container(
-                height: 50.0,
                 child: new ListTile(
                   leading: new Container(
-                    width:70.0,
-                    child: new Text(sortedMap.keys.toList()[i])
+                    width:50.0,
+                    child: new Text(sortedMap.keys.toList()[i],style: new TextStyle(color:Colors.white))
                   ),
-                  title: new Text(sortedMap[sortedMap.keys.toList()[i]]["a"].reduce((n1,n2)=>n1+n2).toString()),
+                  title: new Text(sortedMap[sortedMap.keys.toList()[i]]["q"],style: new TextStyle(color:Colors.white)),
+                  trailing: new Text(sortedMap[sortedMap.keys.toList()[i]]["a"].reduce((n1,n2)=>n1+n2).toString(),style: new TextStyle(color:Colors.white))
                 ),
                 color: Colors.black38
               )));
@@ -569,7 +569,7 @@ class CreatePollState extends State<CreatePoll>{
     list.add(new Option(0,new GlobalKey()));
     list.add(new Option(1,new GlobalKey()));
     choices.length = 2;
-    list.add(new Container(height: 50.0,padding: EdgeInsets.only(left:25.0,right:25.0),child: new RaisedButton(
+    list.add(new Container(height: 50.0,padding: EdgeInsets.only(left:24.0,right:24.0),child: new RaisedButton(
         child: new ListTile(
             leading: new Icon(Icons.add,color:Colors.white),
             title: new Text("Add",style: new TextStyle(color:Colors.white))
@@ -972,7 +972,7 @@ class OptionState extends State<Option>{
   FocusNode f = new FocusNode();
   @override
   Widget build(BuildContext context) {
-    return new AnimatedOpacity(opacity:widget.isRemoved?0.0:1.0,duration:new Duration(milliseconds:300),child:new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?25.0:0.0,right:25.0),child: new Row(children: [
+    return new AnimatedOpacity(opacity:widget.isRemoved?0.0:1.0,duration:new Duration(milliseconds:300),child:new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?24.0:0.0,right:24.0),child: new Row(children: [
       removing?new IconButton(
           icon: new Icon(Icons.delete),
           onPressed: (){
