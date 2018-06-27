@@ -932,7 +932,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
                     title: new Text(key),
                     subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
                       value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
-                      valueColor: AlwaysStoppedAnimation<Color>(choicesString.indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)].shadeDefault.hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)-11].makeShades(2)[1].hexString)))
+                      valueColor: AlwaysStoppedAnimation<Color>(choicesString.indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)].shadeDefault.hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)-11].makeShades(2)[1].hexString))),
+                      backgroundColor: choicesString.indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)].makeShades(4)[3].hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)-11].makeShades(5)[4].hexString))
                     )),
                     trailing: new Container(width:35.0,child:new Column(
                       children: [
@@ -946,7 +947,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       title: new Text(key),
                       subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
                           value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
-                            valueColor: AlwaysStoppedAnimation<Color>(checked.keys.toList().indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)].shadeDefault.hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)-11].makeShades(2)[1].hexString)))
+                          valueColor: AlwaysStoppedAnimation<Color>(checked.keys.toList().indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)].shadeDefault.hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)-11].makeShades(2)[1].hexString))),
+                          backgroundColor: checked.keys.toList().indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)].makeShades(4)[3].hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)-11].makeShades(5)[4].hexString))
                       )),
                       trailing: new Container(width:35.0,child:new Column(
                           children: [
@@ -981,18 +983,24 @@ class ViewOrVoteState extends State<ViewOrVote>{
                               users.add(userId);
                             }
                             String userPrint = "";
-                            for(String s in users){
-                              userPrint+="\""+s+"\", ";
+                            if(users!=null){
+                              for(String s in users){
+                                userPrint+="\""+s+"\", ";
+                              }
+                              userPrint = userPrint.substring(0,userPrint.length-2);
                             }
-                            userPrint = userPrint.substring(0,userPrint.length-2);
                             http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/i.json"),body:(users!=null?"["+userPrint+"]":"[\""+userId+"\"]")).then((r){
                               choice = null;
-                              checked.forEach((key,b)=>checked[key]=false);
+                              if(checked!=null){
+                                checked.forEach((key,b)=>checked[key]=false);
+                              }
                               setState((){widget.hasVoted=true;widget.vote=false;});
                             });
                           }else{
                             choice = null;
-                            checked.forEach((key,b)=>checked[key]=false);
+                            if(checked!=null){
+                              checked.forEach((key,b)=>checked[key]=false);
+                            }
                             setState((){widget.vote=false;});
                           }
                         });
@@ -1020,16 +1028,17 @@ class PieChart extends StatefulWidget{
 }
 
 class PieChartState extends State<PieChart>{
+  int selectedScore;
+  String selectedName;
   @override
   Widget build(BuildContext context){
     return new Container(
       width: 300.0*MediaQuery.of(context).size.width/360.0,
       height: 300.0*MediaQuery.of(context).size.width/360.0,
-      child: charts.PieChart(
-        [new charts.Series<VoteOption, String>(id: "Votes", data: widget.scores.map((nu)=>new VoteOption(nu,widget.choices[widget.scores.indexOf(nu)])).toList(), domainFn: (score,_)=>score.name, measureFn: (score,_)=>score.score,colorFn:(v,i){
+      child: charts.BarChart(
+        [new charts.Series<VoteOption, String>(id: "Votes", data: widget.choices.map((name)=>new VoteOption(widget.scores[widget.choices.indexOf(name)],name)).toList(), domainFn: (score,_)=>score.name, measureFn: (score,_)=>score.score,colorFn:(v,i){
           return widget.choices.indexOf(v.name)<11?charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(v.name)].shadeDefault:charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(v.name)-11].makeShades(2)[1];
         })],
-        defaultRenderer: new charts.ArcRendererConfig(arcWidth: 70),
         animate: false
       )
     );
@@ -1039,7 +1048,6 @@ class PieChartState extends State<PieChart>{
 class VoteOption{
   final String name;
   final int score;
-
   VoteOption(this.score, this.name);
 }
 

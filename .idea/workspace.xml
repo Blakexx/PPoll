@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -23,8 +24,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="453">
-              <caret line="981" column="29" lean-forward="true" selection-start-line="981" selection-start-column="29" selection-end-line="981" selection-end-column="29" />
+            <state relative-caret-position="199">
+              <caret line="935" column="263" lean-forward="false" selection-start-line="935" selection-start-column="263" selection-end-line="935" selection-end-column="263" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -46,13 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ViewOrVoteState</find>
-      <find>new ViewOrVo</find>
-      <find>new Viewo</find>
-      <find>SearchPageS</find>
-      <find>||((value as Map&lt;String,dynamic&gt;)[&quot;c&quot;]</find>
-      <find>map!=null&amp;&amp;map</find>
-      <find>http.get</find>
       <find>RefreshInd</find>
       <find>MediaQue</find>
       <find>MediaQuery.of(context).size.width/360.0</find>
@@ -76,6 +70,13 @@
       <find>.put</find>
       <find>onPres</find>
       <find>http.put</find>
+      <find>Chart</find>
+      <find>new PieCha</find>
+      <find>indexOf</find>
+      <find>Submit</find>
+      <find>LinearPr</find>
+      <find>-10</find>
+      <find>-11</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -555,8 +556,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="981" column="29" lean-forward="true" selection-start-line="981" selection-start-column="29" selection-end-line="981" selection-end-column="29" />
+        <state relative-caret-position="199">
+          <caret line="935" column="263" lean-forward="false" selection-start-line="935" selection-start-column="263" selection-end-line="935" selection-end-column="263" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
