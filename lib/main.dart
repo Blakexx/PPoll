@@ -1033,6 +1033,7 @@ class PieChartState extends State<PieChart>{
   @override
   Widget build(BuildContext context){
     return new Container(
+      color: Colors.blueGrey,
       width: 300.0*MediaQuery.of(context).size.width/360.0,
       height: 300.0*MediaQuery.of(context).size.width/360.0,
       child: charts.BarChart(
