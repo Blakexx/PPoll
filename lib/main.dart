@@ -709,7 +709,12 @@ class CreatePollState extends State<CreatePoll>{
                         }while(usedMap!=null&&usedMap.keys.contains(key));
                         List<int> answers = new List<int>(choices.length);
                         answers = answers.map((i)=>0).toList();
-                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+choices.map((String str)=>"\""+str+"\"").toString().substring(1,choices.map((String str)=>"\""+str+"\"").toString().length-1)+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
+                        String listPrint = "";
+                        for(String s in choices){
+                          listPrint+="\""+s+"\", ";
+                        }
+                        listPrint = listPrint.substring(0,listPrint.length-2);
+                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
                         http.put("https://ppoll-polls.firebaseio.com/data/"+key+".json",body:serverData).then((r){
                           setState((){isConnecting = false;});
                           Navigator.push(context,new MaterialPageRoute(builder: (context) => new WillPopScope(onWillPop:(){return new Future<bool>(()=>Navigator.of(context).pop(true));},child: new Scaffold(
@@ -721,7 +726,7 @@ class CreatePollState extends State<CreatePoll>{
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     new Text("Your poll has been created with the code",style:new TextStyle(fontSize:15.0*MediaQuery.of(context).size.width/360.0)),
-                                    new Text(key,style:new TextStyle(fontSize:120.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold))
+                                    new Text(key,style:new TextStyle(fontSize:110.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold))
                                   ]
                                 )
                               )
@@ -931,26 +936,30 @@ class ViewOrVoteState extends State<ViewOrVote>{
                 child:new RaisedButton(
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
                   onPressed: (){
-                    if(widget.oneChoice){
-                      widget.scores[choicesString.indexOf(choice)]++;
-                    }else{
-                      for(int i = 0; i<widget.scores.length;i++){
-                        if(checked.values.toList()[i]){
-                          widget.scores[i]++;
-                        }
-                      }
-                    }
                     if((widget.oneChoice&&choice!=null) || !widget.oneChoice){
                       Map<String,dynamic> map;
                       http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+".json")).then((r){
                         map = json.decode(r.body);
-                        http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json"),body:widget.scores.toString()).then((r){
+                        for(int i = 0; i<widget.scores.length;i++){
+                          widget.scores[i] = widget.oneChoice?map["a"][i]+i==choicesString.indexOf(choice)?1:0:map["a"][i]+(checked.values.toList()[i]?1:0);
+                        }
+                        String scorePrint = "";
+                        for(int i in widget.scores){
+                          scorePrint+=(i.toString()+", ");
+                        }
+                        scorePrint = scorePrint.substring(0,scorePrint.length-2);
+                        http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json"),body:"["+scorePrint+"]").then((r){
                           if(widget.oneResponse){
                             List<dynamic> users = map["i"];
                             if(users!=null){
                               users.add(userId);
                             }
-                            http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/i.json"),body:(users!=null?users.map((s)=>"\""+s+"\"").toList().toString():"[\""+userId+"\"]")).then((r){
+                            String userPrint = "";
+                            for(String s in users){
+                              userPrint+="\""+s+"\", ";
+                            }
+                            userPrint = userPrint.substring(0,userPrint.length-2);
+                            http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/i.json"),body:(users!=null?"["+userPrint+"]":"[\""+userId+"\"]")).then((r){
                               choice = null;
                               checked.forEach((key,b)=>checked[key]=false);
                               setState((){widget.hasVoted=true;widget.vote=false;});
@@ -966,13 +975,46 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   },
                   child: new Text("Submit",style:new TextStyle(color:Colors.white,fontSize:25.0))
                 ))]
-              )):new Container()
+              )):new Container(),
+              !widget.vote?new PieChart(widget.scores,widget.choices):new Container()
             ]
           ))
         )
       )
     );
   }
+}
+
+class PieChart extends StatefulWidget{
+  List<dynamic> scores;
+  List<dynamic> choices;
+  PieChart(this.scores,this.choices);
+  @override
+  PieChartState createState() => new PieChartState();
+}
+
+class PieChartState extends State<PieChart>{
+  @override
+  Widget build(BuildContext context){
+    return new Container(
+      width: 300.0*MediaQuery.of(context).size.width/360.0,
+      height: 300.0*MediaQuery.of(context).size.width/360.0,
+      child: charts.PieChart(
+        [new charts.Series<VoteOption, String>(id: "Votes", data: widget.scores.map((nu)=>new VoteOption(nu,widget.choices[widget.scores.indexOf(nu)])).toList(), domainFn: (score,_)=>score.name, measureFn: (score,_)=>score.score,colorFn:(v,i){
+          return widget.choices.indexOf(v.name)<11?charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(v.name)].shadeDefault:charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(v.name)-11].makeShades(2)[1];
+        })],
+        defaultRenderer: new charts.ArcRendererConfig(arcWidth: 70),
+        animate: false
+      )
+    );
+  }
+}
+
+class VoteOption{
+  final String name;
+  final int score;
+
+  VoteOption(this.score, this.name);
 }
 
 class Option extends StatefulWidget{
