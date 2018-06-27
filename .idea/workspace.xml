@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-23">
-              <caret line="872" column="52" lean-forward="true" selection-start-line="872" selection-start-column="52" selection-end-line="872" selection-end-column="52" />
+            <state relative-caret-position="453">
+              <caret line="981" column="29" lean-forward="true" selection-start-line="981" selection-start-column="29" selection-end-line="981" selection-end-column="29" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -46,25 +46,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Question</find>
-      <find>SearchPageState</find>
-      <find>new ViewOrVot</find>
-      <find>Search</find>
-      <find>GridView</find>
-      <find>25.0</find>
-      <find>Icons.add</find>
-      <find>ViewOrV</find>
-      <find>SearcHPageSt</find>
-      <find>SearchPageSta</find>
-      <find>new ViewOrVote</find>
-      <find>ViewOrVoteStat</find>
       <find>ViewOrVoteState</find>
       <find>new ViewOrVo</find>
       <find>new Viewo</find>
       <find>SearchPageS</find>
       <find>||((value as Map&lt;String,dynamic&gt;)[&quot;c&quot;]</find>
       <find>map!=null&amp;&amp;map</find>
-      <find>ViewOrVoteSt</find>
       <find>http.get</find>
       <find>RefreshInd</find>
       <find>MediaQue</find>
@@ -73,9 +60,22 @@
       <find>your poll</find>
       <find>serverData</find>
       <find>please do</find>
-      <find>http.put</find>
       <find>http.pu</find>
       <find>refreshInd</find>
+      <find>onRefres</find>
+      <find>onRef</find>
+      <find>SearchPageSt</find>
+      <find>onrefr</find>
+      <find>ViewOrvot</find>
+      <find>ViewOrvoteSt</find>
+      <find>Option</find>
+      <find>ViewOrVoteSt</find>
+      <find>Linea</find>
+      <find>PieC</find>
+      <find>LinearP</find>
+      <find>.put</find>
+      <find>onPres</find>
+      <find>http.put</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -555,8 +555,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-23">
-          <caret line="872" column="52" lean-forward="true" selection-start-line="872" selection-start-column="52" selection-end-line="872" selection-end-column="52" />
+        <state relative-caret-position="453">
+          <caret line="981" column="29" lean-forward="true" selection-start-line="981" selection-start-column="29" selection-end-line="981" selection-end-column="29" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

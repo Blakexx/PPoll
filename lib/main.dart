@@ -368,7 +368,7 @@ class SearchPage extends StatefulWidget{
 }
 
 class SearchPageState extends State<SearchPage>{
-  Map<String, dynamic> data;
+  static Map<String, dynamic> data;
   @override
   void initState(){
     super.initState();
@@ -856,6 +856,29 @@ class ViewOrVoteState extends State<ViewOrVote>{
     }
   }
 
+  int hexToInt(String colorStr)
+  {
+    colorStr = "FF" + colorStr;
+    colorStr = colorStr.replaceAll("#", "");
+    int val = 0;
+    int len = colorStr.length;
+    for (int i = 0; i < len; i++) {
+      int hexDigit = colorStr.codeUnitAt(i);
+      if (hexDigit >= 48 && hexDigit <= 57) {
+        val += (hexDigit - 48) * (1 << (4 * (len - 1 - i)));
+      } else if (hexDigit >= 65 && hexDigit <= 70) {
+        // A..F
+        val += (hexDigit - 55) * (1 << (4 * (len - 1 - i)));
+      } else if (hexDigit >= 97 && hexDigit <= 102) {
+        // a..f
+        val += (hexDigit - 87) * (1 << (4 * (len - 1 - i)));
+      } else {
+        throw new FormatException("An error occurred when converting a color");
+      }
+    }
+    return val;
+  }
+
   @override
   Widget build(BuildContext context){
     return new Scaffold(
@@ -872,9 +895,10 @@ class ViewOrVoteState extends State<ViewOrVote>{
         child: new Center(
           child: new RefreshIndicator(onRefresh: (){
             Completer c = new Completer<Null>();
-            http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+".json")).then((r){
+            http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json")).then((r){
               Map<String, dynamic> map = json.decode(r.body);
-              setState((){widget.scores = map["a"];});
+              SearchPageState.data = map;
+              setState((){widget.scores = map[widget.code]["a"];});
               c.complete();
             });
             return c.future;
@@ -907,7 +931,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   return new Padding(padding:EdgeInsets.only(top:5.0),child:new Container(color:Colors.black26,child:new ListTile(
                     title: new Text(key),
                     subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
-                      value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0
+                      value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
+                      valueColor: AlwaysStoppedAnimation<Color>(choicesString.indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)].shadeDefault.hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)-11].makeShades(2)[1].hexString)))
                     )),
                     trailing: new Container(width:35.0,child:new Column(
                       children: [
@@ -920,7 +945,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   return new Padding(padding:EdgeInsets.only(top:5.0),child:new Container(color:Colors.black26,child:new ListTile(
                       title: new Text(key),
                       subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
-                          value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0
+                          value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
+                            valueColor: AlwaysStoppedAnimation<Color>(checked.keys.toList().indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)].shadeDefault.hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)-11].makeShades(2)[1].hexString)))
                       )),
                       trailing: new Container(width:35.0,child:new Column(
                           children: [
@@ -941,7 +967,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+".json")).then((r){
                         map = json.decode(r.body);
                         for(int i = 0; i<widget.scores.length;i++){
-                          widget.scores[i] = widget.oneChoice?map["a"][i]+i==choicesString.indexOf(choice)?1:0:map["a"][i]+(checked.values.toList()[i]?1:0);
+                          widget.scores[i] = widget.oneChoice?map["a"][i]+(i==choicesString.indexOf(choice)?1:0):map["a"][i]+(checked.values.toList()[i]?1:0);
                         }
                         String scorePrint = "";
                         for(int i in widget.scores){
