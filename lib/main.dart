@@ -227,7 +227,7 @@ class HomePageState extends State<HomePage>{
                         http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json")).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
-                            Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0")));
+                            Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0",map["i"]!=null&&map["i"].contains(userId))));
                           }else{
                             showDialog(
                                 context: context,
@@ -280,7 +280,7 @@ class HomePageState extends State<HomePage>{
                           if(r.body!="null") {
                             if(map["b"].toString().substring(2,3) == "0") {
                               if (map["i"]==null||!map["i"].contains(userId)) {
-                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],true,map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0")));
+                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],true,map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0",map["i"]!=null&&map["i"].contains(userId))));
                               }else {
                                 showDialog(
                                     context: context,
@@ -302,7 +302,7 @@ class HomePageState extends State<HomePage>{
                                 );
                               }
                             }else{
-                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],false,map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0")));
+                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],false,map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0",map["i"]!=null&&map["i"].contains(userId))));
                             }
                           }else{
                             showDialog(
@@ -395,7 +395,7 @@ class SearchPageState extends State<SearchPage>{
       tempMap = new Map<String,dynamic>();
       tempMap.addAll(data);
       tempMap.removeWhere((key,value){
-        return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
+        return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
       });
       sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
         if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
@@ -428,7 +428,7 @@ class SearchPageState extends State<SearchPage>{
               tempMap.clear();
               tempMap.addAll(data);
               tempMap.removeWhere((key,value){
-                return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
+                return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                 if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
@@ -450,7 +450,7 @@ class SearchPageState extends State<SearchPage>{
               tempMap.clear();
               tempMap.addAll(data);
               tempMap.removeWhere((key,value){
-                return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
+                return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                 if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
@@ -481,7 +481,7 @@ class SearchPageState extends State<SearchPage>{
             itemBuilder: (context,i){
               return new Padding(padding: EdgeInsets.only(top:5.0),child:new GestureDetector(onTapUp: (t){
                 Map<String,dynamic> map = sortedMap[sortedMap.keys.toList()[i]];
-                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(sortedMap.keys.toList()[i],false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0")));
+                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(sortedMap.keys.toList()[i],false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0",map["i"]!=null&&map["i"].contains(userId))));
               },child:new Container(
                 child: new ListTile(
                   leading: new Container(
@@ -503,7 +503,7 @@ class SearchPageState extends State<SearchPage>{
                 tempMap.clear();
                 tempMap.addAll(data);
                 tempMap.removeWhere((key,value){
-                  return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["c"] as List).map((s)=>s.toUpperCase()).contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
+                  return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
                 });
                 sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                   if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
@@ -696,7 +696,6 @@ class CreatePollState extends State<CreatePoll>{
                         setState((){isConnecting = true;});
                         String key = "";
                         Random r = new Random();
-                        bool used = false;
                         Map<String,dynamic> usedMap;
                         await http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json"))).then((r){
                           usedMap = json.decode(r.body);
@@ -780,7 +779,6 @@ class CreatePollState extends State<CreatePoll>{
         }
       }
       if(question!=null||hasEnteredChoices){
-        bool yes = true;
         showDialog(
             context: context,
             barrierDismissible: true,
@@ -792,7 +790,6 @@ class CreatePollState extends State<CreatePoll>{
                     new RaisedButton(
                         child: new Text("No",style:new TextStyle(color: Colors.black)),
                         onPressed: (){
-                          yes = false;
                           Navigator.of(context).pop();
                         },
                         color: Colors.grey
@@ -826,7 +823,8 @@ class ViewOrVote extends StatefulWidget{
   List<dynamic> scores;
   String code;
   bool vote;
-    ViewOrVote(this.code,this.vote,this.question,this.choices,this.oneResponse,this.oneChoice,this.scores,this.public);
+  bool hasVoted;
+  ViewOrVote(this.code,this.vote,this.question,this.choices,this.oneResponse,this.oneChoice,this.scores,this.public,this.hasVoted);
   @override
   ViewOrVoteState createState() => new ViewOrVoteState();
 }
@@ -856,10 +854,26 @@ class ViewOrVoteState extends State<ViewOrVote>{
   @override
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: new AppBar(title:new Text(widget.code,style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
+      appBar: new AppBar(title:new Text(widget.code,style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54, actions: [
+        !widget.hasVoted&&!widget.vote?new FlatButton(
+          color: Colors.white30,
+          onPressed: (){
+            setState((){widget.vote = true;});
+          },
+          child: new Text("Vote")
+        ):new Container()
+      ]),
       body: new Container(
         child: new Center(
-          child: new ListView(
+          child: new RefreshIndicator(onRefresh: (){
+            Completer c = new Completer<Null>();
+            http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+".json")).then((r){
+              Map<String, dynamic> map = json.decode(r.body);
+              setState((){widget.scores = map["a"];});
+              c.complete();
+            });
+            return c.future;
+          },child: new ListView(
             children: [
               new Text(widget.question),
               new Column(
@@ -937,9 +951,13 @@ class ViewOrVoteState extends State<ViewOrVote>{
                               users.add(userId);
                             }
                             http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/i.json"),body:(users!=null?users.map((s)=>"\""+s+"\"").toList().toString():"[\""+userId+"\"]")).then((r){
-                              setState((){widget.vote=false;});
+                              choice = null;
+                              checked.forEach((key,b)=>checked[key]=false);
+                              setState((){widget.hasVoted=true;widget.vote=false;});
                             });
                           }else{
+                            choice = null;
+                            checked.forEach((key,b)=>checked[key]=false);
                             setState((){widget.vote=false;});
                           }
                         });
@@ -950,7 +968,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                 ))]
               )):new Container()
             ]
-          )
+          ))
         )
       )
     );
