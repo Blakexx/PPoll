@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -24,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="989" column="46" lean-forward="false" selection-start-line="989" selection-start-column="46" selection-end-line="989" selection-end-column="46" />
+            <state relative-caret-position="86">
+              <caret line="984" column="57" lean-forward="false" selection-start-line="984" selection-start-column="57" selection-end-line="984" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -45,9 +44,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SearchPageSt</find>
-      <find>onrefr</find>
-      <find>ViewOrvot</find>
       <find>ViewOrvoteSt</find>
       <find>Option</find>
       <find>Linea</find>
@@ -75,6 +71,9 @@
       <find>new ViewOr</find>
       <find>ViewOrVoteSt</find>
       <find>&quot;Submit&quot;</find>
+      <find>onRef</find>
+      <find>print</find>
+      <find>submit</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -611,8 +610,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="989" column="46" lean-forward="false" selection-start-line="989" selection-start-column="46" selection-end-line="989" selection-end-column="46" />
+        <state relative-caret-position="86">
+          <caret line="984" column="57" lean-forward="false" selection-start-line="984" selection-start-column="57" selection-end-line="984" selection-end-column="57" />
           <folding />
         </state>
       </provider>
