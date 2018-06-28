@@ -879,16 +879,19 @@ class ViewOrVoteState extends State<ViewOrVote>{
     return val;
   }
 
+  ScrollController s = new ScrollController();
+
   @override
   Widget build(BuildContext context){
     return new Scaffold(
       appBar: new AppBar(title:new Text(widget.code,style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54, actions: [
         !widget.hasVoted&&!widget.vote?new FlatButton(
-          color: Colors.white30,
+          color: Colors.black38,
           onPressed: (){
+            s.jumpTo(1.0);
             setState((){widget.vote = true;});
           },
-          child: new Text("Vote")
+          child: new Text("Vote",style: new TextStyle(color:Colors.white,fontSize:20.0))
         ):new Container()
       ]),
       body: new Container(
@@ -903,13 +906,15 @@ class ViewOrVoteState extends State<ViewOrVote>{
             });
             return c.future;
           },child: new ListView(
+            physics: new AlwaysScrollableScrollPhysics(),
+            controller: s,
             children: [
-              new Text(widget.question),
+              new Text(widget.question,style:new TextStyle(color:Colors.white)),
               new Column(
                 children: widget.vote?(widget.oneChoice?choicesString.map((String key){
                   return new Padding(padding: EdgeInsets.only(top:5.0),child: new Container(color:Colors.black26,child:new RadioListTile(
                       value: key,
-                      title: new Text(key),
+                      title: new Text(key,style:new TextStyle(color:Colors.white)),
                       groupValue: choice,
                       onChanged: (v){
                         setState((){
@@ -919,7 +924,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   )));
                 }).toList():checked.keys.map((String key){
                   return new Padding(padding:EdgeInsets.only(top:5.0),child: new Container(color:Colors.black26,child:new CheckboxListTile(
-                      title: new Text(key),
+                      title: new Text(key,style:new TextStyle(color:Colors.white)),
                       value: checked[key],
                       onChanged: (v){
                         setState((){
@@ -929,7 +934,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   )));
                 }).toList()):(widget.oneChoice?choicesString.map((String key){
                   return new Padding(padding:EdgeInsets.only(top:5.0),child:new Container(color:Colors.black26,child:new ListTile(
-                    title: new Text(key),
+                    title: new Text(key,style:new TextStyle(color:Colors.white)),
                     subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
                       value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
                       valueColor: AlwaysStoppedAnimation<Color>(choicesString.indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)].shadeDefault.hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)-11].makeShades(2)[1].hexString))),
@@ -937,14 +942,14 @@ class ViewOrVoteState extends State<ViewOrVote>{
                     )),
                     trailing: new Container(width:35.0,child:new Column(
                       children: [
-                        new Text(widget.scores[choicesString.indexOf(key)].toString()),
-                        new Text((widget.scores.reduce((a,b)=>a+b)!=0?(widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%")
+                        new Text(widget.scores[choicesString.indexOf(key)].toString(),style:new TextStyle(color:Colors.white)),
+                        new Text((widget.scores.reduce((a,b)=>a+b)!=0?(widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%",style:new TextStyle(color:Colors.white))
                       ]
                     ))
                   )));
                 }).toList():checked.keys.map((String key){
                   return new Padding(padding:EdgeInsets.only(top:5.0),child:new Container(color:Colors.black26,child:new ListTile(
-                      title: new Text(key),
+                      title: new Text(key,style:new TextStyle(color:Colors.white)),
                       subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
                           value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
                           valueColor: AlwaysStoppedAnimation<Color>(checked.keys.toList().indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)].shadeDefault.hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)-11].makeShades(2)[1].hexString))),
@@ -952,8 +957,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       )),
                       trailing: new Container(width:35.0,child:new Column(
                           children: [
-                            new Text(widget.scores[checked.keys.toList().indexOf(key)].toString()),
-                            new Text((widget.scores.reduce((a,b)=>a+b)!=0?(widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%")
+                            new Text(widget.scores[checked.keys.toList().indexOf(key)].toString(),style:new TextStyle(color:Colors.white)),
+                            new Text((widget.scores.reduce((a,b)=>a+b)!=0?(widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%",style:new TextStyle(color:Colors.white))
                           ]
                       ))
                   )));
@@ -994,6 +999,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                               if(checked!=null){
                                 checked.forEach((key,b)=>checked[key]=false);
                               }
+                              s.jumpTo(1.0);
                               setState((){widget.hasVoted=true;widget.vote=false;});
                             });
                           }else{
@@ -1001,6 +1007,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                             if(checked!=null){
                               checked.forEach((key,b)=>checked[key]=false);
                             }
+                            s.jumpTo(1.0);
                             setState((){widget.vote=false;});
                           }
                         });
@@ -1010,7 +1017,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   child: new Text("Submit",style:new TextStyle(color:Colors.white,fontSize:25.0))
                 ))]
               )):new Container(),
-              !widget.vote?new PieChart(widget.scores,widget.choices):new Container()
+              !widget.vote?new PieChart(widget.scores,widget.choices):new Container(height:20.0)
             ]
           ))
         )
@@ -1036,11 +1043,12 @@ class PieChartState extends State<PieChart>{
       color: Colors.blueGrey,
       width: 300.0*MediaQuery.of(context).size.width/360.0,
       height: 300.0*MediaQuery.of(context).size.width/360.0,
-      child: charts.BarChart(
+      child: charts.PieChart(
         [new charts.Series<VoteOption, String>(id: "Votes", data: widget.choices.map((name)=>new VoteOption(widget.scores[widget.choices.indexOf(name)],name)).toList(), domainFn: (score,_)=>score.name, measureFn: (score,_)=>score.score,colorFn:(v,i){
           return widget.choices.indexOf(v.name)<11?charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(v.name)].shadeDefault:charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(v.name)-11].makeShades(2)[1];
         })],
-        animate: false
+        animate: false,
+        defaultRenderer: new charts.ArcRendererConfig(arcWidth: 75)
       )
     );
   }
