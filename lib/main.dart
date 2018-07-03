@@ -1127,9 +1127,9 @@ class PieChartState extends State<PieChart>{
       key: _chartKey,
       size:new Size(300.0*MediaQuery.of(context).size.width/360.0, 300.0*MediaQuery.of(context).size.width/360.0),
       chartType: CircularChartType.Pie,
-      initialChartData: [new CircularStackEntry(widget.choices.map((name){
+      initialChartData: widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(widget.choices.map((name){
         return new CircularSegmentEntry(widget.scores[widget.choices.indexOf(name)]*1.0,new Color(hexToInt(widget.choices.indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
-      }).toList())],
+      }).toList())]:[],
       duration: Duration.zero
     );
     return new Container(
