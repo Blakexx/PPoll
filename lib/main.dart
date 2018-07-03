@@ -461,6 +461,8 @@ class SearchPageState extends State<SearchPage>{
                 }
                 return o1.compareTo(o2);
               });
+              visible = false;
+              this.s.jumpTo(1.0);
               setState((){hasSearched = true;inSearch = false;});
             },
           ),
@@ -484,12 +486,16 @@ class SearchPageState extends State<SearchPage>{
                 }
                 return o1.compareTo(o2);
               });
+              visible = false;
+              this.s.jumpTo(1.0);
               setState((){hasSearched = false;});
             },
           ):inSearch||f.hasFocus?new IconButton(
             icon: new Icon(Icons.clear),
             onPressed: (){
               search = "";
+              visible = false;
+              this.s.jumpTo(1.0);
               setState((){c.text = search;inSearch=true;});
             },
           ):new IconButton(
