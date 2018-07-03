@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -23,8 +24,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="397" column="95" lean-forward="true" selection-start-line="397" selection-start-column="95" selection-end-line="397" selection-end-column="95" />
+            <state relative-caret-position="139">
+              <caret line="490" column="31" lean-forward="true" selection-start-line="490" selection-start-column="31" selection-end-line="490" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -44,8 +45,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Submit</find>
-      <find>LinearPr</find>
       <find>-10</find>
       <find>-11</find>
       <find>BarG</find>
@@ -74,6 +73,8 @@
       <find>SearchPageSt</find>
       <find>SearchPageStat</find>
       <find>SplayTreeM</find>
+      <find>ViewOrVoteState</find>
+      <find>maxLines</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -626,8 +627,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="397" column="95" lean-forward="true" selection-start-line="397" selection-start-column="95" selection-end-line="397" selection-end-column="95" />
+        <state relative-caret-position="139">
+          <caret line="490" column="31" lean-forward="true" selection-start-line="490" selection-start-column="31" selection-end-line="490" selection-end-column="31" />
           <folding />
         </state>
       </provider>
