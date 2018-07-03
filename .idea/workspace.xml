@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -24,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="1135" column="21" lean-forward="true" selection-start-line="1135" selection-start-column="21" selection-end-line="1135" selection-end-column="21" />
+            <state relative-caret-position="199">
+              <caret line="489" column="20" lean-forward="true" selection-start-line="489" selection-start-column="20" selection-end-line="489" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -72,9 +71,9 @@
       <find>onRe</find>
       <find>AllowMu</find>
       <find>2.0</find>
-      <find>SearchPageSt</find>
       <find>CreatePollSt</find>
       <find>OptionSt</find>
+      <find>SearchPageSt</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -627,8 +626,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="1135" column="21" lean-forward="true" selection-start-line="1135" selection-start-column="21" selection-end-line="1135" selection-end-column="21" />
+        <state relative-caret-position="199">
+          <caret line="489" column="20" lean-forward="true" selection-start-line="489" selection-start-column="20" selection-end-line="489" selection-end-column="20" />
           <folding />
         </state>
       </provider>
