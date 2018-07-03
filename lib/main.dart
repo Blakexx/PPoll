@@ -1025,9 +1025,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                           scorePrint+=(i.toString()+", ");
                         }
                         scorePrint = scorePrint.substring(0,scorePrint.length-2);
-                        print(scorePrint);
                         http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json"),body:"["+scorePrint+"]").then((r){
-                          print(scorePrint);
                           if(SearchPageState.data!=null&&SearchPageState.data[widget.code]!=null){
                             SearchPageState.data[widget.code]["a"] = json.decode("["+scorePrint+"]");
                           }
