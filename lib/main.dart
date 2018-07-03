@@ -181,18 +181,22 @@ class HomePageState extends State<HomePage>{
                 new Container(width: 120.0,child: new Center(child: new TextField(
                   style: new TextStyle(fontSize: 25.0,color:Colors.black),
                   controller: c,
-                  maxLength: 4,
                   textAlign: TextAlign.center,
                   autocorrect: false,
                   decoration: InputDecoration(
                     hintText: 'Code',
                     filled: true,
                     fillColor: Colors.white,
-                    border: InputBorder.none,
-                    counterText: "",
+                    border: InputBorder.none
                   ),
-                  onChanged:  (s){
-                    input = s;
+                  onChanged: (s){
+                    if(s.length<=4){
+                      input = s;
+                    }else{
+                      int off = c.selection.extentOffset-1;
+                      c.text = input;
+                      c.selection = new TextSelection.fromPosition(new TextPosition(offset:off));
+                    }
                   },
                   focusNode: f,
                   inputFormatters: [new UpperCaseTextFormatter()]
