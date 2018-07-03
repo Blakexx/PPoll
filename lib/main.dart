@@ -894,7 +894,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
   @override
   void initState(){
     super.initState();
-    ultraTempMap = Map.fromIterables(widget.choices, SearchPageState.data[widget.code]["a"]);
+    ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
     sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
     if(!widget.oneChoice){
       for(String s in widget.choices){
@@ -938,8 +938,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
 
   @override
   Widget build(BuildContext context){
-    PieChart chart = new PieChart(SearchPageState.data[widget.code]["a"],widget.choices);
-    ultraTempMap = Map.fromIterables(widget.choices, SearchPageState.data[widget.code]["a"]);
+    PieChart chart = new PieChart(widget.scores,widget.choices);
+    ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
     sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
     return new Scaffold(
       appBar: new AppBar(title:new Text(widget.code,style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54, actions: [
@@ -1000,14 +1000,14 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   return new Padding(padding:EdgeInsets.only(top:sortedMap.keys.toList().indexOf(key)!=0?4.0:2.0),child:new Container(color:Colors.black26,child:new ListTile(
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
-                          value: SearchPageState.data[widget.code]["a"].reduce((a,b)=>a+b)!=0?sortedMap[key]/(1.0*SearchPageState.data[widget.code]["a"].reduce((a,b)=>a+b)):0.0,
+                          value: widget.scores.reduce((a,b)=>a+b)!=0?sortedMap[key]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
                           valueColor: new AlwaysStoppedAnimation(new Color(hexToInt(ultraTempMap.keys.toList().indexOf(key)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(key)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(key)-11].makeShades(2)[1].hexString))),
                           backgroundColor: new Color(hexToInt(ultraTempMap.keys.toList().indexOf(key)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(key)].makeShades(4)[3].hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(key)-11].makeShades(5)[4].hexString))
                       )),
                       trailing: new Container(width:35.0,child:new Column(
                           children: [
                             new Text(sortedMap[key].toString(),style:new TextStyle(color:Colors.white)),
-                            new Text((SearchPageState.data[widget.code]["a"].reduce((a,b)=>a+b)!=0?(sortedMap[key]/(1.0*SearchPageState.data[widget.code]["a"].reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%",style:new TextStyle(color:Colors.white))
+                            new Text((widget.scores.reduce((a,b)=>a+b)!=0?(sortedMap[key]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%",style:new TextStyle(color:Colors.white))
                           ]
                       ))
                   )));
