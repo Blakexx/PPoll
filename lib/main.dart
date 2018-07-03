@@ -959,14 +959,14 @@ class ViewOrVoteState extends State<ViewOrVote>{
             http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json")).then((r){
               Map<String, dynamic> map = json.decode(r.body);
               SearchPageState.data = map;
-              setState((){widget.scores = map[widget.code]["a"];});
+              widget.scores = map[widget.code]["a"];
               ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
               sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
               chart.scores = widget.scores;
               _chartKey.currentState.updateData(widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(sortedMap.keys.map((name){
                 return new CircularSegmentEntry(ultraTempMap[name]*1.0,new Color(hexToInt(ultraTempMap.keys.toList().indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
               }).toList())]:[]);
-              c.complete();
+              setState((){c.complete();});
             });
             return c.future;
           },child: new ListView(
@@ -1129,18 +1129,6 @@ class PieChartState extends State<PieChart>{
         return new CircularSegmentEntry(tempMap[name]*1.0,new Color(hexToInt(tempMap.keys.toList().indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[tempMap.keys.toList().indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[tempMap.keys.toList().indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
       }).toList())]:[],
       duration: Duration.zero
-    );
-    return new Container(
-      color: Colors.blueGrey,
-      width: 300.0*MediaQuery.of(context).size.width/360.0,
-      height: 300.0*MediaQuery.of(context).size.width/360.0,
-      child: charts.PieChart(
-        [new charts.Series<VoteOption, String>(id: "Votes", data: widget.choices.map((name)=>new VoteOption(widget.scores[widget.choices.indexOf(name)],name)).toList(), domainFn: (score,_)=>score.name, measureFn: (score,_)=>score.score,colorFn:(v,i){
-          return widget.choices.indexOf(v.name)<11?charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(v.name)].shadeDefault:charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(v.name)-11].makeShades(2)[1];
-        })],
-        animate: false,
-        defaultRenderer: new charts.ArcRendererConfig(arcWidth: 75)
-      )
     );
   }
 }
