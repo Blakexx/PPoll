@@ -895,7 +895,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
   void initState(){
     super.initState();
     ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
-    sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]);
+    sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
     if(!widget.oneChoice){
       for(String s in widget.choices){
         checked.putIfAbsent(s, ()=>false);
@@ -940,9 +940,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
   Widget build(BuildContext context){
     PieChart chart = new PieChart(widget.scores,widget.choices);
     ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
-    sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2){
-      return ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:o1.compareTo(o2);
-    });
+    sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
     return new Scaffold(
       appBar: new AppBar(title:new Text(widget.code,style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54, actions: [
         !widget.hasVoted&&!widget.vote?new FlatButton(
@@ -1120,7 +1118,7 @@ class PieChartState extends State<PieChart>{
   @override
   Widget build(BuildContext context){
     Map tempMap = Map.fromIterables(widget.choices, widget.scores);
-    SplayTreeMap map = new SplayTreeMap.from(tempMap,(o1,o2)=>tempMap[o2]-tempMap[o1]!=0?tempMap[o2]-tempMap[o1]:o1.compareTo(o2));
+    SplayTreeMap map = new SplayTreeMap.from(tempMap,(o1,o2)=>tempMap[o2]-tempMap[o1]!=0?tempMap[o2]-tempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
     return new AnimatedCircularChart(
       key: _chartKey,
       size:new Size(300.0*MediaQuery.of(context).size.width/360.0, 300.0*MediaQuery.of(context).size.width/360.0),
