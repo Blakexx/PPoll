@@ -485,7 +485,7 @@ class SearchPageState extends State<SearchPage>{
               },child:new Container(
                 child: new ListTile(
                   leading: new Container(
-                    width:50.0,
+                    width:40.0,
                     child: new Text(sortedMap.keys.toList()[i],style: new TextStyle(color:Colors.white))
                   ),
                   title: new Text(sortedMap[sortedMap.keys.toList()[i]]["q"],style: new TextStyle(color:Colors.white)),
@@ -591,6 +591,8 @@ class CreatePollState extends State<CreatePoll>{
 
   bool isConnecting = false;
 
+  TextEditingController c = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(child: new Scaffold(
@@ -620,16 +622,23 @@ class CreatePollState extends State<CreatePoll>{
                       filled: true,
                       fillColor: Colors.white,
                       border: InputBorder.none,
-                      counterText: "",
+                      counterText: ""
                     ),
                     onChanged: (s){
-                      question = s;
-                    }
+                      if(s.length<=100){
+                        question = s;
+                      }else{
+                        int off = c.selection.extentOffset-1;
+                        c.text = question;
+                        c.selection = new TextSelection.fromPosition(new TextPosition(offset:off));
+                      }
+                    },
+                    controller: c
                   ))),
                   new Column(
                     children: list
                   ),
-                  new Container(height:40.0),
+                  new Container(height:30.0),
                   new GestureDetector(onTapUp: (d){setState((){oneChoice = !oneChoice;});}, child:new Container(
                     padding: EdgeInsets.only(left:5.0,right:5.0),
                     child: new Container(
@@ -909,10 +918,10 @@ class ViewOrVoteState extends State<ViewOrVote>{
             physics: new AlwaysScrollableScrollPhysics(),
             controller: s,
             children: [
-              new Text(widget.question,style:new TextStyle(color:Colors.white)),
+              new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0),textAlign: TextAlign.center),
               new Column(
                 children: widget.vote?(widget.oneChoice?choicesString.map((String key){
-                  return new Padding(padding: EdgeInsets.only(top:5.0),child: new Container(color:Colors.black26,child:new RadioListTile(
+                  return new Padding(padding: EdgeInsets.only(top:4.0),child: new Container(color:Colors.black26,child:new RadioListTile(
                       value: key,
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       groupValue: choice,
@@ -923,7 +932,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       }
                   )));
                 }).toList():checked.keys.map((String key){
-                  return new Padding(padding:EdgeInsets.only(top:5.0),child: new Container(color:Colors.black26,child:new CheckboxListTile(
+                  return new Padding(padding:EdgeInsets.only(top:4.0),child: new Container(color:Colors.black26,child:new CheckboxListTile(
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       value: checked[key],
                       onChanged: (v){
@@ -933,7 +942,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       }
                   )));
                 }).toList()):(widget.oneChoice?choicesString.map((String key){
-                  return new Padding(padding:EdgeInsets.only(top:5.0),child:new Container(color:Colors.black26,child:new ListTile(
+                  return new Padding(padding:EdgeInsets.only(top:4.0),child:new Container(color:Colors.black26,child:new ListTile(
                     title: new Text(key,style:new TextStyle(color:Colors.white)),
                     subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
                       value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
@@ -948,7 +957,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                     ))
                   )));
                 }).toList():checked.keys.map((String key){
-                  return new Padding(padding:EdgeInsets.only(top:5.0),child:new Container(color:Colors.black26,child:new ListTile(
+                  return new Padding(padding:EdgeInsets.only(top:4.0),child:new Container(color:Colors.black26,child:new ListTile(
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
                           value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
@@ -1078,6 +1087,7 @@ class Option extends StatefulWidget{
 bool isRemoving = false;
 
 class OptionState extends State<Option>{
+  TextEditingController c = new TextEditingController();
   FocusNode f = new FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -1115,8 +1125,15 @@ class OptionState extends State<Option>{
         counterText: "",
         ),
         onChanged: (s){
-          CreatePollState.choices[widget.position] = s;
-        }
+          if(s.length<=50){
+            CreatePollState.choices[widget.position] = s;
+          }else{
+            int off = c.selection.extentOffset-1;
+            c.text = CreatePollState.choices[widget.position];
+            c.selection = new TextSelection.fromPosition(new TextPosition(offset:off));
+          }
+        },
+        controller: c
       ))])));
   }
 }
