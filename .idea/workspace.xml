@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="489" column="20" lean-forward="true" selection-start-line="489" selection-start-column="20" selection-end-line="489" selection-end-column="20" />
+            <state relative-caret-position="259">
+              <caret line="397" column="95" lean-forward="true" selection-start-line="397" selection-start-column="95" selection-end-line="397" selection-end-column="95" />
               <folding />
             </state>
           </provider>
@@ -44,8 +44,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>new PieCha</find>
-      <find>indexOf</find>
       <find>Submit</find>
       <find>LinearPr</find>
       <find>-10</find>
@@ -74,6 +72,8 @@
       <find>CreatePollSt</find>
       <find>OptionSt</find>
       <find>SearchPageSt</find>
+      <find>SearchPageStat</find>
+      <find>SplayTreeM</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -626,8 +626,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="489" column="20" lean-forward="true" selection-start-line="489" selection-start-column="20" selection-end-line="489" selection-end-column="20" />
+        <state relative-caret-position="259">
+          <caret line="397" column="95" lean-forward="true" selection-start-line="397" selection-start-column="95" selection-end-line="397" selection-end-column="95" />
           <folding />
         </state>
       </provider>

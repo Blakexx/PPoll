@@ -400,9 +400,10 @@ class SearchPageState extends State<SearchPage>{
       sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
         if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
           return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
-        }else{
-          return o1.compareTo(o2);
+        }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+          return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
         }
+        return o1.compareTo(o2);
       });
     }
     return new Scaffold(
@@ -433,9 +434,10 @@ class SearchPageState extends State<SearchPage>{
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                 if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                   return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
-                }else{
-                  return o1.compareTo(o2);
+                }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+                  return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
                 }
+                return o1.compareTo(o2);
               });
               setState((){hasSearched = true;inSearch = false;});
             },
@@ -455,9 +457,10 @@ class SearchPageState extends State<SearchPage>{
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                 if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                   return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
-                }else{
-                  return o1.compareTo(o2);
+                }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+                  return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
                 }
+                return o1.compareTo(o2);
               });
               setState((){hasSearched = false;});
             },
@@ -488,7 +491,7 @@ class SearchPageState extends State<SearchPage>{
                     width:40.0,
                     child: new Text(sortedMap.keys.toList()[i],style: new TextStyle(color:Colors.white))
                   ),
-                  title: new Text(sortedMap[sortedMap.keys.toList()[i]]["q"],style: new TextStyle(color:Colors.white),maxLines: 1,overflow: TextOverflow.ellipsis,),
+                  title: new Text(sortedMap[sortedMap.keys.toList()[i]]["q"],style: new TextStyle(color:Colors.white),maxLines: 1,overflow: TextOverflow.ellipsis),
                   trailing: new Text(sortedMap[sortedMap.keys.toList()[i]]["a"].reduce((n1,n2)=>n1+n2).toString(),style: new TextStyle(color:Colors.white))
                 ),
                 color: Colors.black38
@@ -508,9 +511,10 @@ class SearchPageState extends State<SearchPage>{
                 sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                   if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                     return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
-                  }else{
-                    return o1.compareTo(o2);
+                  }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+                    return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
                   }
+                  return o1.compareTo(o2);
                 });
                 setState((){c.complete();});
               });
