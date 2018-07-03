@@ -894,6 +894,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
   @override
   void initState(){
     super.initState();
+    ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
+    sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]);
     if(!widget.oneChoice){
       for(String s in widget.choices){
         checked.putIfAbsent(s, ()=>false);
@@ -930,8 +932,17 @@ class ViewOrVoteState extends State<ViewOrVote>{
 
   ScrollController s = new ScrollController();
 
+  Map ultraTempMap;
+
+  SplayTreeMap<String,int> sortedMap;
+
   @override
   Widget build(BuildContext context){
+    PieChart chart = new PieChart(widget.scores,widget.choices);
+    ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
+    sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2){
+      return ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:o1.compareTo(o2);
+    });
     return new Scaffold(
       appBar: new AppBar(title:new Text(widget.code,style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54, actions: [
         !widget.hasVoted&&!widget.vote?new FlatButton(
@@ -952,9 +963,10 @@ class ViewOrVoteState extends State<ViewOrVote>{
               SearchPageState.data = map;
               setState((){widget.scores = map[widget.code]["a"];});
               c.complete();
-              _chartKey.currentState.updateData([new CircularStackEntry(widget.choices.map((name){
-                return new CircularSegmentEntry(widget.scores[widget.choices.indexOf(name)]*1.0,new Color(hexToInt(widget.choices.indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
-              }).toList())]);
+              chart.scores = widget.scores;
+              _chartKey.currentState.updateData(widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(sortedMap.keys.map((name){
+                return new CircularSegmentEntry(ultraTempMap[name]*1.0,new Color(hexToInt(ultraTempMap.keys.toList().indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
+              }).toList())]:[]);
             });
             return c.future;
           },child: new ListView(
@@ -984,38 +996,22 @@ class ViewOrVoteState extends State<ViewOrVote>{
                         });
                       }
                   )));
-                }).toList()):(widget.oneChoice?choicesString.map((String key){
-                  return new Padding(padding:EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:2.0),child:new Container(color:Colors.black26,child:new ListTile(
-                    title: new Text(key,style:new TextStyle(color:Colors.white)),
-                    subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
-                      value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
-                      valueColor: AlwaysStoppedAnimation<Color>(choicesString.indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)].shadeDefault.hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)-11].makeShades(2)[1].hexString))),
-                      backgroundColor: choicesString.indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)].makeShades(4)[3].hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[choicesString.indexOf(key)-11].makeShades(5)[4].hexString))
-                    )),
-                    trailing: new Container(width:35.0,child:new Column(
-                      children: [
-                        new Text(widget.scores[choicesString.indexOf(key)].toString(),style:new TextStyle(color:Colors.white)),
-                        new Text((widget.scores.reduce((a,b)=>a+b)!=0?(widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%",style:new TextStyle(color:Colors.white))
-                      ]
-                    ))
-                  )));
-                }).toList():checked.keys.map((String key){
-                  return new Padding(padding:EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:2.0),child:new Container(color:Colors.black26,child:new ListTile(
+                }).toList()):sortedMap.keys.map((String key){
+                  return new Padding(padding:EdgeInsets.only(top:sortedMap.keys.toList().indexOf(key)!=0?4.0:2.0),child:new Container(color:Colors.black26,child:new ListTile(
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
-                          value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
-                          valueColor: AlwaysStoppedAnimation<Color>(checked.keys.toList().indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)].shadeDefault.hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)-11].makeShades(2)[1].hexString))),
-                          backgroundColor: checked.keys.toList().indexOf(key)<11?new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)].makeShades(4)[3].hexString)):new Color(hexToInt(charts.MaterialPalette.getOrderedPalettes(20)[checked.keys.toList().indexOf(key)-11].makeShades(5)[4].hexString))
+                          value: widget.scores.reduce((a,b)=>a+b)!=0?sortedMap[key]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
+                          valueColor: new AlwaysStoppedAnimation(new Color(hexToInt(ultraTempMap.keys.toList().indexOf(key)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(key)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(key)-11].makeShades(2)[1].hexString))),
+                          backgroundColor: new Color(hexToInt(ultraTempMap.keys.toList().indexOf(key)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(key)].makeShades(4)[3].hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(key)-11].makeShades(5)[4].hexString))
                       )),
                       trailing: new Container(width:35.0,child:new Column(
                           children: [
-                            new Text(widget.scores[checked.keys.toList().indexOf(key)].toString(),style:new TextStyle(color:Colors.white)),
-                            new Text((widget.scores.reduce((a,b)=>a+b)!=0?(widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%",style:new TextStyle(color:Colors.white))
+                            new Text(sortedMap[key].toString(),style:new TextStyle(color:Colors.white)),
+                            new Text((widget.scores.reduce((a,b)=>a+b)!=0?(sortedMap[key]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%",style:new TextStyle(color:Colors.white))
                           ]
                       ))
                   )));
-                }).toList())
-              ),
+                }).toList()),
               widget.vote?new Padding(padding: EdgeInsets.only(top:20.0),child:new Column(crossAxisAlignment: CrossAxisAlignment.center,children:[new Container(
                 height:65.0,width:150.0,
                 child:new RaisedButton(
@@ -1075,7 +1071,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   child: new Text("Submit",style:new TextStyle(color:Colors.white,fontSize:25.0))
                 ))]
               )):new Container(),
-              !widget.vote?new PieChart(widget.scores,widget.choices):new Container(height:20.0)
+              !widget.vote?chart:new Container(height:20.0)
             ]
           ))
         )
@@ -1123,12 +1119,14 @@ class PieChartState extends State<PieChart>{
 
   @override
   Widget build(BuildContext context){
+    Map tempMap = Map.fromIterables(widget.choices, widget.scores);
+    SplayTreeMap map = new SplayTreeMap.from(tempMap,(o1,o2)=>tempMap[o2]-tempMap[o1]!=0?tempMap[o2]-tempMap[o1]:o1.compareTo(o2));
     return new AnimatedCircularChart(
       key: _chartKey,
       size:new Size(300.0*MediaQuery.of(context).size.width/360.0, 300.0*MediaQuery.of(context).size.width/360.0),
       chartType: CircularChartType.Pie,
-      initialChartData: widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(widget.choices.map((name){
-        return new CircularSegmentEntry(widget.scores[widget.choices.indexOf(name)]*1.0,new Color(hexToInt(widget.choices.indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
+      initialChartData: widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(map.keys.map((name){
+        return new CircularSegmentEntry(tempMap[name]*1.0,new Color(hexToInt(tempMap.keys.toList().indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[tempMap.keys.toList().indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[tempMap.keys.toList().indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
       }).toList())]:[],
       duration: Duration.zero
     );
