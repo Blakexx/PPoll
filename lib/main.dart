@@ -960,11 +960,13 @@ class ViewOrVoteState extends State<ViewOrVote>{
               Map<String, dynamic> map = json.decode(r.body);
               SearchPageState.data = map;
               setState((){widget.scores = map[widget.code]["a"];});
-              c.complete();
+              ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
+              sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
               chart.scores = widget.scores;
               _chartKey.currentState.updateData(widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(sortedMap.keys.map((name){
                 return new CircularSegmentEntry(ultraTempMap[name]*1.0,new Color(hexToInt(ultraTempMap.keys.toList().indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
               }).toList())]:[]);
+              c.complete();
             });
             return c.future;
           },child: new ListView(

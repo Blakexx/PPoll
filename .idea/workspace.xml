@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -23,8 +24,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="1124" column="39" lean-forward="true" selection-start-line="1124" selection-start-column="39" selection-end-line="1124" selection-end-column="39" />
+            <state relative-caret-position="263">
+              <caret line="947" column="24" lean-forward="true" selection-start-line="947" selection-start-column="24" selection-end-line="947" selection-end-column="24" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -46,8 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ViewOrVo</find>
-      <find>onRe</find>
       <find>AllowMu</find>
       <find>2.0</find>
       <find>CreatePollSt</find>
@@ -73,9 +72,11 @@
       <find>Onref</find>
       <find>onRef</find>
       <find>o1.compareTo(</find>
-      <find>print(</find>
-      <find>updateDa</find>
       <find>upDateD</find>
+      <find>updateD</find>
+      <find>updateDa</find>
+      <find>onRe</find>
+      <find>print(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -660,8 +661,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="1124" column="39" lean-forward="true" selection-start-line="1124" selection-start-column="39" selection-end-line="1124" selection-end-column="39" />
+        <state relative-caret-position="263">
+          <caret line="947" column="24" lean-forward="true" selection-start-line="947" selection-start-column="24" selection-end-line="947" selection-end-column="24" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
