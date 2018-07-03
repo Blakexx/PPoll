@@ -368,10 +368,20 @@ class SearchPage extends StatefulWidget{
 }
 
 class SearchPageState extends State<SearchPage>{
+
   static Map<String, dynamic> data;
   @override
   void initState(){
     super.initState();
+    s.addListener((){
+      if((s.hasClients&&s.position.pixels>1&&!visible)){
+        visible = true;
+        setState((){});
+      }else if((!(s.hasClients&&s.position.pixels>1)&&visible)){
+        visible = false;
+        setState((){});
+      }
+    });
     http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json"))).then((r){
       setState((){data = json.decode(r.body);});
     });
@@ -393,15 +403,6 @@ class SearchPageState extends State<SearchPage>{
 
   @override
   Widget build(BuildContext context){
-    s.addListener((){
-      if((s.hasClients&&s.position.pixels>1&&!visible)){
-        visible = true;
-        setState((){});
-      }else if((!(s.hasClients&&s.position.pixels>1)&&visible)){
-        visible = false;
-        setState((){});
-      }
-    });
     Map<String, dynamic> tempMap;
     SplayTreeMap<String, dynamic> sortedMap;
     if(data!=null){
