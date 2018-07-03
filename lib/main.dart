@@ -1025,8 +1025,10 @@ class ViewOrVoteState extends State<ViewOrVote>{
                           scorePrint+=(i.toString()+", ");
                         }
                         scorePrint = scorePrint.substring(0,scorePrint.length-2);
+                        print(scorePrint);
                         http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json"),body:"["+scorePrint+"]").then((r){
-                          if(SearchPageState.data!=null){
+                          print(scorePrint);
+                          if(SearchPageState.data!=null&&SearchPageState.data[widget.code]!=null){
                             SearchPageState.data[widget.code]["a"] = json.decode("["+scorePrint+"]");
                           }
                           if(widget.oneResponse){
@@ -1042,7 +1044,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                               userPrint = userPrint.substring(0,userPrint.length-2);
                             }
                             http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/i.json"),body:(users!=null?"["+userPrint+"]":"[\""+userId+"\"]")).then((r){
-                              if(SearchPageState.data!=null){
+                              if(SearchPageState.data!=null&&SearchPageState.data[widget.code]!=null){
                                 SearchPageState.data[widget.code]["i"] = json.decode(users!=null?"["+userPrint+"]":"[\""+userId+"\"]");
                               }
                               choice = null;
