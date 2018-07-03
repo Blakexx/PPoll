@@ -953,10 +953,10 @@ class ViewOrVoteState extends State<ViewOrVote>{
             physics: new AlwaysScrollableScrollPhysics(),
             controller: s,
             children: [
-              new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0),textAlign: TextAlign.center),
+              new Padding(padding: EdgeInsets.only(top:2.0),child: new Container(color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0),textAlign: TextAlign.center))),
               new Column(
                 children: widget.vote?(widget.oneChoice?choicesString.map((String key){
-                  return new Padding(padding: EdgeInsets.only(top:4.0),child: new Container(color:Colors.black26,child:new RadioListTile(
+                  return new Padding(padding: EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:2.0),child: new Container(color:Colors.black26,child:new RadioListTile(
                       value: key,
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       groupValue: choice,
@@ -967,7 +967,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       }
                   )));
                 }).toList():checked.keys.map((String key){
-                  return new Padding(padding:EdgeInsets.only(top:4.0),child: new Container(color:Colors.black26,child:new CheckboxListTile(
+                  return new Padding(padding:EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:2.0),child: new Container(color:Colors.black26,child:new CheckboxListTile(
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       value: checked[key],
                       onChanged: (v){
@@ -977,7 +977,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       }
                   )));
                 }).toList()):(widget.oneChoice?choicesString.map((String key){
-                  return new Padding(padding:EdgeInsets.only(top:4.0),child:new Container(color:Colors.black26,child:new ListTile(
+                  return new Padding(padding:EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:2.0),child:new Container(color:Colors.black26,child:new ListTile(
                     title: new Text(key,style:new TextStyle(color:Colors.white)),
                     subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
                       value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[choicesString.indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
@@ -992,7 +992,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                     ))
                   )));
                 }).toList():checked.keys.map((String key){
-                  return new Padding(padding:EdgeInsets.only(top:4.0),child:new Container(color:Colors.black26,child:new ListTile(
+                  return new Padding(padding:EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:2.0),child:new Container(color:Colors.black26,child:new ListTile(
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
                           value: widget.scores.reduce((a,b)=>a+b)!=0?widget.scores[checked.keys.toList().indexOf(key)]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
