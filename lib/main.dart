@@ -387,8 +387,21 @@ class SearchPageState extends State<SearchPage>{
 
   TextEditingController c = new TextEditingController();
 
+  ScrollController s = new ScrollController();
+
+  bool visible = false;
+
   @override
   Widget build(BuildContext context){
+    s.addListener((){
+      if((s.hasClients&&s.position.pixels>1&&!visible)){
+        visible = true;
+        setState((){});
+      }else if((!(s.hasClients&&s.position.pixels>1)&&visible)){
+        visible = false;
+        setState((){});
+      }
+    });
     Map<String, dynamic> tempMap;
     SplayTreeMap<String, dynamic> sortedMap;
     if(data!=null){
@@ -407,6 +420,15 @@ class SearchPageState extends State<SearchPage>{
       });
     }
     return new Scaffold(
+      floatingActionButton: s.hasClients&&s.position.pixels>1?new FloatingActionButton(
+        onPressed: (){
+          visible = false;
+          s.jumpTo(1.0);
+          setState((){});
+        },
+        child: new Icon(Icons.arrow_upward),
+        backgroundColor: Colors.black38,
+      ):new Container(),
       appBar: new AppBar(
           title:data==null||(!inSearch&&!hasSearched)?new Text(
               "Search",style: new TextStyle(color:Colors.white)
@@ -497,7 +519,9 @@ class SearchPageState extends State<SearchPage>{
                 color: Colors.black38
               )));
             },
-            itemCount: sortedMap.length
+            itemCount: sortedMap.length,
+            controller: s,
+            physics: AlwaysScrollableScrollPhysics(),
           ):new CircularProgressIndicator(),
             onRefresh: (){
               Completer c = new Completer<Null>();
