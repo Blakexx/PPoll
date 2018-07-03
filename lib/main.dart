@@ -973,10 +973,12 @@ class ViewOrVoteState extends State<ViewOrVote>{
             physics: new AlwaysScrollableScrollPhysics(),
             controller: s,
             children: [
-              new Padding(padding: EdgeInsets.only(top:2.0),child: new Container(color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0),textAlign: TextAlign.center))),
+              new Container(color:Colors.black54,height:1.0),
+              new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0),textAlign: TextAlign.center)),
+              new Container(color:Colors.black54,height:1.0),
               new Column(
                 children: widget.vote?(widget.oneChoice?choicesString.map((String key){
-                  return new Padding(padding: EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:2.0),child: new Container(color:Colors.black26,child:new RadioListTile(
+                  return new Padding(padding: EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:0.0),child: new Container(color:Colors.black26,child:new RadioListTile(
                       value: key,
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       groupValue: choice,
@@ -987,7 +989,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       }
                   )));
                 }).toList():checked.keys.map((String key){
-                  return new Padding(padding:EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:2.0),child: new Container(color:Colors.black26,child:new CheckboxListTile(
+                  return new Padding(padding:EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:0.0),child: new Container(color:Colors.black26,child:new CheckboxListTile(
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       value: checked[key],
                       onChanged: (v){
@@ -997,7 +999,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       }
                   )));
                 }).toList()):sortedMap.keys.map((String key){
-                  return new Padding(padding:EdgeInsets.only(top:sortedMap.keys.toList().indexOf(key)!=0?4.0:2.0),child:new Container(color:Colors.black26,child:new ListTile(
+                  return new Padding(padding:EdgeInsets.only(top:sortedMap.keys.toList().indexOf(key)!=0?4.0:0.0),child:new Container(color:Colors.black26,child:new ListTile(
                       title: new Text(key,style:new TextStyle(color:Colors.white)),
                       subtitle: new Container(height:15.0,child:new LinearProgressIndicator(
                           value: widget.scores.reduce((a,b)=>a+b)!=0?sortedMap[key]/(1.0*widget.scores.reduce((a,b)=>a+b)):0.0,
