@@ -16,6 +16,7 @@ import 'dart:collection';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 
 int color;
@@ -951,6 +952,9 @@ class ViewOrVoteState extends State<ViewOrVote>{
               SearchPageState.data = map;
               setState((){widget.scores = map[widget.code]["a"];});
               c.complete();
+              _chartKey.currentState.updateData([new CircularStackEntry(widget.choices.map((name){
+                return new CircularSegmentEntry(widget.scores[widget.choices.indexOf(name)]*1.0,new Color(hexToInt(widget.choices.indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
+              }).toList())]);
             });
             return c.future;
           },child: new ListView(
@@ -1080,6 +1084,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
   }
 }
 
+final GlobalKey<AnimatedCircularChartState> _chartKey = new GlobalKey<AnimatedCircularChartState>();
+
 class PieChart extends StatefulWidget{
   List<dynamic> scores;
   List<dynamic> choices;
@@ -1091,8 +1097,40 @@ class PieChart extends StatefulWidget{
 class PieChartState extends State<PieChart>{
   int selectedScore;
   String selectedName;
+
+  int hexToInt(String colorStr)
+  {
+    colorStr = "FF" + colorStr;
+    colorStr = colorStr.replaceAll("#", "");
+    int val = 0;
+    int len = colorStr.length;
+    for (int i = 0; i < len; i++) {
+      int hexDigit = colorStr.codeUnitAt(i);
+      if (hexDigit >= 48 && hexDigit <= 57) {
+        val += (hexDigit - 48) * (1 << (4 * (len - 1 - i)));
+      } else if (hexDigit >= 65 && hexDigit <= 70) {
+        // A..F
+        val += (hexDigit - 55) * (1 << (4 * (len - 1 - i)));
+      } else if (hexDigit >= 97 && hexDigit <= 102) {
+        // a..f
+        val += (hexDigit - 87) * (1 << (4 * (len - 1 - i)));
+      } else {
+        throw new FormatException("An error occurred when converting a color");
+      }
+    }
+    return val;
+  }
+
   @override
   Widget build(BuildContext context){
+    return new AnimatedCircularChart(
+      key: _chartKey,
+      size:new Size(300.0*MediaQuery.of(context).size.width/360.0, 300.0*MediaQuery.of(context).size.width/360.0),
+      chartType: CircularChartType.Pie,
+      initialChartData: [new CircularStackEntry(widget.choices.map((name){
+        return new CircularSegmentEntry(widget.scores[widget.choices.indexOf(name)]*1.0,new Color(hexToInt(widget.choices.indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[widget.choices.indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
+      }).toList())]
+    );
     return new Container(
       color: Colors.blueGrey,
       width: 300.0*MediaQuery.of(context).size.width/360.0,
