@@ -974,7 +974,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
             controller: s,
             children: [
               new Container(color:Colors.black54,height:1.0),
-              new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0),textAlign: TextAlign.center)),
+              new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0),textAlign: TextAlign.center)),
               new Container(color:Colors.black54,height:1.0),
               new Column(
                 children: widget.vote?(widget.oneChoice?choicesString.map((String key){
