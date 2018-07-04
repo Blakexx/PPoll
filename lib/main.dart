@@ -523,7 +523,7 @@ class SearchPageState extends State<SearchPage>{
                 child: new ListTile(
                   leading: new Container(
                     width:40.0,
-                    child: new Text(sortedMap.keys.toList()[i],style: new TextStyle(color:Colors.white))
+                    child: new FittedBox(fit: BoxFit.scaleDown,alignment: Alignment.centerLeft,child: new Text(sortedMap.keys.toList()[i],style: new TextStyle(color:Colors.white)))
                   ),
                   title: new Text(sortedMap[sortedMap.keys.toList()[i]]["q"],style: new TextStyle(color:Colors.white),maxLines: 2,overflow: TextOverflow.ellipsis),
                   trailing: new Text(sortedMap[sortedMap.keys.toList()[i]]["a"].reduce((n1,n2)=>n1+n2).toString(),style: new TextStyle(color:Colors.white))
@@ -1008,7 +1008,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       )),
                       trailing: new Container(width:35.0,child:new Column(
                           children: [
-                            new Text(sortedMap[key].toString(),style:new TextStyle(color:Colors.white)),
+                            new FittedBox(fit: BoxFit.scaleDown,alignment: Alignment.center,child:new Text(sortedMap[key].toString(),style:new TextStyle(color:Colors.white))),
                             new Text((widget.scores.reduce((a,b)=>a+b)!=0?(sortedMap[key]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%",style:new TextStyle(color:Colors.white))
                           ]
                       ))
