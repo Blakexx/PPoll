@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="976" column="218" lean-forward="false" selection-start-line="976" selection-start-column="218" selection-end-line="976" selection-end-column="218" />
+            <state relative-caret-position="82">
+              <caret line="829" column="45" lean-forward="false" selection-start-line="829" selection-start-column="45" selection-end-line="829" selection-end-column="45" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -46,7 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SplayTre</find>
       <find>sorteda</find>
       <find>sortedMap</find>
       <find>o1.compareTo(</find>
@@ -76,6 +75,7 @@
       <find>Create a p</find>
       <find>&quot;View&quot;</find>
       <find>ViewOrVoteSt</find>
+      <find>Are you sure</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -714,8 +714,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="976" column="218" lean-forward="false" selection-start-line="976" selection-start-column="218" selection-end-line="976" selection-end-column="218" />
+        <state relative-caret-position="82">
+          <caret line="829" column="45" lean-forward="false" selection-start-line="829" selection-start-column="45" selection-end-line="829" selection-end-column="45" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

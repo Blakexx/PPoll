@@ -827,12 +827,12 @@ class CreatePollState extends State<CreatePoll>{
     onWillPop: (){
       bool hasEnteredChoices = false;
       for(int i = 0; i<choices.length;i++){
-        if(choices[i]!=null){
+        if(choices[i]!=null&&choices[i]!=""){
           hasEnteredChoices = true;
           break;
         }
       }
-      if(question!=null||hasEnteredChoices){
+      if((question!=null&&question!="")||hasEnteredChoices){
         showDialog(
             context: context,
             barrierDismissible: true,
