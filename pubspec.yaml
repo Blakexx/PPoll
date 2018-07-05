@@ -20,6 +20,13 @@ dependencies:
       git:
         url: git://github.com/Norbert515/dynamic_theme.git
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "icon/platypus.png"
+  image_path_android: "icon/platypus2.png"
+  image_path_ios: "icon/platypus.png"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
