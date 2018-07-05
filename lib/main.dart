@@ -18,6 +18,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'key.dart';
 
 int color;
 
@@ -50,7 +51,7 @@ void main(){
   settings.readData().then((list) async{
     if(list==null){
       Map<String,dynamic> users;
-      await http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users.json")).then((r){
+      await http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users.json?auth="+secretKey)).then((r){
         users = json.decode(r.body);
       });
       do{
@@ -64,7 +65,7 @@ void main(){
       if(users==null){
         users = new Map<String,dynamic>();
       }
-      http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users/"+userId+".json"),body:"0").then((r){
+      http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users/"+userId+".json?auth="+secretKey),body:"0").then((r){
         color = 16;
         settings.writeData("16 "+userId).then((f){
           runApp(new DynamicTheme(
@@ -229,7 +230,7 @@ class HomePageState extends State<HomePage>{
                               }
                           );
                         }
-                        http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json")).then((r){
+                        http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json?auth="+secretKey)).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
                             Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0",map["i"]!=null&&map["i"].contains(userId))));
@@ -280,7 +281,7 @@ class HomePageState extends State<HomePage>{
                               }
                           );
                         }
-                        http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json")).then((r){
+                        http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json?auth="+secretKey)).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
                             if(map["b"].toString().substring(2,3) == "0") {
@@ -387,7 +388,7 @@ class SearchPageState extends State<SearchPage>{
         setState((){});
       }
     });
-    http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json"))).then((r){
+    http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json?auth="+secretKey))).then((r){
       setState((){data = json.decode(r.body);});
     });
   }
@@ -537,7 +538,7 @@ class SearchPageState extends State<SearchPage>{
           ):new CircularProgressIndicator(),
             onRefresh: (){
               Completer c = new Completer<Null>();
-              http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json"))).then((r){
+              http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json?auth="+secretKey))).then((r){
                 data = json.decode(r.body);
                 tempMap.clear();
                 tempMap.addAll(data);
@@ -746,7 +747,7 @@ class CreatePollState extends State<CreatePoll>{
                         String key = "";
                         Random r = new Random();
                         Map<String,dynamic> usedMap;
-                        await http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json"))).then((r){
+                        await http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json?auth="+secretKey))).then((r){
                           usedMap = json.decode(r.body);
                         });
                         do{
@@ -764,7 +765,7 @@ class CreatePollState extends State<CreatePoll>{
                         }
                         listPrint = listPrint.substring(0,listPrint.length-2);
                         String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
-                        http.put("https://ppoll-polls.firebaseio.com/data/"+key+".json",body:serverData).then((r){
+                        http.put("https://ppoll-polls.firebaseio.com/data/"+key+".json?auth="+secretKey,body:serverData).then((r){
                           setState((){isConnecting = false;});
                           Navigator.push(context,new MaterialPageRoute(builder: (context) => new WillPopScope(onWillPop:(){return new Future<bool>(()=>Navigator.of(context).pop(true));},child: new Scaffold(
                             appBar: new AppBar(title:new Text("Success",style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
@@ -956,7 +957,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
         child: new Center(
           child: new RefreshIndicator(onRefresh: (){
             Completer c = new Completer<Null>();
-            http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json")).then((r){
+            http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json?auth="+secretKey)).then((r){
               Map<String, dynamic> map = json.decode(r.body);
               SearchPageState.data = map;
               widget.scores = map[widget.code]["a"];
@@ -1021,7 +1022,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   onPressed: (){
                     if((widget.oneChoice&&choice!=null) || !widget.oneChoice){
                       Map<String,dynamic> map;
-                      http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+".json")).then((r){
+                      http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+".json?auth="+secretKey)).then((r){
                         map = json.decode(r.body);
                         for(int i = 0; i<widget.scores.length;i++){
                           widget.scores[i] = widget.oneChoice?map["a"][i]+(i==choicesString.indexOf(choice)?1:0):map["a"][i]+(checked.values.toList()[i]?1:0);
@@ -1031,7 +1032,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                           scorePrint+=(i.toString()+", ");
                         }
                         scorePrint = scorePrint.substring(0,scorePrint.length-2);
-                        http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json"),body:"["+scorePrint+"]").then((r){
+                        http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json?auth="+secretKey),body:"["+scorePrint+"]").then((r){
                           if(SearchPageState.data!=null&&SearchPageState.data[widget.code]!=null){
                             SearchPageState.data[widget.code]["a"] = json.decode("["+scorePrint+"]");
                           }
@@ -1047,7 +1048,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                               }
                               userPrint = userPrint.substring(0,userPrint.length-2);
                             }
-                            http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/i.json"),body:(users!=null?"["+userPrint+"]":"[\""+userId+"\"]")).then((r){
+                            http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/i.json?auth="+secretKey),body:(users!=null?"["+userPrint+"]":"[\""+userId+"\"]")).then((r){
                               if(SearchPageState.data!=null&&SearchPageState.data[widget.code]!=null){
                                 SearchPageState.data[widget.code]["i"] = json.decode(users!=null?"["+userPrint+"]":"[\""+userId+"\"]");
                               }
