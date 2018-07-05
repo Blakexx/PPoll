@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -24,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="28" column="21" lean-forward="true" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+            <state relative-caret-position="147">
+              <caret line="775" column="78" lean-forward="true" selection-start-line="775" selection-start-column="78" selection-end-line="775" selection-end-column="78" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -37,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/lib/key.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+              <caret line="0" column="33" lean-forward="false" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -64,9 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>onRef</find>
-      <find>widget.scores</find>
-      <find>PieCh</find>
       <find>ViewOrVot</find>
       <find>SearchPageState.data[widget.code]</find>
       <find>Submit</find>
@@ -91,9 +87,12 @@
       <find>.json</find>
       <find>print(r.</find>
       <find>auth</find>
-      <find>JMfqzOfDJXJSD8P5JnXAq6jD7WX2BP5wTc9ACBa7</find>
       <find>SearchPageState</find>
       <find>[900</find>
+      <find>JMfqzOfDJXJSD8P5JnXAq6jD7WX2BP5wTc9ACBa7</find>
+      <find>with the</find>
+      <find>.scale</find>
+      <find>with the</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -760,15 +759,15 @@
     <entry file="file://$PROJECT_DIR$/lib/key.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+          <caret line="0" column="33" lean-forward="false" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="28" column="21" lean-forward="true" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+        <state relative-caret-position="147">
+          <caret line="775" column="78" lean-forward="true" selection-start-line="775" selection-start-column="78" selection-end-line="775" selection-end-column="78" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

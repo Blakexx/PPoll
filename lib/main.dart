@@ -776,7 +776,7 @@ class CreatePollState extends State<CreatePoll>{
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     new Text("Your poll has been created with the code",style:new TextStyle(fontSize:15.0*MediaQuery.of(context).size.width/360.0)),
-                                    new Text(key,style:new TextStyle(fontSize:110.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold))
+                                    new FittedBox(fit:BoxFit.scaleDown,child:new Text(key,style:new TextStyle(fontSize:130.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold)))
                                   ]
                                 )
                               )
