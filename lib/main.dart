@@ -933,6 +933,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
 
   List<String> choicesString = new List<String>();
 
+  bool isLeaving = false;
+
   @override
   void initState(){
     super.initState();
@@ -947,6 +949,29 @@ class ViewOrVoteState extends State<ViewOrVote>{
         choicesString.add(widget.choices[i].toString());
       }
     }
+    //http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json?auth="+secretKey),headers:{"Accept":"text/event-stream"}).asStream().listen((r)=>print(r.body));
+    liveUpdate(){
+      if(!isLeaving){
+        http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json?auth="+secretKey)).then((r){
+          List response = json.decode(r.body);
+          if(response.reduce((o1,o2)=>o1+o2)!=widget.scores.reduce((o1,o2)=>o1+o2)){
+            SearchPageState.data[widget.code]["a"] = response;
+            widget.scores = response;
+            ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
+            sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
+            chart.scores = widget.scores;
+            setState((){});
+            if(_chartKey.currentState!=null){
+              _chartKey.currentState.updateData(widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(sortedMap.keys.map((name){
+                return new CircularSegmentEntry(ultraTempMap[name]*1.0,new Color(hexToInt(ultraTempMap.keys.toList().indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
+              }).toList())]:[]);
+            }
+          }
+        });
+        new Timer(new Duration(seconds:2),liveUpdate);
+      }
+    }
+    //liveUpdate();
   }
 
   int hexToInt(String colorStr)
@@ -978,12 +1003,14 @@ class ViewOrVoteState extends State<ViewOrVote>{
 
   SplayTreeMap<String,int> sortedMap;
 
+  PieChart chart;
+
   @override
   Widget build(BuildContext context){
-    PieChart chart = new PieChart(widget.scores,widget.choices);
+    chart = new PieChart(widget.scores,widget.choices);
     ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
     sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
-    return new Scaffold(
+    return new WillPopScope(child:new Scaffold(
       appBar: new AppBar(title:new Text(widget.code,style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54, actions: [
         !widget.hasVoted&&!widget.vote?new FlatButton(
           color: Colors.black38,
@@ -1122,7 +1149,11 @@ class ViewOrVoteState extends State<ViewOrVote>{
           ))
         )
       )
-    );
+    ),
+    onWillPop: (){
+      isLeaving = true;
+      return new Future<bool>(()=>true);
+    });
   }
 }
 
