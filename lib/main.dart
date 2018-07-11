@@ -935,6 +935,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
 
   bool isLeaving = false;
 
+  HttpClient client = new HttpClient();
+
   @override
   void initState(){
     super.initState();
@@ -949,7 +951,35 @@ class ViewOrVoteState extends State<ViewOrVote>{
         choicesString.add(widget.choices[i].toString());
       }
     }
-    //http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json?auth="+secretKey),headers:{"Accept":"text/event-stream"}).asStream().listen((r)=>print(r.body));
+    client.openUrl("GET", Uri.parse("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json?auth="+secretKey)).then((req){
+      req.headers.set("Accept", "text/event-stream");
+      req.followRedirects = true;
+      req.close().then((response){
+        if(response.statusCode == 200) {
+          response.map((bytes) => new String.fromCharCodes(bytes)).listen((text) {
+            List list = text.replaceAll("\n"," ").split(" ");
+            if(list[1]=="put"){
+              Map<String,dynamic> map = json.decode(list[3]);
+              if(map["path"]!="/"){
+                int changed = map["data"];
+                SearchPageState.data[widget.code]["a"][int.parse(map["path"].substring(1,map["path"].length))] = changed;
+                widget.scores[int.parse(map["path"].substring(1,map["path"].length))] = changed;
+                ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
+                sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
+                chart.scores = widget.scores;
+                setState((){});
+                if(_chartKey.currentState!=null){
+                  _chartKey.currentState.updateData(widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(sortedMap.keys.map((name){
+                    return new CircularSegmentEntry(ultraTempMap[name]*1.0,new Color(hexToInt(ultraTempMap.keys.toList().indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
+                  }).toList())]:[]);
+                }
+              }
+            }
+          });
+        }
+      });
+    });
+    /*
     liveUpdate(){
       if(!isLeaving){
         http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json?auth="+secretKey)).then((r){
@@ -971,7 +1001,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
         new Timer(new Duration(seconds:2),liveUpdate);
       }
     }
-    //liveUpdate();
+    liveUpdate();
+    */
   }
 
   int hexToInt(String colorStr)
@@ -1023,7 +1054,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
       ]),
       body: new Container(
         child: new Center(
-          child: new RefreshIndicator(onRefresh: (){
+          child: /*new RefreshIndicator(onRefresh: (){
             Completer c = new Completer<Null>();
             http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json?auth="+secretKey)).then((r){
               Map<String, dynamic> map = json.decode(r.body);
@@ -1040,7 +1071,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
               setState((){c.complete();});
             });
             return c.future;
-          },child: new ListView(
+          },child:*/ new ListView(
             physics: new AlwaysScrollableScrollPhysics(),
             controller: s,
             children: [
@@ -1146,12 +1177,13 @@ class ViewOrVoteState extends State<ViewOrVote>{
               )):new Container(),
               !widget.vote?chart:new Container(height:20.0)
             ]
-          ))
+          )/*)*/
         )
       )
     ),
     onWillPop: (){
       isLeaving = true;
+      client.close(force:true);
       return new Future<bool>(()=>true);
     });
   }
