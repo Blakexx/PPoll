@@ -648,7 +648,7 @@ class CreatePollState extends State<CreatePoll>{
     list.add(new Container(height: 50.0,padding: EdgeInsets.only(left:24.0,right:24.0),child: new RaisedButton(
         child: new ListTile(
             leading: new Icon(Icons.add,color:Colors.white),
-            title: new Text("Add",style: new TextStyle(color:Colors.white),textAlign: TextAlign.center)
+            title: new Text("Add",style: new TextStyle(color:Colors.white),textAlign: TextAlign.start)
         ),
         onPressed: (){
           if(!isRemoving){
