@@ -45,9 +45,16 @@ List<Color> colors = [
 
 SettingsInfo settings = new SettingsInfo();
 
+CreatedInfo createdInfo = new CreatedInfo();
+
+List<String> createdPolls;
+
 String userId;
 
 void main(){
+  createdInfo.readData().then((r){
+    createdPolls = r!=null?r:new List<String>();
+  });
   settings.readData().then((list) async{
     if(list==null){
       Map<String,dynamic> users;
@@ -96,6 +103,7 @@ void main(){
     }
   });
 }
+
 
 class HomePage extends StatefulWidget{
   @override
@@ -159,7 +167,7 @@ class HomePageState extends State<HomePage>{
             new IconButton(
               icon: new Icon(Icons.search),
               onPressed: (){
-                Navigator.push(context,new MaterialPageRoute(builder: (context) => new SearchPage()));
+                Navigator.push(context,new MaterialPageRoute(builder: (context) => new SearchPage(false)));
               }
             )
           ],
@@ -179,6 +187,14 @@ class HomePageState extends State<HomePage>{
                     Navigator.push(context,new MaterialPageRoute(builder: (context) => new CreatePoll()));
                   },
                 )),
+                new Container(height: 40.0*MediaQuery.of(context).size.width/375.0,width:150.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
+                  child: new Text("Created Polls",style: new TextStyle(fontSize:15.0*MediaQuery.of(context).size.width/360.0,color:Colors.white70)),
+                  onPressed: (){
+                    Navigator.push(context,new MaterialPageRoute(builder: (context) => new SearchPage(true)));
+                  },
+                  color: Colors.black26
+                )),
                 new Container(),new Container(),
                 new Container(width: 120.0,child: new Center(child: new TextField(
                   style: new TextStyle(fontSize: 25.0,color:Colors.black),
@@ -188,8 +204,7 @@ class HomePageState extends State<HomePage>{
                   decoration: InputDecoration(
                     hintText: 'Code',
                     filled: true,
-                    fillColor: Colors.white,
-                    border: InputBorder.none
+                    fillColor: Colors.white24
                   ),
                   onChanged: (s){
                     if(s.length<=4){
@@ -369,6 +384,10 @@ class ColorSelection extends StatelessWidget{
 }
 
 class SearchPage extends StatefulWidget{
+  bool onlyCreated;
+
+  SearchPage(this.onlyCreated);
+
   @override
   SearchPageState createState() => new SearchPageState();
 }
@@ -415,15 +434,19 @@ class SearchPageState extends State<SearchPage>{
       tempMap = new Map<String,dynamic>();
       tempMap.addAll(data);
       tempMap.removeWhere((key,value){
-        return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
+        return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated?(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0"):false));
       });
       sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
-        if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
-          return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
-        }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
-          return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+        if(!widget.onlyCreated){
+          if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+            return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+          }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+            return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+          }
+          return o1.compareTo(o2);
+        }else{
+          return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
         }
-        return o1.compareTo(o2);
       });
     }
     return new Scaffold(
@@ -438,7 +461,7 @@ class SearchPageState extends State<SearchPage>{
       ):new Container(),
       appBar: new AppBar(
           title:data==null||(!inSearch&&!hasSearched)?new Text(
-              "Search",style: new TextStyle(color:Colors.white)
+              !widget.onlyCreated?"Search":"Created",style: new TextStyle(color:Colors.white)
           ):new TextField(
             style: new TextStyle(fontSize:20.0,color: Colors.white),
             controller: c,
@@ -458,15 +481,19 @@ class SearchPageState extends State<SearchPage>{
               tempMap.clear();
               tempMap.addAll(data);
               tempMap.removeWhere((key,value){
-                return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
+                return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated?(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0"):false));
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
-                if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
-                  return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
-                }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
-                  return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+                if(!widget.onlyCreated){
+                  if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                    return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                  }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+                    return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+                  }
+                  return o1.compareTo(o2);
+                }else{
+                  return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
                 }
-                return o1.compareTo(o2);
               });
               visible = false;
               this.s.jumpTo(1.0);
@@ -483,15 +510,19 @@ class SearchPageState extends State<SearchPage>{
               tempMap.clear();
               tempMap.addAll(data);
               tempMap.removeWhere((key,value){
-                return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
+                return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated?(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0"):false));
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
-                if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
-                  return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
-                }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
-                  return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+                if(!widget.onlyCreated){
+                  if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                    return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                  }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+                    return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+                  }
+                  return o1.compareTo(o2);
+                }else{
+                  return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
                 }
-                return o1.compareTo(o2);
               });
               visible = false;
               this.s.jumpTo(1.0);
@@ -543,15 +574,19 @@ class SearchPageState extends State<SearchPage>{
                 tempMap.clear();
                 tempMap.addAll(data);
                 tempMap.removeWhere((key,value){
-                  return !(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0");
+                  return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated?(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0"):false));
                 });
                 sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
-                  if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
-                    return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
-                  }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
-                    return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+                  if(!widget.onlyCreated){
+                    if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                      return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                    }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+                      return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+                    }
+                    return o1.compareTo(o2);
+                  }else{
+                    return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
                   }
-                  return o1.compareTo(o2);
                 });
                 setState((){c.complete();});
               });
@@ -613,7 +648,7 @@ class CreatePollState extends State<CreatePoll>{
     list.add(new Container(height: 50.0,padding: EdgeInsets.only(left:24.0,right:24.0),child: new RaisedButton(
         child: new ListTile(
             leading: new Icon(Icons.add,color:Colors.white),
-            title: new Text("Add",style: new TextStyle(color:Colors.white))
+            title: new Text("Add",style: new TextStyle(color:Colors.white),textAlign: TextAlign.center)
         ),
         onPressed: (){
           if(!isRemoving){
@@ -767,6 +802,12 @@ class CreatePollState extends State<CreatePoll>{
                         String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
                         http.put("https://ppoll-polls.firebaseio.com/data/"+key+".json?auth="+secretKey,body:serverData).then((r){
                           setState((){isConnecting = false;});
+                          createdPolls.add(key);
+                          String write = "";
+                          for(String s in createdPolls){
+                            write+=(s+" ");
+                          }
+                          createdInfo.writeData(write.substring(0,write.length-1));
                           Navigator.push(context,new MaterialPageRoute(builder: (context) => new WillPopScope(onWillPop:(){return new Future<bool>(()=>Navigator.of(context).pop(true));},child: new Scaffold(
                             appBar: new AppBar(title:new Text("Success",style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
                             body:new Container(
@@ -977,7 +1018,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
             controller: s,
             children: [
               new Container(color:Colors.black54,height:1.0),
-              new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0),textAlign: TextAlign.center)),
+              new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center)),
               new Container(color:Colors.black54,height:1.0),
               new Column(
                 children: widget.vote?(widget.oneChoice?choicesString.map((String key){
@@ -1187,11 +1228,11 @@ class OptionState extends State<Option>{
       new Expanded(child: new TextField(
         focusNode: f,
         decoration: new InputDecoration(
-        hintText: 'Option '+(widget.position+1).toString(),
-        filled: true,
-        fillColor: Colors.white30,
-        border: InputBorder.none,
-        counterText: "",
+          hintText: 'Option '+(widget.position+1).toString(),
+          filled: true,
+          fillColor: Colors.white30,
+          border: InputBorder.none,
+          counterText: ""
         ),
         onChanged: (s){
           if(s.length<=50){
@@ -1206,6 +1247,7 @@ class OptionState extends State<Option>{
       ))])));
   }
 }
+
 
 class Settings extends StatefulWidget{
   @override
@@ -1251,6 +1293,38 @@ class SettingsInfo{
       if(contents.split(" ").length!=2){
         return null;
       }
+
+      List<String> list = contents.split(" ");
+
+      return list;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<File> writeData(String data) async {
+    final file = await _localFile;
+    return file.writeAsString(data);
+  }
+
+}
+
+class CreatedInfo{
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final path = await _localPath;
+    return new File('$path/createdinfo.txt');
+  }
+
+  Future<List<String>> readData() async {
+    try {
+      final file = await _localFile;
+      String contents = await file.readAsString();
 
       List<String> list = contents.split(" ");
 
