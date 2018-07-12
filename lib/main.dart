@@ -1079,6 +1079,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
     */
   }
 
+  bool isVoting = false;
+
   @override
   Widget build(BuildContext context){
     chart = new PieChart(widget.scores,widget.choices);
@@ -1165,6 +1167,28 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
                   onPressed: (){
                     if((widget.oneChoice&&choice!=null) || !widget.oneChoice){
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (context){
+                            wait(){
+                              if(!isVoting){
+                                Navigator.of(context).pop();
+                              }else{
+                                new Timer(Duration.zero,wait);
+                              }
+                            }
+                            wait();
+                            return new AlertDialog(
+                                title:new Text("Loading"),
+                                content: new LinearProgressIndicator(),
+                                actions: []
+                            );
+                          }
+                      );
+                      setState((){
+                        isVoting = true;
+                      });
                       Map<String,dynamic> map;
                       http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+".json?auth="+secretKey)).then((r){
                         map = json.decode(r.body);
@@ -1201,7 +1225,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                                 checked.forEach((key,b)=>checked[key]=false);
                               }
                               s.jumpTo(1.0);
-                              setState((){widget.hasVoted=true;widget.vote=false;});
+                              setState((){isVoting = false;widget.hasVoted=true;widget.vote=false;});
                             });
                           }else{
                             choice = null;
@@ -1209,7 +1233,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                               checked.forEach((key,b)=>checked[key]=false);
                             }
                             s.jumpTo(1.0);
-                            setState((){widget.vote=false;});
+                            setState((){isVoting = false;widget.vote=false;});
                           }
                         });
                       });
