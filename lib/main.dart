@@ -252,7 +252,7 @@ class HomePageState extends State<HomePage>{
                         http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
-                            Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0",map["i"]!=null&&map["i"].contains(userId))));
+                            Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"][1]==0,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
                           }else{
                             showDialog(
                                 context: context,
@@ -303,9 +303,9 @@ class HomePageState extends State<HomePage>{
                         http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
-                            if(map["b"].toString().substring(2,3) == "0") {
+                            if(map["b"][1]==0) {
                               if (map["i"]==null||!map["i"].contains(userId)) {
-                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],true,map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0",map["i"]!=null&&map["i"].contains(userId))));
+                                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],true,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
                               }else {
                                 showDialog(
                                     context: context,
@@ -327,7 +327,7 @@ class HomePageState extends State<HomePage>{
                                 );
                               }
                             }else{
-                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],false,map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0",map["i"]!=null&&map["i"].contains(userId))));
+                              Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],false,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
                             }
                           }else{
                             showDialog(
@@ -438,7 +438,7 @@ class SearchPageState extends State<SearchPage>{
       tempMap = new Map<String,dynamic>();
       tempMap.addAll(data);
       tempMap.removeWhere((key,value){
-        return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0")));
+        return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"])[2]==0)));
       });
       sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
         if(!widget.onlyCreated){
@@ -485,7 +485,7 @@ class SearchPageState extends State<SearchPage>{
               tempMap.clear();
               tempMap.addAll(data);
               tempMap.removeWhere((key,value){
-                return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0")));
+                return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"])[2]==0)));
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                 if(!widget.onlyCreated){
@@ -514,7 +514,7 @@ class SearchPageState extends State<SearchPage>{
               tempMap.clear();
               tempMap.addAll(data);
               tempMap.removeWhere((key,value){
-                return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0")));
+                return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"])[2]==0)));
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                 if(!widget.onlyCreated){
@@ -554,7 +554,7 @@ class SearchPageState extends State<SearchPage>{
             itemBuilder: (context,i){
               return new Padding(padding: EdgeInsets.only(top:5.0),child:new GestureDetector(onTapUp: (t){
                 Map<String,dynamic> map = sortedMap[sortedMap.keys.toList()[i]];
-                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(sortedMap.keys.toList()[i],false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0",map["i"]!=null&&map["i"].contains(userId))));
+                Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(sortedMap.keys.toList()[i],false,map["q"],map["c"],map["b"][1]==0,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
               },child:new Container(
                 child: new ListTile(
                   leading: new Container(
@@ -578,7 +578,7 @@ class SearchPageState extends State<SearchPage>{
                 tempMap.clear();
                 tempMap.addAll(data);
                 tempMap.removeWhere((key,value){
-                  return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"] as String).substring(4,5)=="0")));
+                  return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"])[2]==0)));
                 });
                 sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                   if(!widget.onlyCreated){
@@ -803,7 +803,7 @@ class CreatePollState extends State<CreatePoll>{
                           listPrint+="\""+s+"\", ";
                         }
                         listPrint = listPrint.substring(0,listPrint.length-2);
-                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
+                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
                         http.put(database+"/data/"+key+".json?auth="+secretKey,body:serverData).then((r){
                           setState((){isConnecting = false;});
                           createdPolls.add(key);
