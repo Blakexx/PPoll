@@ -54,8 +54,7 @@ String userId;
 
 void main(){
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
+    DeviceOrientation.portraitUp
   ]);
   createdInfo.readData().then((r){
     createdPolls = r!=null?r:new List<String>();
