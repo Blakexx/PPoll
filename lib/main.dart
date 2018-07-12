@@ -125,7 +125,7 @@ class HomePageState extends State<HomePage>{
   @override
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: !f.hasFocus?new AppBar(
+      appBar: (MediaQuery.of(context).viewInsets.bottom==0.0)?new AppBar(
           backgroundColor: Colors.transparent,
           leading: new IconButton(
               icon: new Icon(Icons.palette),
@@ -183,18 +183,20 @@ class HomePageState extends State<HomePage>{
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // ignore: conflicting_dart_import
-                !f.hasFocus?new Text("PPoll",style: new TextStyle(fontSize:80.0*MediaQuery.of(context).size.width/375.0,fontWeight: FontWeight.w100)):new Container(),
+                (MediaQuery.of(context).viewInsets.bottom==0.0)?new Text("PPoll",style: new TextStyle(fontSize:80.0*MediaQuery.of(context).size.width/375.0,fontWeight: FontWeight.w100)):new Container(),
                 new Container(height: 75.0*MediaQuery.of(context).size.width/375.0,width:250.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
                   child: new Text("Create a Poll",style: new TextStyle(fontSize:30.0*MediaQuery.of(context).size.width/360.0,color:Colors.white70)),
                   onPressed: (){
+                    f.unfocus();
                     Navigator.push(context,new MaterialPageRoute(builder: (context) => new CreatePoll()));
-                  },      
+                  },
                 )),
                 new Container(height: 35.0*MediaQuery.of(context).size.width/375.0,width:170.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
                   child: new Text("My Created Polls",style: new TextStyle(fontSize:15.0*MediaQuery.of(context).size.width/360.0,color:Colors.white70)),
                   onPressed: (){
+                    f.unfocus();
                     Navigator.push(context,new MaterialPageRoute(builder: (context) => new SearchPage(true)));
                   },
                   color: Colors.black26
@@ -252,6 +254,7 @@ class HomePageState extends State<HomePage>{
                         http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
+                            f.unfocus();
                             Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"][1]==0,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
                           }else{
                             showDialog(
@@ -305,6 +308,7 @@ class HomePageState extends State<HomePage>{
                           if(r.body!="null") {
                             if(map["b"][1]==0) {
                               if (map["i"]==null||!map["i"].contains(userId)) {
+                                f.unfocus();
                                 Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],true,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
                               }else {
                                 showDialog(
@@ -327,6 +331,7 @@ class HomePageState extends State<HomePage>{
                                 );
                               }
                             }else{
+                              f.unfocus();
                               Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],false,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
                             }
                           }else{
