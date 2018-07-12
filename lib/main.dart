@@ -1180,9 +1180,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
                             }
                             wait();
                             return new AlertDialog(
-                                title:new Text("Loading"),
-                                content: new LinearProgressIndicator(),
-                                actions: []
+                                title: new Text("Loading"),
+                                content: new LinearProgressIndicator()
                             );
                           }
                       );
