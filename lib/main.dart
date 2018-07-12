@@ -19,6 +19,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'key.dart';
+import 'package:collection/collection.dart';
 
 int color;
 
@@ -964,6 +965,19 @@ class ViewOrVoteState extends State<ViewOrVote>{
                 int changed = map["data"];
                 SearchPageState.data[widget.code]["a"][int.parse(map["path"].substring(1,map["path"].length))] = changed;
                 widget.scores[int.parse(map["path"].substring(1,map["path"].length))] = changed;
+                ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
+                sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
+                chart.scores = widget.scores;
+                setState((){});
+                if(_chartKey.currentState!=null){
+                  _chartKey.currentState.updateData(widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(sortedMap.keys.map((name){
+                    return new CircularSegmentEntry(ultraTempMap[name]*1.0,new Color(hexToInt(ultraTempMap.keys.toList().indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
+                  }).toList())]:[]);
+                }
+              }else if(!ListEquality().equals(map["data"],widget.scores)){
+                List changed = map["data"];
+                SearchPageState.data[widget.code]["a"] = changed;
+                widget.scores = changed;
                 ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
                 sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
                 chart.scores = widget.scores;
