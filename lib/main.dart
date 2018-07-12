@@ -83,6 +83,7 @@ void main(){
             themedWidgetBuilder: (context, theme){
               return new MaterialApp(
                   theme: theme,
+                  debugShowCheckedModeBanner: false,
                   home: new HomePage()
               );
             },
@@ -98,6 +99,7 @@ void main(){
         themedWidgetBuilder: (context, theme){
           return new MaterialApp(
             theme: theme,
+            debugShowCheckedModeBanner: false,
             home: new HomePage()
           );
         },
