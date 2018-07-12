@@ -125,7 +125,7 @@ class HomePageState extends State<HomePage>{
   @override
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: (MediaQuery.of(context).viewInsets.bottom==0.0)?new AppBar(
+      appBar: !f.hasFocus?new AppBar(
           backgroundColor: Colors.transparent,
           leading: new IconButton(
               icon: new Icon(Icons.palette),
@@ -183,7 +183,7 @@ class HomePageState extends State<HomePage>{
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // ignore: conflicting_dart_import
-                (MediaQuery.of(context).viewInsets.bottom==0.0)?new Text("PPoll",style: new TextStyle(fontSize:80.0*MediaQuery.of(context).size.width/375.0,fontWeight: FontWeight.w100)):new Container(),
+                !f.hasFocus?new Text("PPoll",style: new TextStyle(fontSize:80.0*MediaQuery.of(context).size.width/375.0,fontWeight: FontWeight.w100)):new Container(),
                 new Container(height: 75.0*MediaQuery.of(context).size.width/375.0,width:250.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
                   child: new Text("Create a Poll",style: new TextStyle(fontSize:30.0*MediaQuery.of(context).size.width/360.0,color:Colors.white70)),
