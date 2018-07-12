@@ -191,7 +191,7 @@ class HomePageState extends State<HomePage>{
                     Navigator.push(context,new MaterialPageRoute(builder: (context) => new CreatePoll()));
                   },
                 )),
-                new Container(height: 40.0*MediaQuery.of(context).size.width/375.0,width:170.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
+                new Container(height: 35.0*MediaQuery.of(context).size.width/375.0,width:170.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
                   child: new Text("My Created Polls",style: new TextStyle(fontSize:15.0*MediaQuery.of(context).size.width/360.0,color:Colors.white70)),
                   onPressed: (){
@@ -200,8 +200,8 @@ class HomePageState extends State<HomePage>{
                   color: Colors.black26
                 )),
                 new Container(),new Container(),
-                new Container(width: 120.0,child: new Center(child: new TextField(
-                  style: new TextStyle(fontSize: 25.0,color:Colors.black),
+                new Container(width: 120.0*MediaQuery.of(context).size.width/360,child: new Center(child: new TextField(
+                  style: new TextStyle(fontSize: 25.0*MediaQuery.of(context).size.width/360,color:Colors.black),
                   controller: c,
                   textAlign: TextAlign.center,
                   autocorrect: false,
@@ -225,9 +225,9 @@ class HomePageState extends State<HomePage>{
                 new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    new Container(height: 50.0,width: 100.0,child: new RaisedButton(
+                    new Container(height: 50.0*MediaQuery.of(context).size.width/360,width: 100.0*MediaQuery.of(context).size.width/360,child: new RaisedButton(
                       shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
-                      child: new Text("View",style: new TextStyle(fontSize: 20.0,color:Colors.white70)),
+                      child: new Text("View",style: new TextStyle(fontSize: 20.0*MediaQuery.of(context).size.width/360,color:Colors.white70)),
                       onPressed: (){
                         if(input==null||input.length<4){
                           return showDialog(
@@ -276,8 +276,8 @@ class HomePageState extends State<HomePage>{
                         });
                       }
                     )),
-                    new Container(height: 50.0, width: 100.0,child: new RaisedButton(
-                      child: new Text("Vote",style: new TextStyle(fontSize: 20.0,color:Colors.white70)),
+                    new Container(height: 50.0*MediaQuery.of(context).size.width/360, width: 100.0*MediaQuery.of(context).size.width/360,child: new RaisedButton(
+                      child: new Text("Vote",style: new TextStyle(fontSize: 20.0*MediaQuery.of(context).size.width/360,color:Colors.white70)),
                       shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
                       onPressed: (){
                         if(input==null||input.length<4){
