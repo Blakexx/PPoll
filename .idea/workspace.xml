@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="1030" column="40" lean-forward="true" selection-start-line="1030" selection-start-column="40" selection-end-line="1030" selection-end-column="40" />
+            <state relative-caret-position="301">
+              <caret line="1219" column="42" lean-forward="true" selection-start-line="1219" selection-start-column="42" selection-end-line="1219" selection-end-column="42" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -83,12 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>CreatedPolls</find>
-      <find>Created Polls</find>
-      <find>VieworVoteSta</find>
-      <find>&amp;auth</find>
-      <find>aut</find>
-      <find>http.get</find>
       <find>liveUpd</find>
       <find>onRefres</find>
       <find>onRef</find>
@@ -109,10 +103,16 @@
       <find>liveUp</find>
       <find>refr</find>
       <find>vote</find>
-      <find>Submit</find>
       <find>changedColor</find>
       <find>new lList&lt;</find>
       <find>new List&lt;bool</find>
+      <find>Created Polls</find>
+      <find>.split(&quot;</find>
+      <find>SearchPageSt</find>
+      <find>&quot;Vote&quot;</find>
+      <find>Submit</find>
+      <find>showDialo</find>
+      <find>widget.oneChoice&amp;&amp;</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -821,8 +821,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="1030" column="40" lean-forward="true" selection-start-line="1030" selection-start-column="40" selection-end-line="1030" selection-end-column="40" />
+        <state relative-caret-position="301">
+          <caret line="1219" column="42" lean-forward="true" selection-start-line="1219" selection-start-column="42" selection-end-line="1219" selection-end-column="42" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

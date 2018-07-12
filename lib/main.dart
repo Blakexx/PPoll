@@ -188,9 +188,9 @@ class HomePageState extends State<HomePage>{
                     Navigator.push(context,new MaterialPageRoute(builder: (context) => new CreatePoll()));
                   },
                 )),
-                new Container(height: 40.0*MediaQuery.of(context).size.width/375.0,width:150.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
+                new Container(height: 40.0*MediaQuery.of(context).size.width/375.0,width:170.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
-                  child: new Text("Created Polls",style: new TextStyle(fontSize:15.0*MediaQuery.of(context).size.width/360.0,color:Colors.white70)),
+                  child: new Text("My Created Polls",style: new TextStyle(fontSize:15.0*MediaQuery.of(context).size.width/360.0,color:Colors.white70)),
                   onPressed: (){
                     Navigator.push(context,new MaterialPageRoute(builder: (context) => new SearchPage(true)));
                   },
@@ -547,7 +547,7 @@ class SearchPageState extends State<SearchPage>{
       ),
       body: new Container(
         child: new Center(
-          child: new RefreshIndicator(child: data!=null?new ListView.builder(
+          child: new RefreshIndicator(child: data!=null?new Scrollbar(child:new ListView.builder(
             itemBuilder: (context,i){
               return new Padding(padding: EdgeInsets.only(top:5.0),child:new GestureDetector(onTapUp: (t){
                 Map<String,dynamic> map = sortedMap[sortedMap.keys.toList()[i]];
@@ -567,7 +567,7 @@ class SearchPageState extends State<SearchPage>{
             itemCount: sortedMap.length,
             controller: s,
             physics: AlwaysScrollableScrollPhysics(),
-          ):new CircularProgressIndicator(),
+          )):new CircularProgressIndicator(),
             onRefresh: (){
               Completer c = new Completer<Null>();
               http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json?auth="+secretKey))).then((r){
@@ -1210,6 +1210,25 @@ class ViewOrVoteState extends State<ViewOrVote>{
                           }
                         });
                       });
+                    }else if(widget.oneChoice&&choice==null){
+                      return showDialog(
+                          context: context,
+                          builder: (context){
+                            return new AlertDialog(
+                                title:new Text("Error"),
+                                content: new Text("Please make a selection"),
+                                actions: [
+                                  new RaisedButton(
+                                      child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                      onPressed: (){
+                                        Navigator.of(context).pop();
+                                      },
+                                      color: Colors.grey
+                                  )
+                                ]
+                            );
+                          }
+                      );
                     }
                   },
                   child: new Text("Submit",style:new TextStyle(color:Colors.white,fontSize:25.0))
