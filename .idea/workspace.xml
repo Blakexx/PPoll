@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="1143" column="25" lean-forward="true" selection-start-line="1143" selection-start-column="25" selection-end-line="1143" selection-end-column="25" />
+            <state relative-caret-position="167">
+              <caret line="1030" column="40" lean-forward="true" selection-start-line="1030" selection-start-column="40" selection-end-line="1030" selection-end-column="40" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -83,9 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SplayTree</find>
-      <find>removeWhere</find>
-      <find>removeWh</find>
       <find>CreatedPolls</find>
       <find>Created Polls</find>
       <find>VieworVoteSta</find>
@@ -113,6 +110,9 @@
       <find>refr</find>
       <find>vote</find>
       <find>Submit</find>
+      <find>changedColor</find>
+      <find>new lList&lt;</find>
+      <find>new List&lt;bool</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -821,8 +821,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="1143" column="25" lean-forward="true" selection-start-line="1143" selection-start-column="25" selection-end-line="1143" selection-end-column="25" />
+        <state relative-caret-position="167">
+          <caret line="1030" column="40" lean-forward="true" selection-start-line="1030" selection-start-column="40" selection-end-line="1030" selection-end-column="40" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

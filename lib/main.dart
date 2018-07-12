@@ -938,6 +938,41 @@ class ViewOrVoteState extends State<ViewOrVote>{
 
   HttpClient client = new HttpClient();
 
+  List<bool> changedColors;
+
+  ScrollController s = new ScrollController();
+
+  Map ultraTempMap;
+
+  SplayTreeMap<String,int> sortedMap;
+
+  PieChart chart;
+
+  Timer timer;
+
+  int hexToInt(String colorStr)
+  {
+    colorStr = "FF" + colorStr;
+    colorStr = colorStr.replaceAll("#", "");
+    int val = 0;
+    int len = colorStr.length;
+    for (int i = 0; i < len; i++) {
+      int hexDigit = colorStr.codeUnitAt(i);
+      if (hexDigit >= 48 && hexDigit <= 57) {
+        val += (hexDigit - 48) * (1 << (4 * (len - 1 - i)));
+      } else if (hexDigit >= 65 && hexDigit <= 70) {
+        // A..F
+        val += (hexDigit - 55) * (1 << (4 * (len - 1 - i)));
+      } else if (hexDigit >= 97 && hexDigit <= 102) {
+        // a..f
+        val += (hexDigit - 87) * (1 << (4 * (len - 1 - i)));
+      } else {
+        throw new FormatException("An error occurred when converting a color");
+      }
+    }
+    return val;
+  }
+
   @override
   void initState(){
     super.initState();
@@ -952,6 +987,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
         choicesString.add(widget.choices[i].toString());
       }
     }
+    changedColors = new List<bool>(widget.scores.length).map((b)=>false).toList();
     client.openUrl("GET", Uri.parse("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json?auth="+secretKey)).then((req){
       req.headers.set("Accept", "text/event-stream");
       req.followRedirects = true;
@@ -962,8 +998,17 @@ class ViewOrVoteState extends State<ViewOrVote>{
             if(list[1]=="put"){
               Map<String,dynamic> map = json.decode(list[3]);
               if(map["path"]!="/"){
+                if(timer!=null && timer.isActive){
+                  timer.cancel();
+                }
                 int changed = map["data"];
                 SearchPageState.data[widget.code]["a"][int.parse(map["path"].substring(1,map["path"].length))] = changed;
+                changedColors[int.parse(map["path"].substring(1,map["path"].length))] = true;
+                timer = new Timer(new Duration(milliseconds: 750),(){
+                  setState((){
+                    changedColors = new List<bool>(widget.scores.length).map((b)=>false).toList();
+                  });
+                });
                 widget.scores[int.parse(map["path"].substring(1,map["path"].length))] = changed;
                 ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
                 sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
@@ -975,13 +1020,25 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   }).toList())]:[]);
                 }
               }else if(!ListEquality().equals(map["data"],widget.scores)){
+                if(timer!=null && timer.isActive){
+                  timer.cancel();
+                }
                 List changed = map["data"];
+                for(int i = 0; i<changedColors.length;i++){
+                  changedColors[i] = changed[i]!=widget.scores[i];
+                }
                 SearchPageState.data[widget.code]["a"] = changed;
                 widget.scores = changed;
                 ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
                 sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
                 chart.scores = widget.scores;
-                setState((){});
+                setState((){
+                  timer = new Timer(new Duration(milliseconds: 750),(){
+                    setState((){
+                      changedColors = new List<bool>(widget.scores.length).map((b)=>false).toList();
+                    });
+                  });
+                });
                 if(_chartKey.currentState!=null){
                   _chartKey.currentState.updateData(widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(sortedMap.keys.map((name){
                     return new CircularSegmentEntry(ultraTempMap[name]*1.0,new Color(hexToInt(ultraTempMap.keys.toList().indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[ultraTempMap.keys.toList().indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
@@ -1018,37 +1075,6 @@ class ViewOrVoteState extends State<ViewOrVote>{
     liveUpdate();
     */
   }
-
-  int hexToInt(String colorStr)
-  {
-    colorStr = "FF" + colorStr;
-    colorStr = colorStr.replaceAll("#", "");
-    int val = 0;
-    int len = colorStr.length;
-    for (int i = 0; i < len; i++) {
-      int hexDigit = colorStr.codeUnitAt(i);
-      if (hexDigit >= 48 && hexDigit <= 57) {
-        val += (hexDigit - 48) * (1 << (4 * (len - 1 - i)));
-      } else if (hexDigit >= 65 && hexDigit <= 70) {
-        // A..F
-        val += (hexDigit - 55) * (1 << (4 * (len - 1 - i)));
-      } else if (hexDigit >= 97 && hexDigit <= 102) {
-        // a..f
-        val += (hexDigit - 87) * (1 << (4 * (len - 1 - i)));
-      } else {
-        throw new FormatException("An error occurred when converting a color");
-      }
-    }
-    return val;
-  }
-
-  ScrollController s = new ScrollController();
-
-  Map ultraTempMap;
-
-  SplayTreeMap<String,int> sortedMap;
-
-  PieChart chart;
 
   @override
   Widget build(BuildContext context){
@@ -1124,7 +1150,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       )),
                       trailing: new Container(width:35.0,child:new Column(
                           children: [
-                            new FittedBox(fit: BoxFit.scaleDown,alignment: Alignment.center,child:new Text(sortedMap[key].toString(),style:new TextStyle(color:Colors.white))),
+                            new FittedBox(fit: BoxFit.scaleDown,alignment: Alignment.center,child:new Text(sortedMap[key].toString(),style:new TextStyle(color:!changedColors[widget.choices.indexOf(key)]?Colors.white:Colors.green))),
                             new Text((widget.scores.reduce((a,b)=>a+b)!=0?(sortedMap[key]/(1.0*widget.scores.reduce((a,b)=>a+b)))*100.0:0.0).toStringAsFixed(0)+"\%",style:new TextStyle(color:Colors.white))
                           ]
                       ))
