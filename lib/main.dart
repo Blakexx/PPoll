@@ -189,7 +189,7 @@ class HomePageState extends State<HomePage>{
                   child: new Text("Create a Poll",style: new TextStyle(fontSize:30.0*MediaQuery.of(context).size.width/360.0,color:Colors.white70)),
                   onPressed: (){
                     Navigator.push(context,new MaterialPageRoute(builder: (context) => new CreatePoll()));
-                  },
+                  },      
                 )),
                 new Container(height: 35.0*MediaQuery.of(context).size.width/375.0,width:170.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
                   shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
