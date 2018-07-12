@@ -1002,6 +1002,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
       req.headers.set("Accept", "text/event-stream");
       req.followRedirects = true;
       req.close().then((response){
+        print(response.statusCode);
         if(response.statusCode == 200) {
           response.map((bytes) => new String.fromCharCodes(bytes)).listen((text) {
             List list = text.replaceAll("\n"," ").split(" ");
@@ -1012,7 +1013,9 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   timer.cancel();
                 }
                 int changed = map["data"];
-                SearchPageState.data[widget.code]["a"][int.parse(map["path"].substring(1,map["path"].length))] = changed;
+                if(SearchPageState.data!=null&&SearchPageState.data[widget.code]!=null){
+                  SearchPageState.data[widget.code]["a"][int.parse(map["path"].substring(1,map["path"].length))] = changed;
+                }
                 changedColors[int.parse(map["path"].substring(1,map["path"].length))] = true;
                 timer = new Timer(new Duration(milliseconds: 750),(){
                   setState((){
@@ -1037,7 +1040,9 @@ class ViewOrVoteState extends State<ViewOrVote>{
                 for(int i = 0; i<changedColors.length;i++){
                   changedColors[i] = changed[i]!=widget.scores[i];
                 }
-                SearchPageState.data[widget.code]["a"] = changed;
+                if(SearchPageState.data!=null&&SearchPageState.data[widget.code]!=null){
+                  SearchPageState.data[widget.code]["a"][int.parse(map["path"].substring(1,map["path"].length))] = changed;
+                }
                 widget.scores = changed;
                 ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
                 sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
