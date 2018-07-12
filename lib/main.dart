@@ -62,7 +62,7 @@ void main(){
   settings.readData().then((list) async{
     if(list==null){
       Map<String,dynamic> users;
-      await http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users.json?auth="+secretKey)).then((r){
+      await http.get(Uri.encodeFull(database+"/users.json?auth="+secretKey)).then((r){
         users = json.decode(r.body);
       });
       do{
@@ -76,7 +76,7 @@ void main(){
       if(users==null){
         users = new Map<String,dynamic>();
       }
-      http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/users/"+userId+".json?auth="+secretKey),body:"0").then((r){
+      http.put(Uri.encodeFull(database+"/users/"+userId+".json?auth="+secretKey),body:"0").then((r){
         color = 16;
         settings.writeData("16 "+userId).then((f){
           runApp(new DynamicTheme(
@@ -249,7 +249,7 @@ class HomePageState extends State<HomePage>{
                               }
                           );
                         }
-                        http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json?auth="+secretKey)).then((r){
+                        http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
                             Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"].toString().substring(2,3)=="0",map["b"].toString().substring(0,1)=="0",map["a"],map["b"].toString().substring(4,5)=="0",map["i"]!=null&&map["i"].contains(userId))));
@@ -300,7 +300,7 @@ class HomePageState extends State<HomePage>{
                               }
                           );
                         }
-                        http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+input+".json?auth="+secretKey)).then((r){
+                        http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
                           Map<String,dynamic> map = json.decode(r.body);
                           if(r.body!="null") {
                             if(map["b"].toString().substring(2,3) == "0") {
@@ -411,7 +411,7 @@ class SearchPageState extends State<SearchPage>{
         setState((){});
       }
     });
-    http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json?auth="+secretKey))).then((r){
+    http.get((Uri.encodeFull(database+"/data.json?auth="+secretKey))).then((r){
       setState((){data = json.decode(r.body);});
     });
   }
@@ -573,7 +573,7 @@ class SearchPageState extends State<SearchPage>{
           )):new CircularProgressIndicator(),
             onRefresh: (){
               Completer c = new Completer<Null>();
-              http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json?auth="+secretKey))).then((r){
+              http.get((Uri.encodeFull(database+"/data.json?auth="+secretKey))).then((r){
                 data = json.decode(r.body);
                 tempMap.clear();
                 tempMap.addAll(data);
@@ -786,7 +786,7 @@ class CreatePollState extends State<CreatePoll>{
                         String key = "";
                         Random r = new Random();
                         Map<String,dynamic> usedMap;
-                        await http.get((Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json?auth="+secretKey))).then((r){
+                        await http.get((Uri.encodeFull(database+"/data.json?auth="+secretKey))).then((r){
                           usedMap = json.decode(r.body);
                         });
                         do{
@@ -804,7 +804,7 @@ class CreatePollState extends State<CreatePoll>{
                         }
                         listPrint = listPrint.substring(0,listPrint.length-2);
                         String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": \""+(oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")+"\",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
-                        http.put("https://ppoll-polls.firebaseio.com/data/"+key+".json?auth="+secretKey,body:serverData).then((r){
+                        http.put(database+"/data/"+key+".json?auth="+secretKey,body:serverData).then((r){
                           setState((){isConnecting = false;});
                           createdPolls.add(key);
                           String write = "";
@@ -991,7 +991,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
       }
     }
     changedColors = new List<bool>(widget.scores.length).map((b)=>false).toList();
-    client.openUrl("GET", Uri.parse("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json?auth="+secretKey)).then((req){
+    client.openUrl("GET", Uri.parse(database+"/data/"+widget.code+"/a.json?auth="+secretKey)).then((req){
       req.headers.set("Accept", "text/event-stream");
       req.followRedirects = true;
       req.close().then((response){
@@ -1056,7 +1056,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
     /*
     liveUpdate(){
       if(!isLeaving){
-        http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json?auth="+secretKey)).then((r){
+        http.get(Uri.encodeFull(database+"/data/"+widget.code+"/a.json?auth="+secretKey)).then((r){
           List response = json.decode(r.body);
           if(response.reduce((o1,o2)=>o1+o2)!=widget.scores.reduce((o1,o2)=>o1+o2)){
             SearchPageState.data[widget.code]["a"] = response;
@@ -1101,7 +1101,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
         child: new Center(
           child: /*new RefreshIndicator(onRefresh: (){
             Completer c = new Completer<Null>();
-            http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data.json?auth="+secretKey)).then((r){
+            http.get(Uri.encodeFull(database+"/data.json?auth="+secretKey)).then((r){
               Map<String, dynamic> map = json.decode(r.body);
               SearchPageState.data = map;
               widget.scores = map[widget.code]["a"];
@@ -1189,7 +1189,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                         isVoting = true;
                       });
                       Map<String,dynamic> map;
-                      http.get(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+".json?auth="+secretKey)).then((r){
+                      http.get(Uri.encodeFull(database+"/data/"+widget.code+".json?auth="+secretKey)).then((r){
                         map = json.decode(r.body);
                         for(int i = 0; i<widget.scores.length;i++){
                           widget.scores[i] = widget.oneChoice?map["a"][i]+(i==choicesString.indexOf(choice)?1:0):map["a"][i]+(checked.values.toList()[i]?1:0);
@@ -1199,7 +1199,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                           scorePrint+=(i.toString()+", ");
                         }
                         scorePrint = scorePrint.substring(0,scorePrint.length-2);
-                        http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/a.json?auth="+secretKey),body:"["+scorePrint+"]").then((r){
+                        http.put(Uri.encodeFull(database+"/data/"+widget.code+"/a.json?auth="+secretKey),body:"["+scorePrint+"]").then((r){
                           if(SearchPageState.data!=null&&SearchPageState.data[widget.code]!=null){
                             SearchPageState.data[widget.code]["a"] = json.decode("["+scorePrint+"]");
                           }
@@ -1215,7 +1215,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                               }
                               userPrint = userPrint.substring(0,userPrint.length-2);
                             }
-                            http.put(Uri.encodeFull("https://ppoll-polls.firebaseio.com/data/"+widget.code+"/i.json?auth="+secretKey),body:(users!=null?"["+userPrint+"]":"[\""+userId+"\"]")).then((r){
+                            http.put(Uri.encodeFull(database+"/data/"+widget.code+"/i.json?auth="+secretKey),body:(users!=null?"["+userPrint+"]":"[\""+userId+"\"]")).then((r){
                               if(SearchPageState.data!=null&&SearchPageState.data[widget.code]!=null){
                                 SearchPageState.data[widget.code]["i"] = json.decode(users!=null?"["+userPrint+"]":"[\""+userId+"\"]");
                               }
