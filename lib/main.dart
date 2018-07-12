@@ -1002,7 +1002,6 @@ class ViewOrVoteState extends State<ViewOrVote>{
       req.headers.set("Accept", "text/event-stream");
       req.followRedirects = true;
       req.close().then((response){
-        print(response.statusCode);
         if(response.statusCode == 200) {
           response.map((bytes) => new String.fromCharCodes(bytes)).listen((text) {
             List list = text.replaceAll("\n"," ").split(" ");
@@ -1041,7 +1040,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   changedColors[i] = changed[i]!=widget.scores[i];
                 }
                 if(SearchPageState.data!=null&&SearchPageState.data[widget.code]!=null){
-                  SearchPageState.data[widget.code]["a"][int.parse(map["path"].substring(1,map["path"].length))] = changed;
+                  SearchPageState.data[widget.code]["a"] = changed;
                 }
                 widget.scores = changed;
                 ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
