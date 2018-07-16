@@ -53,9 +53,9 @@ List<String> createdPolls;
 String userId;
 
 void main(){
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]);
+  //SystemChrome.setPreferredOrientations([
+    //DeviceOrientation.portraitUp
+  //]);
   createdInfo.readData().then((r){
     createdPolls = r!=null?r:new List<String>();
   });
@@ -116,6 +116,9 @@ class HomePage extends StatefulWidget{
   HomePageState createState() => new HomePageState();
 }
 
+//Height: 640
+//Width: 360
+
 class HomePageState extends State<HomePage>{
 
   final c = TextEditingController();
@@ -126,8 +129,20 @@ class HomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context){
+    if(MediaQuery.of(context).size.width>MediaQuery.of(context).size.height){
+      return new Scaffold(
+        backgroundColor: Colors.white,
+        body: new Container(
+          child: new Center(
+            // ignore: conflicting_dart_import
+            child: new Text("Please switch to portriate mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
+          )
+        )
+      );
+    }
     return new Scaffold(
       appBar: !f.hasFocus?new AppBar(
+
           backgroundColor: Colors.transparent,
           leading: new IconButton(
               icon: new Icon(Icons.palette),
@@ -187,7 +202,7 @@ class HomePageState extends State<HomePage>{
                 // ignore: conflicting_dart_import
                 !f.hasFocus?new Text("PPoll",style: new TextStyle(fontSize:80.0*MediaQuery.of(context).size.width/375.0,fontWeight: FontWeight.w100)):new Container(),
                 new Container(height: 75.0*MediaQuery.of(context).size.width/375.0,width:250.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
-                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0*MediaQuery.of(context).size.width/360.0)),
                   child: new Text("Create a Poll",style: new TextStyle(fontSize:30.0*MediaQuery.of(context).size.width/360.0,color:Colors.white70)),
                   onPressed: (){
                     f.unfocus();
@@ -195,7 +210,7 @@ class HomePageState extends State<HomePage>{
                   },
                 )),
                 new Container(height: 35.0*MediaQuery.of(context).size.width/375.0,width:170.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
-                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0)),
+                  shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0*MediaQuery.of(context).size.width/360.0)),
                   child: new Text("My Created Polls",style: new TextStyle(fontSize:15.0*MediaQuery.of(context).size.width/360.0,color:Colors.white70)),
                   onPressed: (){
                     f.unfocus();
@@ -230,7 +245,7 @@ class HomePageState extends State<HomePage>{
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     new Container(height: 50.0*MediaQuery.of(context).size.width/360,width: 100.0*MediaQuery.of(context).size.width/360,child: new RaisedButton(
-                      shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
+                      shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0*MediaQuery.of(context).size.width/360.0)),
                       child: new Text("View",style: new TextStyle(fontSize: 20.0*MediaQuery.of(context).size.width/360,color:Colors.white70)),
                       onPressed: (){
                         if(input==null||input.length<4){
@@ -283,7 +298,7 @@ class HomePageState extends State<HomePage>{
                     )),
                     new Container(height: 50.0*MediaQuery.of(context).size.width/360, width: 100.0*MediaQuery.of(context).size.width/360,child: new RaisedButton(
                       child: new Text("Vote",style: new TextStyle(fontSize: 20.0*MediaQuery.of(context).size.width/360,color:Colors.white70)),
-                      shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0)),
+                      shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0*MediaQuery.of(context).size.width/360.0)),
                       onPressed: (){
                         if(input==null||input.length<4){
                           return showDialog(
@@ -439,6 +454,17 @@ class SearchPageState extends State<SearchPage>{
 
   @override
   Widget build(BuildContext context){
+    if(MediaQuery.of(context).size.width>MediaQuery.of(context).size.height){
+      return new Scaffold(
+          backgroundColor: Colors.white,
+          body: new Container(
+              child: new Center(
+                // ignore: conflicting_dart_import
+                  child: new Text("Please switch to portriate mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
+              )
+          )
+      );
+    }
     Map<String, dynamic> tempMap;
     SplayTreeMap<String, dynamic> sortedMap;
     if(data!=null){
@@ -682,6 +708,17 @@ class CreatePollState extends State<CreatePoll>{
 
   @override
   Widget build(BuildContext context) {
+    if(MediaQuery.of(context).size.width>MediaQuery.of(context).size.height){
+      return new Scaffold(
+          backgroundColor: Colors.white,
+          body: new Container(
+              child: new Center(
+                // ignore: conflicting_dart_import
+                  child: new Text("Please switch to portriate mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
+              )
+          )
+      );
+    }
     return new WillPopScope(child: new Scaffold(
       appBar: new AppBar(title: new Text("Create a Poll",style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54,actions:[
         new IconButton(
@@ -1094,6 +1131,17 @@ class ViewOrVoteState extends State<ViewOrVote>{
 
   @override
   Widget build(BuildContext context){
+    if(MediaQuery.of(context).size.width>MediaQuery.of(context).size.height){
+      return new Scaffold(
+          backgroundColor: Colors.white,
+          body: new Container(
+              child: new Center(
+                // ignore: conflicting_dart_import
+                  child: new Text("Please switch to portriate mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
+              )
+          )
+      );
+    }
     chart = new PieChart(widget.scores,widget.choices);
     ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
     sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
