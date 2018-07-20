@@ -135,7 +135,7 @@ class HomePageState extends State<HomePage>{
         body: new Container(
           child: new Center(
             // ignore: conflicting_dart_import
-            child: new Text("Please switch to portriate mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
+            child: new Text("Please switch to portrait mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
           )
         )
       );
@@ -424,6 +424,7 @@ class SearchPageState extends State<SearchPage>{
   @override
   void initState(){
     super.initState();
+    sorting = widget.onlyCreated?"recent":"top";
     s.addListener((){
       if((s.hasClients&&s.position.pixels>1&&!visible)){
         visible = true;
@@ -452,6 +453,8 @@ class SearchPageState extends State<SearchPage>{
 
   bool visible = false;
 
+  String sorting;
+
   @override
   Widget build(BuildContext context){
     if(MediaQuery.of(context).size.width>MediaQuery.of(context).size.height){
@@ -460,7 +463,7 @@ class SearchPageState extends State<SearchPage>{
           body: new Container(
               child: new Center(
                 // ignore: conflicting_dart_import
-                  child: new Text("Please switch to portriate mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
+                  child: new Text("Please switch to portrait mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
               )
           )
       );
@@ -475,6 +478,11 @@ class SearchPageState extends State<SearchPage>{
       });
       sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
         if(!widget.onlyCreated){
+          if(sorting=="recent"){
+            if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
+              return tempMap[o2]["t"]-tempMap[o1]["t"];
+            }
+          }
           if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
             return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
           }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
@@ -482,7 +490,16 @@ class SearchPageState extends State<SearchPage>{
           }
           return o1.compareTo(o2);
         }else{
-          return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+          if(sorting=="recent"){
+            return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+          }else{
+            if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+              return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+            }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+              return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+            }
+            return o1.compareTo(o2);
+          }
         }
       });
     }
@@ -522,6 +539,11 @@ class SearchPageState extends State<SearchPage>{
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                 if(!widget.onlyCreated){
+                  if(sorting=="recent"){
+                    if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
+                      return tempMap[o2]["t"]-tempMap[o1]["t"];
+                    }
+                  }
                   if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                     return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
                   }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
@@ -529,7 +551,16 @@ class SearchPageState extends State<SearchPage>{
                   }
                   return o1.compareTo(o2);
                 }else{
-                  return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+                  if(sorting=="recent"){
+                    return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+                  }else{
+                    if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                      return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                    }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+                      return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+                    }
+                    return o1.compareTo(o2);
+                  }
                 }
               });
               visible = false;
@@ -551,6 +582,11 @@ class SearchPageState extends State<SearchPage>{
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                 if(!widget.onlyCreated){
+                  if(sorting=="recent"){
+                    if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
+                      return tempMap[o2]["t"]-tempMap[o1]["t"];
+                    }
+                  }
                   if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                     return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
                   }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
@@ -558,7 +594,16 @@ class SearchPageState extends State<SearchPage>{
                   }
                   return o1.compareTo(o2);
                 }else{
-                  return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+                  if(sorting=="recent"){
+                    return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+                  }else{
+                    if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                      return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                    }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+                      return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+                    }
+                    return o1.compareTo(o2);
+                  }
                 }
               });
               visible = false;
@@ -578,6 +623,23 @@ class SearchPageState extends State<SearchPage>{
             onPressed: (){
               setState((){inSearch = true;});
             }
+          ),
+          new Container(
+              width: 35.0,
+              child: new PopupMenuButton<String>(
+                  itemBuilder: (BuildContext context)=><PopupMenuItem<String>>[
+                    new PopupMenuItem<String>(
+                        child: const Text("Top"), value: "top"),
+                    new PopupMenuItem<String>(
+                        child: const Text("Recent"), value: "recent")
+                  ],
+                  child: new Icon(Icons.sort),
+                  onSelected: (s){
+                    setState((){
+                      sorting = s;
+                    });
+                  }
+              )
           )
         ]
       ),
@@ -615,6 +677,11 @@ class SearchPageState extends State<SearchPage>{
                 });
                 sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                   if(!widget.onlyCreated){
+                    if(sorting=="recent"){
+                      if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
+                        return tempMap[o2]["t"]-tempMap[o1]["t"];
+                      }
+                    }
                     if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                       return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
                     }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
@@ -622,7 +689,16 @@ class SearchPageState extends State<SearchPage>{
                     }
                     return o1.compareTo(o2);
                   }else{
-                    return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+                    if(sorting=="recent"){
+                      return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+                    }else{
+                      if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                        return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
+                      }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
+                        return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
+                      }
+                      return o1.compareTo(o2);
+                    }
                   }
                 });
                 setState((){c.complete();});
@@ -714,7 +790,7 @@ class CreatePollState extends State<CreatePoll>{
           body: new Container(
               child: new Center(
                 // ignore: conflicting_dart_import
-                  child: new Text("Please switch to portriate mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
+                  child: new Text("Please switch to portrait mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
               )
           )
       );
@@ -847,7 +923,8 @@ class CreatePollState extends State<CreatePoll>{
                           listPrint+="\""+s+"\", ";
                         }
                         listPrint = listPrint.substring(0,listPrint.length-2);
-                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+",\n\t\"i\": []\n}";
+                        http.Response responseTime = await http.get(Uri.encodeFull("http://worldclockapi.com/api/json/utc/now"));
+                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString()+"\n}";
                         http.put(database+"/data/"+key+".json?auth="+secretKey,body:serverData).then((r){
                           setState((){isConnecting = false;});
                           createdPolls.add(key);
@@ -1137,7 +1214,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
           body: new Container(
               child: new Center(
                 // ignore: conflicting_dart_import
-                  child: new Text("Please switch to portriate mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
+                  child: new Text("Please switch to portrait mode",textAlign: TextAlign.center,style:new TextStyle(fontSize:30*MediaQuery.of(context).size.width/640.0))
               )
           )
       );
@@ -1376,7 +1453,7 @@ class PieChartState extends State<PieChart>{
     SplayTreeMap map = new SplayTreeMap.from(tempMap,(o1,o2)=>tempMap[o2]-tempMap[o1]!=0?tempMap[o2]-tempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
     return new AnimatedCircularChart(
       key: _chartKey,
-      size:new Size(300.0*MediaQuery.of(context).size.width/360.0, 300.0*MediaQuery.of(context).size.width/360.0),
+      size: new Size(300.0*MediaQuery.of(context).size.width/360.0, 300.0*MediaQuery.of(context).size.width/360.0),
       chartType: CircularChartType.Pie,
       initialChartData: widget.scores.reduce((o1,o2)=>o1+o2)>0?[new CircularStackEntry(map.keys.map((name){
         return new CircularSegmentEntry(tempMap[name]*1.0,new Color(hexToInt(tempMap.keys.toList().indexOf(name)<11?charts.MaterialPalette.getOrderedPalettes(20)[tempMap.keys.toList().indexOf(name)].shadeDefault.hexString:charts.MaterialPalette.getOrderedPalettes(20)[tempMap.keys.toList().indexOf(name)-11].makeShades(2)[1].hexString)),rankKey:name);
