@@ -142,7 +142,6 @@ class HomePageState extends State<HomePage>{
     }
     return new Scaffold(
       appBar: !f.hasFocus?new AppBar(
-
           backgroundColor: Colors.transparent,
           leading: new IconButton(
               icon: new Icon(Icons.palette),
@@ -624,7 +623,7 @@ class SearchPageState extends State<SearchPage>{
               setState((){inSearch = true;});
             }
           ),
-          new Container(
+          new Padding(padding: EdgeInsets.only(right:3.0),child:new Container(
               width: 35.0,
               child: new PopupMenuButton<String>(
                   itemBuilder: (BuildContext context)=><PopupMenuItem<String>>[
@@ -640,7 +639,7 @@ class SearchPageState extends State<SearchPage>{
                     });
                   }
               )
-          )
+          )),
         ]
       ),
       body: new Container(
@@ -825,7 +824,7 @@ class CreatePollState extends State<CreatePoll>{
                       counterText: ""
                     ),
                     onChanged: (s){
-                      if(s.length<=100){
+                      if(s.length<=128){
                         question = s;
                       }else{
                         int off = c.selection.extentOffset-1;
@@ -1519,7 +1518,7 @@ class OptionState extends State<Option>{
           counterText: ""
         ),
         onChanged: (s){
-          if(s.length<=50){
+          if(s.length<=64){
             CreatePollState.choices[widget.position] = s;
           }else{
             int off = c.selection.extentOffset-1;

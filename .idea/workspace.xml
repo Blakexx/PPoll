@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="1402" column="7" lean-forward="true" selection-start-line="1402" selection-start-column="7" selection-end-line="1402" selection-end-column="7" />
+            <state relative-caret-position="2392">
+              <caret line="1520" column="27" lean-forward="true" selection-start-line="1520" selection-start-column="27" selection-end-line="1520" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -81,8 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.0</find>
-      <find>\.0\*</find>
       <find>\.0(?!\*)</find>
       <find>(\n*)\.0(?!\*)</find>
       <find>Portiat</find>
@@ -103,7 +101,6 @@
       <find>tempMap[o2][&quot;i&quot;]!=</find>
       <find>print(</find>
       <find>ActionButton</find>
-      <find>&lt;String&gt;</find>
       <find>ThemeData</find>
       <find>.push</find>
       <find>.put</find>
@@ -111,6 +108,9 @@
       <find>chart =</find>
       <find>PieChart</find>
       <find>chart</find>
+      <find>&lt;String&gt;</find>
+      <find>.length</find>
+      <find>textfield</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -772,8 +772,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="1402" column="7" lean-forward="true" selection-start-line="1402" selection-start-column="7" selection-end-line="1402" selection-end-column="7" />
+        <state relative-caret-position="2392">
+          <caret line="1520" column="27" lean-forward="true" selection-start-line="1520" selection-start-column="27" selection-end-line="1520" selection-end-column="27" />
           <folding />
         </state>
       </provider>
