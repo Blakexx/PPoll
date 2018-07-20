@@ -636,6 +636,7 @@ class SearchPageState extends State<SearchPage>{
                     setState((){
                       sorting = s;
                     });
+                    this.s.jumpTo(1.0);
                   }
               )
           )),
