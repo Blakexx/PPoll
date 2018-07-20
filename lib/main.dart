@@ -924,7 +924,7 @@ class CreatePollState extends State<CreatePoll>{
                         }
                         listPrint = listPrint.substring(0,listPrint.length-2);
                         http.Response responseTime = await http.get(Uri.encodeFull("http://worldclockapi.com/api/json/utc/now"));
-                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString()+"\n}";
+                        String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
                         http.put(database+"/data/"+key+".json?auth="+secretKey,body:serverData).then((r){
                           setState((){isConnecting = false;});
                           createdPolls.add(key);
@@ -1396,7 +1396,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                   child: new Text("Submit",style:new TextStyle(color:Colors.white,fontSize:25.0))
                 ))]
               )):new Container(),
-              !widget.vote?chart:new Container(height:20.0)
+              !widget.vote?widget.scores.reduce((a,b)=>a+b)!=0?chart:new Container():new Container(height:20.0)
             ]
           )/*)*/
         )
