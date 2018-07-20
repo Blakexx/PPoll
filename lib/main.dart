@@ -423,7 +423,7 @@ class SearchPageState extends State<SearchPage>{
   @override
   void initState(){
     super.initState();
-    sorting = widget.onlyCreated?"recent":"top";
+    sorting = widget.onlyCreated?"newest":"top";
     s.addListener((){
       if((s.hasClients&&s.position.pixels>1&&!visible)){
         visible = true;
@@ -477,9 +477,9 @@ class SearchPageState extends State<SearchPage>{
       });
       sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
         if(!widget.onlyCreated){
-          if(sorting=="recent"){
+          if(sorting=="newest"||sorting=="oldest"){
             if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
-              return tempMap[o2]["t"]-tempMap[o1]["t"];
+              return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
             }
           }
           if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
@@ -489,8 +489,8 @@ class SearchPageState extends State<SearchPage>{
           }
           return o1.compareTo(o2);
         }else{
-          if(sorting=="recent"){
-            return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+          if(sorting=="newest"||sorting=="oldest"){
+            return sorting=="newest"?createdPolls.indexOf(o2)-createdPolls.indexOf(o1):createdPolls.indexOf(o1)-createdPolls.indexOf(o2);
           }else{
             if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
               return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
@@ -538,9 +538,9 @@ class SearchPageState extends State<SearchPage>{
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                 if(!widget.onlyCreated){
-                  if(sorting=="recent"){
+                  if(sorting=="newest"||sorting=="oldest"){
                     if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
-                      return tempMap[o2]["t"]-tempMap[o1]["t"];
+                      return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
                     }
                   }
                   if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
@@ -550,8 +550,8 @@ class SearchPageState extends State<SearchPage>{
                   }
                   return o1.compareTo(o2);
                 }else{
-                  if(sorting=="recent"){
-                    return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+                  if(sorting=="newest"||sorting=="oldest"){
+                    return sorting=="newest"?createdPolls.indexOf(o2)-createdPolls.indexOf(o1):createdPolls.indexOf(o1)-createdPolls.indexOf(o2);
                   }else{
                     if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                       return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
@@ -581,9 +581,9 @@ class SearchPageState extends State<SearchPage>{
               });
               sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                 if(!widget.onlyCreated){
-                  if(sorting=="recent"){
+                  if(sorting=="newest"||sorting=="oldest"){
                     if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
-                      return tempMap[o2]["t"]-tempMap[o1]["t"];
+                      return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
                     }
                   }
                   if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
@@ -593,8 +593,8 @@ class SearchPageState extends State<SearchPage>{
                   }
                   return o1.compareTo(o2);
                 }else{
-                  if(sorting=="recent"){
-                    return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+                  if(sorting=="newest"||sorting=="oldest"){
+                    return sorting=="newest"?createdPolls.indexOf(o2)-createdPolls.indexOf(o1):createdPolls.indexOf(o1)-createdPolls.indexOf(o2);
                   }else{
                     if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                       return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
@@ -627,10 +627,9 @@ class SearchPageState extends State<SearchPage>{
               width: 35.0,
               child: new PopupMenuButton<String>(
                   itemBuilder: (BuildContext context)=><PopupMenuItem<String>>[
-                    new PopupMenuItem<String>(
-                        child: const Text("Top"), value: "top"),
-                    new PopupMenuItem<String>(
-                        child: const Text("Recent"), value: "recent")
+                    new PopupMenuItem<String>(child: const Text("Top"), value: "top"),
+                    new PopupMenuItem<String>(child: const Text("Newest"), value: "newest"),
+                    new PopupMenuItem<String>(child: const Text("Oldest"), value: "oldest"),
                   ],
                   child: new Icon(Icons.sort),
                   onSelected: (s){
@@ -676,9 +675,9 @@ class SearchPageState extends State<SearchPage>{
                 });
                 sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                   if(!widget.onlyCreated){
-                    if(sorting=="recent"){
+                    if(sorting=="newest"||sorting=="oldest"){
                       if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
-                        return tempMap[o2]["t"]-tempMap[o1]["t"];
+                        return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
                       }
                     }
                     if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
@@ -688,8 +687,8 @@ class SearchPageState extends State<SearchPage>{
                     }
                     return o1.compareTo(o2);
                   }else{
-                    if(sorting=="recent"){
-                      return createdPolls.indexOf(o2)-createdPolls.indexOf(o1);
+                    if(sorting=="newest"||sorting=="oldest"){
+                      return sorting=="newest"?createdPolls.indexOf(o2)-createdPolls.indexOf(o1):createdPolls.indexOf(o1)-createdPolls.indexOf(o2);
                     }else{
                       if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                         return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
