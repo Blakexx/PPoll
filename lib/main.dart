@@ -574,7 +574,7 @@ class SearchPageState extends State<SearchPage>{
             ),
             backgroundColor: Colors.black54,
             actions: [
-              hasSearched&&MediaQuery.of(context).viewInsets.bottom==0?new IconButton(
+              hasSearched&&!f.hasFocus?new IconButton(
                 icon: new Icon(Icons.close),
                 onPressed: (){
                   search = "";
