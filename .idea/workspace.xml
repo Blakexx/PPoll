@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="791" column="57" lean-forward="false" selection-start-line="791" selection-start-column="57" selection-end-line="791" selection-end-column="57" />
+            <state relative-caret-position="225">
+              <caret line="140" column="8" lean-forward="true" selection-start-line="140" selection-start-column="8" selection-end-line="140" selection-end-column="8" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -83,8 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SplayTreeMap</find>
-      <find>SplayTre</find>
       <find>tempMap[o2][&quot;i&quot;]!=</find>
       <find>ActionButton</find>
       <find>ThemeData</find>
@@ -112,7 +110,9 @@
       <find>HomePageSt</find>
       <find>!f.hasFocu</find>
       <find>!f.hasFocus</find>
+      <find>MediaQuery.of(context).</find>
       <find>f.has</find>
+      <find>MediaQuery.of(context).viewInsets.bottom</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -810,8 +810,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="791" column="57" lean-forward="false" selection-start-line="791" selection-start-column="57" selection-end-line="791" selection-end-column="57" />
+        <state relative-caret-position="225">
+          <caret line="140" column="8" lean-forward="true" selection-start-line="140" selection-start-column="8" selection-end-line="140" selection-end-column="8" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
