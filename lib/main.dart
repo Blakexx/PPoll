@@ -845,7 +845,7 @@ class CreatePollState extends State<CreatePoll>{
                       color:Colors.black12,
                       child: new Row(
                           children: [
-                            new Expanded(child: new Text(" Allow multiple selections",style: new TextStyle(fontSize:17.0,color:Colors.white))),
+                            new Expanded(child: new Text("  Allow multiple selections",style: new TextStyle(fontSize:17.0,color:Colors.white))),
                             new Switch(
                               value: oneChoice,
                               onChanged: (s){
@@ -864,7 +864,7 @@ class CreatePollState extends State<CreatePoll>{
                           color:Colors.black12,
                           child: new Row(
                               children: [
-                                new Expanded(child: new Text(" Allow multiple submissions",style: new TextStyle(fontSize:17.0,color:Colors.white))),
+                                new Expanded(child: new Text("  Allow multiple submissions",style: new TextStyle(fontSize:17.0,color:Colors.white))),
                                 new Switch(
                                     value: perm,
                                     onChanged: (s){
@@ -883,7 +883,7 @@ class CreatePollState extends State<CreatePoll>{
                           color:Colors.black12,
                           child: new Row(
                               children: [
-                                new Expanded(child: new Text(" Public",style: new TextStyle(fontSize:17.0,color:Colors.white))),
+                                new Expanded(child: new Text("  Public",style: new TextStyle(fontSize:17.0,color:Colors.white))),
                                 new Switch(
                                     value: public,
                                     onChanged: (s){
