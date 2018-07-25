@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="509" column="26" lean-forward="true" selection-start-line="509" selection-start-column="26" selection-end-line="509" selection-end-column="26" />
+            <state relative-caret-position="259">
+              <caret line="511" column="27" lean-forward="true" selection-start-line="511" selection-start-column="27" selection-end-line="511" selection-end-column="27" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -83,7 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>worldclo</find>
       <find>allow multible s</find>
       <find>Client</find>
       <find>Allow</find>
@@ -113,6 +112,7 @@
       <find>tempMap = new Map&lt;String,dy</find>
       <find>jumpTo</find>
       <find>s.jum</find>
+      <find>&gt;0.0</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -810,8 +810,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="509" column="26" lean-forward="true" selection-start-line="509" selection-start-column="26" selection-end-line="509" selection-end-column="26" />
+        <state relative-caret-position="259">
+          <caret line="511" column="27" lean-forward="true" selection-start-line="511" selection-start-column="27" selection-end-line="511" selection-end-column="27" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

@@ -504,7 +504,7 @@ class SearchPageState extends State<SearchPage>{
       });
     }
     return new Scaffold(
-        floatingActionButton: s.hasClients&&s.position.pixels>0.0?new FloatingActionButton(
+        floatingActionButton: s.hasClients&&s.position.pixels>1.0?new FloatingActionButton(
           onPressed: (){
             visible = false;
             s.jumpTo(1.0);
