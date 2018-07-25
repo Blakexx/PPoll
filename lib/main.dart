@@ -476,9 +476,7 @@ class SearchPageState extends State<SearchPage>{
     Map<String, dynamic> tempMap;
     SplayTreeMap<String, dynamic> sortedMap;
     if(data!=null){
-      tempMap = new Map<String,dynamic>();
-      tempMap.addAll(data);
-      tempMap.removeWhere((key,value){
+      tempMap = new Map<String,dynamic>()..addAll(data)..removeWhere((key,value){
         return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"])[2]==0)));
       });
       sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
@@ -534,9 +532,7 @@ class SearchPageState extends State<SearchPage>{
               },
               onSubmitted: (s){
                 search = s;
-                tempMap.clear();
-                tempMap.addAll(data);
-                tempMap.removeWhere((key,value){
+                tempMap = new Map<String,dynamic>()..addAll(data)..removeWhere((key,value){
                   return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"])[2]==0)));
                 });
                 sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
@@ -574,9 +570,7 @@ class SearchPageState extends State<SearchPage>{
                 onPressed: (){
                   search = "";
                   c.text = "";
-                  tempMap.clear();
-                  tempMap.addAll(data);
-                  tempMap.removeWhere((key,value){
+                  tempMap = new Map<String,dynamic>()..addAll(data)..removeWhere((key,value){
                     return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"])[2]==0)));
                   });
                   sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
@@ -666,9 +660,7 @@ class SearchPageState extends State<SearchPage>{
                       Completer c = new Completer<Null>();
                       http.get((Uri.encodeFull(database+"/data.json?auth="+secretKey))).then((r){
                         data = json.decode(r.body);
-                        tempMap.clear();
-                        tempMap.addAll(data);
-                        tempMap.removeWhere((key,value){
+                        tempMap = new Map<String,dynamic>()..addAll(data)..removeWhere((key,value){
                           return (widget.onlyCreated&&!createdPolls.contains(key))||(!(key.toUpperCase().contains(search.toUpperCase())||((value as Map<String,dynamic>)["q"] as String).toUpperCase().contains(search.toUpperCase()))||(!widget.onlyCreated&&(((value as Map<String,dynamic>)["b"])[2]==0)));
                         });
                         sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
