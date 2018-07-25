@@ -504,10 +504,11 @@ class SearchPageState extends State<SearchPage>{
       });
     }
     return new Scaffold(
-        floatingActionButton: s.hasClients&&s.position.pixels>1?new FloatingActionButton(
+        floatingActionButton: s.hasClients&&s.position.pixels>0.0?new FloatingActionButton(
           onPressed: (){
             visible = false;
             s.jumpTo(1.0);
+            s.jumpTo(0.0);
             setState((){});
           },
           child: new Icon(Icons.arrow_upward),
@@ -560,6 +561,7 @@ class SearchPageState extends State<SearchPage>{
                 });
                 visible = false;
                 this.s.jumpTo(1.0);
+                this.s.jumpTo(0.0);
                 setState((){hasSearched = true;inSearch = false;});
               },
             ),
@@ -598,6 +600,7 @@ class SearchPageState extends State<SearchPage>{
                   });
                   visible = false;
                   this.s.jumpTo(1.0);
+                  this.s.jumpTo(0.0);
                   setState((){hasSearched = false;});
                 },
               ):inSearch||f.hasFocus?new IconButton(
@@ -606,6 +609,7 @@ class SearchPageState extends State<SearchPage>{
                   search = "";
                   visible = false;
                   this.s.jumpTo(1.0);
+                  this.s.jumpTo(0.0);
                   setState((){c.text = search;inSearch=true;});
                 },
               ):new IconButton(
@@ -628,6 +632,7 @@ class SearchPageState extends State<SearchPage>{
                           sorting = s;
                         });
                         this.s.jumpTo(1.0);
+                        this.s.jumpTo(0.0);
                       }
                   )
               )),
@@ -1188,6 +1193,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
               color: Colors.black38,
               onPressed: (){
                 s.jumpTo(1.0);
+                s.jumpTo(0.0);
                 setState((){widget.vote = true;});
               },
               child: new Text("Vote",style: new TextStyle(color:Colors.white,fontSize:20.0))
@@ -1320,6 +1326,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                                             checked.forEach((key,b)=>checked[key]=false);
                                           }
                                           s.jumpTo(1.0);
+                                          s.jumpTo(0.0);
                                           setState((){isVoting = false;widget.hasVoted=true;widget.vote=false;});
                                         });
                                       }else{
@@ -1328,6 +1335,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                                           checked.forEach((key,b)=>checked[key]=false);
                                         }
                                         s.jumpTo(1.0);
+                                        s.jumpTo(0.0);
                                         setState((){isVoting = false;widget.vote=false;});
                                       }
                                     });
