@@ -483,12 +483,9 @@ class SearchPageState extends State<SearchPage>{
       });
       sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
         if(!widget.onlyCreated){
-          if(sorting=="newest"||sorting=="oldest"){
-            if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
-              return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
-            }
-          }
-          if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+          if((sorting=="newest"||sorting=="oldest")&&tempMap[o2]["t"]!=tempMap[o1]["t"]){
+            return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
+          }else if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
             return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
           }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
             return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
@@ -544,12 +541,9 @@ class SearchPageState extends State<SearchPage>{
                 });
                 sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                   if(!widget.onlyCreated){
-                    if(sorting=="newest"||sorting=="oldest"){
-                      if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
-                        return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
-                      }
-                    }
-                    if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                    if((sorting=="newest"||sorting=="oldest")&&tempMap[o2]["t"]!=tempMap[o1]["t"]){
+                      return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
+                    }else if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                       return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
                     }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
                       return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
@@ -587,12 +581,9 @@ class SearchPageState extends State<SearchPage>{
                   });
                   sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                     if(!widget.onlyCreated){
-                      if(sorting=="newest"||sorting=="oldest"){
-                        if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
-                          return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
-                        }
-                      }
-                      if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                      if((sorting=="newest"||sorting=="oldest")&&tempMap[o2]["t"]!=tempMap[o1]["t"]){
+                        return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
+                      }else if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                         return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
                       }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
                         return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
@@ -682,12 +673,9 @@ class SearchPageState extends State<SearchPage>{
                         });
                         sortedMap = SplayTreeMap.from(tempMap,(o1,o2){
                           if(!widget.onlyCreated){
-                            if(sorting=="newest"||sorting=="oldest"){
-                              if(tempMap[o2]["t"]!=tempMap[o1]["t"]){
-                                return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
-                              }
-                            }
-                            if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
+                            if((sorting=="newest"||sorting=="oldest")&&tempMap[o2]["t"]!=tempMap[o1]["t"]){
+                              return sorting=="newest"?tempMap[o2]["t"]-tempMap[o1]["t"]:tempMap[o1]["t"]-tempMap[o2]["t"];
+                            }else if(((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)!=0){
                               return ((tempMap[o2] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2)-((tempMap[o1] as Map<String,dynamic>)["a"] as List).reduce((n1,n2)=>n1+n2);
                             }else if(tempMap[o1]["q"].compareTo(tempMap[o2]["q"])!=0){
                               return tempMap[o1]["q"].compareTo(tempMap[o2]["q"]);
@@ -719,8 +707,7 @@ class SearchPageState extends State<SearchPage>{
 
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue,
-      TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     return newValue.copyWith(text: newValue.text.toUpperCase());
   }
 }
