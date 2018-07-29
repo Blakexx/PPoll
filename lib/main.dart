@@ -133,6 +133,7 @@ class HomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context){
+    print(isConnectingForVV);
     if(f.hasFocus&&MediaQuery.of(context).viewInsets.bottom==0){
       f.unfocus();
     }
