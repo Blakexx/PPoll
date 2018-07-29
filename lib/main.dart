@@ -127,6 +127,8 @@ class HomePageState extends State<HomePage>{
 
   FocusNode f = new FocusNode();
 
+  bool isConnectingForVV = false;
+
   bool firstRun = true;
 
   @override
@@ -252,39 +254,17 @@ class HomePageState extends State<HomePage>{
                                 shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0*MediaQuery.of(context).size.width/360.0)),
                                 child: new Text("View",style: new TextStyle(fontSize: 20.0*MediaQuery.of(context).size.width/360,color:Colors.white70)),
                                 onPressed: (){
-                                  if(input==null||input.length<4){
-                                    f.unfocus();
-                                    return showDialog(
-                                        context: context,
-                                        builder: (context){
-                                          return new AlertDialog(
-                                              title:new Text("Error"),
-                                              content: new Text("Invalid code"),
-                                              actions: [
-                                                new RaisedButton(
-                                                    child: new Text("Okay",style:new TextStyle(color: Colors.black)),
-                                                    onPressed: (){
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                    color: Colors.grey
-                                                )
-                                              ]
-                                          );
-                                        }
-                                    );
-                                  }
-                                  http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
-                                    f.unfocus();
-                                    Map<String,dynamic> map = json.decode(r.body);
-                                    if(r.body!="null") {
-                                      Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"][1]==0,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
-                                    }else{
-                                      showDialog(
+                                  if(!isConnectingForVV){
+                                    isConnectingForVV = true;
+                                    if(input==null||input.length<4){
+                                      isConnectingForVV = false;
+                                      f.unfocus();
+                                      return showDialog(
                                           context: context,
                                           builder: (context){
                                             return new AlertDialog(
                                                 title:new Text("Error"),
-                                                content: new Text("Poll not found"),
+                                                content: new Text("Invalid code"),
                                                 actions: [
                                                   new RaisedButton(
                                                       child: new Text("Okay",style:new TextStyle(color: Colors.black)),
@@ -298,71 +278,54 @@ class HomePageState extends State<HomePage>{
                                           }
                                       );
                                     }
-                                  });
+                                    http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
+                                      isConnectingForVV = false;
+                                      f.unfocus();
+                                      Map<String,dynamic> map = json.decode(r.body);
+                                      if(r.body!="null") {
+                                        Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"][1]==0,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
+                                      }else{
+                                        showDialog(
+                                            context: context,
+                                            builder: (context){
+                                              return new AlertDialog(
+                                                  title:new Text("Error"),
+                                                  content: new Text("Poll not found"),
+                                                  actions: [
+                                                    new RaisedButton(
+                                                        child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                        onPressed: (){
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        color: Colors.grey
+                                                    )
+                                                  ]
+                                              );
+                                            }
+                                        );
+                                      }
+                                    }).catchError((o){
+                                      isConnectingForVV = false;
+                                      return new Future<Object>(()=>o);
+                                    });
+                                  }
                                 }
                             )),
                             new Container(height: 50.0*MediaQuery.of(context).size.width/360, width: 100.0*MediaQuery.of(context).size.width/360,child: new RaisedButton(
                                 child: new Text("Vote",style: new TextStyle(fontSize: 20.0*MediaQuery.of(context).size.width/360,color:Colors.white70)),
                                 shape:RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15.0*MediaQuery.of(context).size.width/360.0)),
                                 onPressed: (){
-                                  if(input==null||input.length<4){
-                                    f.unfocus();
-                                    return showDialog(
-                                        context: context,
-                                        builder: (context){
-                                          return new AlertDialog(
-                                              title:new Text("Error"),
-                                              content: new Text("Invalid code"),
-                                              actions: [
-                                                new RaisedButton(
-                                                    child: new Text("Okay",style:new TextStyle(color: Colors.black)),
-                                                    onPressed: (){
-                                                      Navigator.of(context).pop();
-                                                    },
-                                                    color: Colors.grey
-                                                )
-                                              ]
-                                          );
-                                        }
-                                    );
-                                  }
-                                  http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
-                                    f.unfocus();
-                                    Map<String,dynamic> map = json.decode(r.body);
-                                    if(r.body!="null") {
-                                      if(map["b"][1]==0) {
-                                        if (map["i"]==null||!map["i"].contains(userId)) {
-                                          Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],true,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
-                                        }else {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context){
-                                                return new AlertDialog(
-                                                    title:new Text("Error"),
-                                                    content: new Text("You have already answered this poll."),
-                                                    actions: [
-                                                      new RaisedButton(
-                                                          child: new Text("Okay",style:new TextStyle(color: Colors.black)),
-                                                          onPressed: (){
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                          color: Colors.grey
-                                                      )
-                                                    ]
-                                                );
-                                              }
-                                          );
-                                        }
-                                      }else{
-                                        Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],false,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
-                                      }
-                                    }else{
-                                      showDialog(
+                                  if(!isConnectingForVV){
+                                    isConnectingForVV = true;
+                                    if(input==null||input.length<4){
+                                      f.unfocus();
+                                      isConnectingForVV = false;
+                                      return showDialog(
                                           context: context,
                                           builder: (context){
                                             return new AlertDialog(
                                                 title:new Text("Error"),
-                                                content: new Text("Poll not found"),
+                                                content: new Text("Invalid code"),
                                                 actions: [
                                                   new RaisedButton(
                                                       child: new Text("Okay",style:new TextStyle(color: Colors.black)),
@@ -376,7 +339,62 @@ class HomePageState extends State<HomePage>{
                                           }
                                       );
                                     }
-                                  });
+                                    http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
+                                      f.unfocus();
+                                      isConnectingForVV = false;
+                                      Map<String,dynamic> map = json.decode(r.body);
+                                      if(r.body!="null") {
+                                        if(map["b"][1]==0) {
+                                          if (map["i"]==null||!map["i"].contains(userId)) {
+                                            Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],true,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
+                                          }else {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context){
+                                                  return new AlertDialog(
+                                                      title:new Text("Error"),
+                                                      content: new Text("You have already answered this poll."),
+                                                      actions: [
+                                                        new RaisedButton(
+                                                            child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                            onPressed: (){
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            color: Colors.grey
+                                                        )
+                                                      ]
+                                                  );
+                                                }
+                                            );
+                                          }
+                                        }else{
+                                          Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],false,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
+                                        }
+                                      }else{
+                                        showDialog(
+                                            context: context,
+                                            builder: (context){
+                                              return new AlertDialog(
+                                                  title:new Text("Error"),
+                                                  content: new Text("Poll not found"),
+                                                  actions: [
+                                                    new RaisedButton(
+                                                        child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                        onPressed: (){
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        color: Colors.grey
+                                                    )
+                                                  ]
+                                              );
+                                            }
+                                        );
+                                      }
+                                    }).catchError((o){
+                                      isConnectingForVV = false;
+                                      return new Future<Object>(()=>o);
+                                    });
+                                  }
                                 }
                             )),
                           ]
