@@ -20,6 +20,7 @@ import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'key.dart';
 import 'package:collection/collection.dart';
+import 'package:image_picker/image_picker.dart';
 
 int color;
 
