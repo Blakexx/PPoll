@@ -937,6 +937,28 @@ class CreatePollState extends State<CreatePoll>{
                                 child: new Text("Submit",style: new TextStyle(fontSize:25.0,color:Colors.white)),
                                 onPressed: ()  async{
                                   if(question!=null && !choices.contains(null)&&choices.toSet().length==choices.length&&question!=""&&!choices.contains("")&&(pickedImage==null||(pickedImage!=null&&((await pickedImage.length())<5000000)))){
+                                    if(pickedImage!=null&&(basename(pickedImage.path)==null||mime(basename(pickedImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(pickedImage.path))))){
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: true,
+                                          builder: (context){
+                                            return new AlertDialog(
+                                                title:new Text("Error"),
+                                                content:new Text(basename(pickedImage.path)==null?"Invalid file path":"Invalid file format"),
+                                                actions: [
+                                                  new RaisedButton(
+                                                      child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                      onPressed: (){
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      color: Colors.grey
+                                                  )
+                                                ]
+                                            );
+                                          }
+                                      );
+                                      return;
+                                    }
                                     showDialog(
                                         context: context,
                                         barrierDismissible: false,
@@ -952,6 +974,28 @@ class CreatePollState extends State<CreatePoll>{
                                     Map<String,dynamic> usedMap;
                                     await http.get((Uri.encodeFull(database+"/data.json?auth="+secretKey))).then((r){
                                       usedMap = json.decode(r.body);
+                                    }).catchError((e){
+                                      Navigator.of(context).pop();
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: true,
+                                          builder: (context){
+                                            return new AlertDialog(
+                                                title:new Text("Error"),
+                                                content:new Text("Please check your internet connection"),
+                                                actions: [
+                                                  new RaisedButton(
+                                                      child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                      onPressed: (){
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      color: Colors.grey
+                                                  )
+                                                ]
+                                            );
+                                          }
+                                      );
+                                      throw e;
                                     });
                                     do{
                                       key = "";
@@ -967,12 +1011,56 @@ class CreatePollState extends State<CreatePoll>{
                                       listPrint+="\""+s.replaceAll("\\","\\\\").replaceAll("\"","\\\"")+"\", ";
                                     }
                                     listPrint = listPrint.substring(0,listPrint.length-2);
-                                    http.Response responseTime = await http.get(Uri.encodeFull("http://worldclockapi.com/api/json/utc/now"));
+                                    http.Response responseTime = await http.get(Uri.encodeFull("http://worldclockapi.com/api/json/utc/now")).catchError((e){
+                                      Navigator.of(context).pop();
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: true,
+                                          builder: (context){
+                                            return new AlertDialog(
+                                                title:new Text("Error"),
+                                                content:new Text("Please check your internet connection"),
+                                                actions: [
+                                                  new RaisedButton(
+                                                      child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                      onPressed: (){
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      color: Colors.grey
+                                                  )
+                                                ]
+                                            );
+                                          }
+                                      );
+                                      throw e;
+                                    });
                                     String serverData = "{\n\t\"q\": \""+question.replaceAll("\\","\\\\").replaceAll("\"","\\\"")+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1 ":"0 ")+(pickedImage!=null?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
+                                    if(pickedImage!=null){
+                                      await http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":mime(basename(pickedImage.path))},body:await pickedImage.readAsBytes()).catchError((e){
+                                        Navigator.of(context).pop();
+                                        showDialog(
+                                            context: context,
+                                            barrierDismissible: true,
+                                            builder: (context){
+                                              return new AlertDialog(
+                                                  title:new Text("Error"),
+                                                  content:new Text("Please check your internet connection"),
+                                                  actions: [
+                                                    new RaisedButton(
+                                                        child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                        onPressed: (){
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        color: Colors.grey
+                                                    )
+                                                  ]
+                                              );
+                                            }
+                                        );
+                                        throw e;
+                                      });
+                                    }
                                     http.put(database+"/data/"+key+".json?auth="+secretKey,body:serverData).then((r) async{
-                                      if(pickedImage!=null){
-                                        await http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":mime(basename(pickedImage.path))},body:await pickedImage.readAsBytes());
-                                      }
                                       createdPolls.add(key);
                                       String write = "";
                                       for(String s in createdPolls){
@@ -994,6 +1082,27 @@ class CreatePollState extends State<CreatePoll>{
                                               )
                                           )
                                       ))));
+                                    }).catchError((e){
+                                      Navigator.of(context).pop();
+                                      showDialog(
+                                          context: context,
+                                          barrierDismissible: true,
+                                          builder: (context){
+                                            return new AlertDialog(
+                                                title:new Text("Error"),
+                                                content:new Text("Please check your internet connection"),
+                                                actions: [
+                                                  new RaisedButton(
+                                                      child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                      onPressed: (){
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      color: Colors.grey
+                                                  )
+                                                ]
+                                            );
+                                          }
+                                      );
                                     });
                                   }else{
                                     String s = "";
