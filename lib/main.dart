@@ -134,9 +134,6 @@ class HomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context){
-    if(f.hasFocus&&MediaQuery.of(context).viewInsets.bottom==0){
-      f.unfocus();
-    }
     if(MediaQuery.of(context).size.width>MediaQuery.of(context).size.height){
       return new Scaffold(
           backgroundColor: Colors.white,
@@ -147,6 +144,9 @@ class HomePageState extends State<HomePage>{
               )
           )
       );
+    }
+    if(f.hasFocus&&MediaQuery.of(context).viewInsets.bottom==0){
+      f.unfocus();
     }
     return new Scaffold(
         appBar: MediaQuery.of(context).viewInsets.bottom==0?new AppBar(
@@ -206,7 +206,6 @@ class HomePageState extends State<HomePage>{
                 child: new Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      // ignore: conflicting_dart_import
                       MediaQuery.of(context).viewInsets.bottom==0?new Text("PPoll",style: new TextStyle(fontSize:80.0*MediaQuery.of(context).size.width/375.0,fontWeight: FontWeight.w100)):new Container(),
                       new Container(height: 75.0*MediaQuery.of(context).size.width/375.0,width:250.0*MediaQuery.of(context).size.width/375.0,child: new RaisedButton(
                         shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(25.0*MediaQuery.of(context).size.width/360.0)),
@@ -284,7 +283,7 @@ class HomePageState extends State<HomePage>{
                                       f.unfocus();
                                       Map<String,dynamic> map = json.decode(r.body);
                                       if(r.body!="null") {
-                                        Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"][1]==0,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
+                                        Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,false,map["q"],map["c"],map["b"][1]==0,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId),map["b"].length==4&&map["b"][3]==1)));
                                       }else{
                                         showDialog(
                                             context: context,
@@ -347,7 +346,7 @@ class HomePageState extends State<HomePage>{
                                       if(r.body!="null") {
                                         if(map["b"][1]==0) {
                                           if (map["i"]==null||!map["i"].contains(userId)) {
-                                            Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],true,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
+                                            Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],true,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId),map["b"].length==4&&map["b"][3]==1)));
                                           }else {
                                             showDialog(
                                                 context: context,
@@ -369,7 +368,7 @@ class HomePageState extends State<HomePage>{
                                             );
                                           }
                                         }else{
-                                          Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],false,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
+                                          Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(input,true,map["q"],map["c"],false,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId),map["b"].length==4&&map["b"][3]==1)));
                                         }
                                       }else{
                                         showDialog(
@@ -663,7 +662,7 @@ class SearchPageState extends State<SearchPage>{
                   itemBuilder: (context,i){
                     return new Padding(padding: EdgeInsets.only(top:5.0),child:new GestureDetector(onTapUp: (t){
                       Map<String,dynamic> map = sortedMap[sortedMap.keys.toList()[i]];
-                      Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(sortedMap.keys.toList()[i],false,map["q"],map["c"],map["b"][1]==0,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId))));
+                      Navigator.push(context,new MaterialPageRoute(builder: (context) => new ViewOrVote(sortedMap.keys.toList()[i],false,map["q"],map["c"],map["b"][1]==0,map["b"][0]==0,map["a"],map["b"][2]==0,map["i"]!=null&&map["i"].contains(userId),map["b"].length==4&&map["b"][3]==1)));
                     },child:new Container(
                         child: new ListTile(
                             leading: new Container(
@@ -753,6 +752,8 @@ class CreatePollState extends State<CreatePoll>{
 
   bool public = false;
 
+  File pickedImage;
+
   ScrollController s = new ScrollController();
 
   @override
@@ -785,8 +786,6 @@ class CreatePollState extends State<CreatePoll>{
         }
     )));
   }
-
-  bool isConnecting = false;
 
   TextEditingController c = new TextEditingController();
 
@@ -905,12 +904,47 @@ class CreatePollState extends State<CreatePoll>{
                                 )
                             )),
                             new Container(height:30.0),
-                            !isConnecting?new Container(height:60.0,width:200.0,child:new RaisedButton(
+                            new Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children:[
+                                  new MaterialButton(
+                                      height: 40.0*MediaQuery.of(context).size.width/360,minWidth: 75.0*MediaQuery.of(context).size.width/360,
+                                      color: Colors.black26,
+                                      onPressed: () async{
+                                        File tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
+                                        setState((){pickedImage =  tempImage;});
+                                      },
+                                      child: new Icon(Icons.add_a_photo,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
+                                  ),
+                                  new MaterialButton(
+                                    height: 40.0*MediaQuery.of(context).size.width/360,minWidth: 75.0*MediaQuery.of(context).size.width/360,
+                                    color: Colors.black26,
+                                    onPressed: () async{
+                                      File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+                                      setState((){pickedImage = tempImage;});
+                                    },
+                                    child: new Icon(Icons.photo_library,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
+                                  )
+                                ]
+                            ),
+                            // ignore: conflicting_dart_import
+                            pickedImage!=null?new Padding(padding: new EdgeInsets.only(top:10.0),child:new Image.file(pickedImage,width:MediaQuery.of(context).size.width/2)):new Container(),
+                            new Container(height:30.0),
+                            new Container(height:60.0,width:200.0,child:new RaisedButton(
                                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                                 child: new Text("Submit",style: new TextStyle(fontSize:25.0,color:Colors.white)),
                                 onPressed: ()  async{
                                   if(question!=null && !choices.contains(null)&&choices.toSet().length==choices.length&&question!=""&&!choices.contains("")){
-                                    setState((){isConnecting = true;});
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (context){
+                                          return new AlertDialog(
+                                              title: new Text("Loading"),
+                                              content: new LinearProgressIndicator()
+                                          );
+                                        }
+                                    );
                                     String key = "";
                                     Random r = new Random();
                                     Map<String,dynamic> usedMap;
@@ -932,16 +966,18 @@ class CreatePollState extends State<CreatePoll>{
                                     }
                                     listPrint = listPrint.substring(0,listPrint.length-2);
                                     http.Response responseTime = await http.get(Uri.encodeFull("http://worldclockapi.com/api/json/utc/now"));
-                                    String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
-                                    http.put(database+"/data/"+key+".json?auth="+secretKey,body:serverData).then((r){
-                                      setState((){isConnecting = false;});
+                                    String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1 ":"0 ")+(pickedImage!=null?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
+                                    http.put(database+"/data/"+key+".json?auth="+secretKey,body:serverData).then((r) async{
+                                      if(pickedImage!=null){
+                                        http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":"image/"+(pickedImage.path.substring(pickedImage.path.lastIndexOf("\.")+1)!="jpg"?pickedImage.path.substring(pickedImage.path.lastIndexOf("\.")+1):"jpeg")},body:await pickedImage.readAsBytes());
+                                      }
                                       createdPolls.add(key);
                                       String write = "";
                                       for(String s in createdPolls){
                                         write+=(s+" ");
                                       }
                                       createdInfo.writeData(write.substring(0,write.length-1));
-                                      Navigator.push(context,new MaterialPageRoute(builder: (context) => new WillPopScope(onWillPop:(){return new Future<bool>(()=>Navigator.of(context).pop(true));},child: new Scaffold(
+                                      Navigator.push(context,new MaterialPageRoute(builder: (context) => new WillPopScope(onWillPop:(){Navigator.of(context).pop();return new Future<bool>(()=>Navigator.of(context).pop(true));},child: new Scaffold(
                                           appBar: new AppBar(title:new Text("Success",style: new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
                                           body:new Container(
                                               child: new Center(
@@ -987,10 +1023,7 @@ class CreatePollState extends State<CreatePoll>{
                                     );
                                   }
                                 }
-                            )):new Container(
-                                height:60.0,width:60.0,
-                                child: new CircularProgressIndicator()
-                            ),
+                            )),
                             new Container(height:30.0)
                           ]
                       )
@@ -1053,7 +1086,8 @@ class ViewOrVote extends StatefulWidget{
   String code;
   bool vote;
   bool hasVoted;
-  ViewOrVote(this.code,this.vote,this.question,this.choices,this.oneResponse,this.oneChoice,this.scores,this.public,this.hasVoted);
+  bool hasImage;
+  ViewOrVote(this.code,this.vote,this.question,this.choices,this.oneResponse,this.oneChoice,this.scores,this.public,this.hasVoted,this.hasImage);
   @override
   ViewOrVoteState createState() => new ViewOrVoteState();
 }
@@ -1081,6 +1115,9 @@ class ViewOrVoteState extends State<ViewOrVote>{
   PieChart chart;
 
   Timer timer;
+
+  // ignore: conflicting_dart_import
+  Image image;
 
   int hexToInt(String colorStr)
   {
@@ -1244,6 +1281,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       new Container(color:Colors.black54,height:1.0),
                       new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center)),
                       new Container(color:Colors.black54,height:1.0),
+                      widget.hasImage?new Padding(padding: EdgeInsets.only(bottom:4.0),child:new CachedNetworkImage(imageUrl: imageLink+widget.code, placeholder: new Container(height:2.0,child:new LinearProgressIndicator()),errorWidget: new Icon(Icons.error))):new Container(),
                       new Column(
                           children: widget.vote?(widget.oneChoice?choicesString.map((String key){
                             return new Padding(padding: EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:0.0),child: new Container(color:Colors.black26,child:new RadioListTile(
