@@ -1047,7 +1047,7 @@ class CreatePollState extends State<CreatePoll>{
               break;
             }
           }
-          if((question!=null&&question!="")||hasEnteredChoices){
+          if(((question!=null&&question!="")||hasEnteredChoices)||pickedImage!=null){
             showDialog(
                 context: context,
                 barrierDismissible: true,
