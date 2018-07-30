@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="927" column="31" lean-forward="true" selection-start-line="927" selection-start-column="31" selection-end-line="927" selection-end-column="31" />
+            <state relative-caret-position="238">
+              <caret line="916" column="71" lean-forward="true" selection-start-line="916" selection-start-column="71" selection-end-line="916" selection-end-column="71" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -93,7 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>galle</find>
       <find>.toString().le</find>
       <find>&lt;5</find>
       <find>Camer</find>
@@ -123,6 +122,7 @@
       <find>your poll</find>
       <find>AppBafr</find>
       <find>Image.file</find>
+      <find>basename(pickedImage.pa</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -832,8 +832,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="927" column="31" lean-forward="true" selection-start-line="927" selection-start-column="31" selection-end-line="927" selection-end-column="31" />
+        <state relative-caret-position="238">
+          <caret line="916" column="71" lean-forward="true" selection-start-line="916" selection-start-column="71" selection-end-line="916" selection-end-column="71" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

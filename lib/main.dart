@@ -905,14 +905,21 @@ class CreatePollState extends State<CreatePoll>{
                                     )
                                 )
                             )),
-                            new GestureDetector(onTapUp: (d){
+                            new GestureDetector(onTapUp: (d) async{
                               if(pickedImage!=null){
                                 Navigator.push(context,new MaterialPageRoute(builder: (context)=>new Scaffold(
-                                    appBar:new AppBar(title:new Text(basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
+                                    appBar:new AppBar(centerTitle:false,title:new Text(basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
                                     // ignore: conflicting_dart_import
                                     body: new Scrollbar(child:new ListView(children:[new Image.file(pickedImage,width:MediaQuery.of(context).size.width,fit:BoxFit.fill)]))
                                 )));
+                              }else{
+                                File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+                                setState((){pickedImage = tempImage;});
                               }
+                            },onLongPress: (){
+                              setState((){
+                                pickedImage = null;
+                              });
                             },child:new Container(
                                 padding: EdgeInsets.only(left:5.0,right:5.0,top:5.0),
                                 child: new Container(
@@ -926,7 +933,7 @@ class CreatePollState extends State<CreatePoll>{
                                     )
                                 )
                             )),
-                            new Container(height:30.0),
+                            new Container(height:25.0),
                             new Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children:[
