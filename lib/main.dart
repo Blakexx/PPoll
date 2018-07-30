@@ -934,7 +934,7 @@ class CreatePollState extends State<CreatePoll>{
                                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                                 child: new Text("Submit",style: new TextStyle(fontSize:25.0,color:Colors.white)),
                                 onPressed: ()  async{
-                                  if(question!=null && !choices.contains(null)&&choices.toSet().length==choices.length&&question!=""&&!choices.contains("")){
+                                  if(question!=null && !choices.contains(null)&&choices.toSet().length==choices.length&&question!=""&&!choices.contains("")&&(pickedImage==null||(pickedImage!=null&&((await pickedImage.length())<5000000)))){
                                     showDialog(
                                         context: context,
                                         barrierDismissible: false,
@@ -1000,7 +1000,15 @@ class CreatePollState extends State<CreatePoll>{
                                     }else if(question==null||choices.contains(null)||question==""||choices.contains("")){
                                       s="Please complete all the fields";
                                     }else if(choices.toSet().length!=choices.length){
-                                      s="Please do not include duplicates";
+                                      s="Please do not include duplicate choices";
+                                    }
+                                    if(pickedImage!=null&&((await pickedImage.length()>5000000))){
+                                      print(s);
+                                      if(s==""){
+                                        s="That image is too big (max size is 5 MB)";
+                                      }else{
+                                        s+=" and reduce the image size to below 5 MB";
+                                      }
                                     }
                                     showDialog(
                                         context: context,
