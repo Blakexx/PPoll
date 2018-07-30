@@ -969,7 +969,7 @@ class CreatePollState extends State<CreatePoll>{
                                     String serverData = "{\n\t\"q\": \""+question.replaceAll("\\","\\\\").replaceAll("\"","\\\"")+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1 ":"0 ")+(pickedImage!=null?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
                                     http.put(database+"/data/"+key+".json?auth="+secretKey,body:serverData).then((r) async{
                                       if(pickedImage!=null){
-                                        http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":"image/"+(pickedImage.path.substring(pickedImage.path.lastIndexOf("\.")+1)!="jpg"?pickedImage.path.substring(pickedImage.path.lastIndexOf("\.")+1):"jpeg")},body:await pickedImage.readAsBytes());
+                                        await http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":"image/"+(pickedImage.path.substring(pickedImage.path.lastIndexOf("\.")+1)!="jpg"?pickedImage.path.substring(pickedImage.path.lastIndexOf("\.")+1):"jpeg")},body:await pickedImage.readAsBytes());
                                       }
                                       createdPolls.add(key);
                                       String write = "";
@@ -1288,7 +1288,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       new Container(color:Colors.black54,height:1.0),
                       new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center)),
                       new Container(color:Colors.black54,height:1.0),
-                      widget.hasImage?new Padding(padding: EdgeInsets.only(bottom:4.0),child:new CachedNetworkImage(imageUrl: imageLink+widget.code, placeholder: new Container(height:2.0,child:new LinearProgressIndicator()),errorWidget: new Icon(Icons.error))):new Container(),
+                      widget.hasImage?new Padding(padding: EdgeInsets.only(bottom:4.0),child:new CachedNetworkImage(width:.75*MediaQuery.of(context).size.width,imageUrl: imageLink+widget.code, placeholder: new Container(height:2.0,child:new LinearProgressIndicator()),errorWidget: new Icon(Icons.error))):new Container(),
                       new Column(
                           children: widget.vote?(widget.oneChoice?choicesString.map((String key){
                             return new Padding(padding: EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:0.0),child: new Container(color:Colors.black26,child:new RadioListTile(
