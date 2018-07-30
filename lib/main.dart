@@ -1003,7 +1003,6 @@ class CreatePollState extends State<CreatePoll>{
                                       s="Please do not include duplicate choices";
                                     }
                                     if(pickedImage!=null&&((await pickedImage.length()>5000000))){
-                                      print(s);
                                       if(s==""){
                                         s="That image is too big (max size is 5 MB)";
                                       }else{

@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="971" column="80" lean-forward="false" selection-start-line="971" selection-start-column="80" selection-end-line="971" selection-end-column="80" />
+            <state relative-caret-position="169">
+              <caret line="1004" column="98" lean-forward="false" selection-start-line="1004" selection-start-column="98" selection-end-line="1004" selection-end-column="98" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -119,10 +119,10 @@
       <find>http.po</find>
       <find>galle</find>
       <find>.toString().le</find>
-      <find>print(</find>
       <find>&lt;5</find>
       <find>Camer</find>
       <find>.put</find>
+      <find>print(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -832,8 +832,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="971" column="80" lean-forward="false" selection-start-line="971" selection-start-column="80" selection-end-line="971" selection-end-column="80" />
+        <state relative-caret-position="169">
+          <caret line="1004" column="98" lean-forward="false" selection-start-line="1004" selection-start-column="98" selection-end-line="1004" selection-end-column="98" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
