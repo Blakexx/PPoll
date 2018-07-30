@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
-      <change beforePath="$PROJECT_DIR$/ppoll.iml" afterPath="$PROJECT_DIR$/ppoll.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -25,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="951" column="81" lean-forward="true" selection-start-line="951" selection-start-column="81" selection-end-line="951" selection-end-column="81" />
+            <state relative-caret-position="333">
+              <caret line="948" column="37" lean-forward="true" selection-start-line="948" selection-start-column="37" selection-end-line="948" selection-end-column="37" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -95,9 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>map[&quot;b&quot;][2]==1</find>
-      <find>http.post</find>
-      <find>http.po</find>
       <find>galle</find>
       <find>.toString().le</find>
       <find>&lt;5</find>
@@ -125,6 +120,9 @@
       <find>if(found</find>
       <find>throw e</find>
       <find>founderror = fal</find>
+      <find>your poll</find>
+      <find>AppBafr</find>
+      <find>Image.file</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -834,8 +832,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="951" column="81" lean-forward="true" selection-start-line="951" selection-start-column="81" selection-end-line="951" selection-end-column="81" />
+        <state relative-caret-position="333">
+          <caret line="948" column="37" lean-forward="true" selection-start-line="948" selection-start-column="37" selection-end-line="948" selection-end-column="37" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
