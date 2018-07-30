@@ -21,6 +21,8 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 import 'key.dart';
 import 'package:collection/collection.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mime_type/mime_type.dart';
+import 'package:path/path.dart';
 
 int color;
 
@@ -969,7 +971,7 @@ class CreatePollState extends State<CreatePoll>{
                                     String serverData = "{\n\t\"q\": \""+question.replaceAll("\\","\\\\").replaceAll("\"","\\\"")+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1 ":"0 ")+(pickedImage!=null?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
                                     http.put(database+"/data/"+key+".json?auth="+secretKey,body:serverData).then((r) async{
                                       if(pickedImage!=null){
-                                        await http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":"image/"+(pickedImage.path.substring(pickedImage.path.lastIndexOf("\.")+1)!="jpg"?pickedImage.path.substring(pickedImage.path.lastIndexOf("\.")+1):"jpeg")},body:await pickedImage.readAsBytes());
+                                        await http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":mime(basename(pickedImage.path))},body:await pickedImage.readAsBytes());
                                       }
                                       createdPolls.add(key);
                                       String write = "";
