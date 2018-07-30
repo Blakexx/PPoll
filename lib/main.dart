@@ -928,7 +928,7 @@ class CreatePollState extends State<CreatePoll>{
                                 ]
                             ),
                             // ignore: conflicting_dart_import
-                            pickedImage!=null?new Padding(padding: new EdgeInsets.only(top:10.0),child:new Image.file(pickedImage,width:MediaQuery.of(context).size.width/2)):new Container(),
+                            pickedImage!=null?new Padding(padding: new EdgeInsets.only(top:10.0),child:new Image.file(pickedImage,width:MediaQuery.of(context).size.width/2,fit:BoxFit.fill)):new Container(),
                             new Container(height:30.0),
                             new Container(height:60.0,width:200.0,child:new RaisedButton(
                                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
@@ -1288,7 +1288,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       new Container(color:Colors.black54,height:1.0),
                       new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center)),
                       new Container(color:Colors.black54,height:1.0),
-                      widget.hasImage?new Padding(padding: EdgeInsets.only(bottom:4.0),child:new CachedNetworkImage(width:.75*MediaQuery.of(context).size.width,imageUrl: imageLink+widget.code, placeholder: new Container(height:2.0,child:new LinearProgressIndicator()),errorWidget: new Icon(Icons.error))):new Container(),
+                      widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new CachedNetworkImage(fit: BoxFit.fill,imageUrl: imageLink+widget.code, placeholder: new Container(height:2.0,child:new LinearProgressIndicator()),errorWidget: new Icon(Icons.error))):new Container(),
                       new Column(
                           children: widget.vote?(widget.oneChoice?choicesString.map((String key){
                             return new Padding(padding: EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:0.0),child: new Container(color:Colors.black26,child:new RadioListTile(
