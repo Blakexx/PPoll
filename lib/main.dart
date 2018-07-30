@@ -962,11 +962,11 @@ class CreatePollState extends State<CreatePoll>{
                                     answers = answers.map((i)=>0).toList();
                                     String listPrint = "";
                                     for(String s in choices){
-                                      listPrint+="\""+s+"\", ";
+                                      listPrint+="\""+s.replaceAll("\\","\\\\").replaceAll("\"","\\\"")+"\", ";
                                     }
                                     listPrint = listPrint.substring(0,listPrint.length-2);
                                     http.Response responseTime = await http.get(Uri.encodeFull("http://worldclockapi.com/api/json/utc/now"));
-                                    String serverData = "{\n\t\"q\": \""+question+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1 ":"0 ")+(pickedImage!=null?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
+                                    String serverData = "{\n\t\"q\": \""+question.replaceAll("\\","\\\\").replaceAll("\"","\\\"")+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1 ":"0 ")+(pickedImage!=null?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
                                     http.put(database+"/data/"+key+".json?auth="+secretKey,body:serverData).then((r) async{
                                       if(pickedImage!=null){
                                         http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":"image/"+(pickedImage.path.substring(pickedImage.path.lastIndexOf("\.")+1)!="jpg"?pickedImage.path.substring(pickedImage.path.lastIndexOf("\.")+1):"jpeg")},body:await pickedImage.readAsBytes());
