@@ -905,6 +905,27 @@ class CreatePollState extends State<CreatePoll>{
                                     )
                                 )
                             )),
+                            new GestureDetector(onTapUp: (d){
+                              if(pickedImage!=null){
+                                Navigator.push(context,new MaterialPageRoute(builder: (context)=>new Scaffold(
+                                    appBar:new AppBar(title:new Text(basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
+                                    // ignore: conflicting_dart_import
+                                    body: new Scrollbar(child:new ListView(children:[new Image.file(pickedImage,width:MediaQuery.of(context).size.width,fit:BoxFit.fill)]))
+                                )));
+                              }
+                            },child:new Container(
+                                padding: EdgeInsets.only(left:5.0,right:5.0,top:5.0),
+                                child: new Container(
+                                    height: 50.0,
+                                    color:Colors.black12,
+                                    child: new Row(
+                                        children: [
+                                          new Expanded(child: new Text(pickedImage!=null?"  Image selected":"  No image selected",style: new TextStyle(fontSize:17.0,color:Colors.white))),
+                                          pickedImage!=null?new Padding(padding:EdgeInsets.only(right:10.0),child:new SizedBox(height:40.0,width:40.0,child:new Image.file(pickedImage,fit:BoxFit.fitWidth))):new Container()
+                                        ]
+                                    )
+                                )
+                            )),
                             new Container(height:30.0),
                             new Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -930,25 +951,6 @@ class CreatePollState extends State<CreatePoll>{
                                 ]
                             ),
                             // ignore: conflicting_dart_import
-                            pickedImage!=null?new Padding(padding: new EdgeInsets.only(top:10.0),child:new GestureDetector(onTapUp: (d){
-                              Navigator.push(context,new MaterialPageRoute(builder: (context)=>new Scaffold(
-                                  appBar:new AppBar(title:new Text(basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
-                                  // ignore: conflicting_dart_import
-                                  body: new Scrollbar(child:new ListView(children:[new Image.file(pickedImage,width:MediaQuery.of(context).size.width,fit:BoxFit.fill)]))
-                              )));
-                            },child:new Container(
-                                padding: EdgeInsets.only(left:5.0,right:5.0,top:5.0),
-                                child: new Container(
-                                    height: 50.0,
-                                    color:Colors.black12,
-                                    child: new Row(
-                                        children: [
-                                          new Expanded(child: new Text("  Image selected",style: new TextStyle(fontSize:17.0,color:Colors.white))),
-                                          new Padding(padding:EdgeInsets.only(right:10.0),child:new SizedBox(height:40.0,width:40.0,child:new Image.file(pickedImage,fit:BoxFit.fitWidth)))
-                                        ]
-                                    )
-                                )
-                            ))):new Container(),
                             new Container(height:30.0),
                             new Container(height:60.0,width:200.0,child:new RaisedButton(
                                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
