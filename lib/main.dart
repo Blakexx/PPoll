@@ -914,7 +914,7 @@ class CreatePollState extends State<CreatePoll>{
                             )),
                             new GestureDetector(onTapUp: (d) async{
                               if(pickedImage!=null){
-                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(new Center(child:new PhotoView(imageProvider:new Image.file(pickedImage).image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path)));
+                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:new Image.file(pickedImage).image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),name:basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path)));
                               }else{
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                                 if(tempImage!=null){
@@ -1254,16 +1254,15 @@ class CreatePollState extends State<CreatePoll>{
 }
 
 class ImageView extends StatefulWidget{
-  Widget child;
-  String name;
-  ImageView(this.child,this.name);
+  @required Widget child;
+  @required String name;
+  ImageView({this.child,this.name});
 
   @override
   ImageViewState createState() => new ImageViewState();
 }
 
 class ImageViewState extends State<ImageView>{
-
   bool hasTapped = true;
   bool isAnimating = false;
   bool hasLeft = false;
@@ -1542,7 +1541,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center)),
                       new Container(color:Colors.black87,height:1.0),
                       widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new GestureDetector(onTapUp: (t){
-                        Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(new Center(child:new PhotoView(imageProvider:image.image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),widget.code)));
+                        Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:image.image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),name:widget.code)));
                       },child:new FutureBuilder<ui.Image>(
                         future: completer.future,
                         builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot){
