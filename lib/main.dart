@@ -927,7 +927,7 @@ class CreatePollState extends State<CreatePoll>{
                                       builder: (context){
                                         return new AlertDialog(
                                             title:new Text("Error"),
-                                            content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid file format"),
+                                            content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid filename format"),
                                             actions: [
                                               new RaisedButton(
                                                   child: new Text("Okay",style:new TextStyle(color: Colors.black)),
@@ -993,7 +993,7 @@ class CreatePollState extends State<CreatePoll>{
                                                 builder: (context){
                                                   return new AlertDialog(
                                                       title:new Text("Error"),
-                                                      content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid file format"),
+                                                      content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid filename format"),
                                                       actions: [
                                                         new RaisedButton(
                                                             child: new Text("Okay",style:new TextStyle(color: Colors.black)),
@@ -1036,7 +1036,7 @@ class CreatePollState extends State<CreatePoll>{
                                               builder: (context){
                                                 return new AlertDialog(
                                                     title:new Text("Error"),
-                                                    content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid file format"),
+                                                    content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid filename format"),
                                                     actions: [
                                                       new RaisedButton(
                                                           child: new Text("Okay",style:new TextStyle(color: Colors.black)),
@@ -1051,6 +1051,7 @@ class CreatePollState extends State<CreatePoll>{
                                           );
                                           return;
                                         }
+                                        print("big java");
                                         setState((){imageLoading = true;});
                                         if(tempImage!=null){
                                           new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
@@ -1083,7 +1084,7 @@ class CreatePollState extends State<CreatePoll>{
                                           builder: (context){
                                             return new AlertDialog(
                                                 title:new Text("Error"),
-                                                content:new Text(basename(pickedImage.path)==null?"Invalid file path":"Invalid file format"),
+                                                content:new Text(basename(pickedImage.path)==null?"Invalid file path":"Invalid filename format"),
                                                 actions: [
                                                   new RaisedButton(
                                                       child: new Text("Okay",style:new TextStyle(color: Colors.black)),

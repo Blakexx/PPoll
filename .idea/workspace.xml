@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -24,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
-              <caret line="1049" column="47" lean-forward="true" selection-start-line="1049" selection-start-column="47" selection-end-line="1049" selection-end-column="47" />
+            <state relative-caret-position="184">
+              <caret line="995" column="139" lean-forward="false" selection-start-line="995" selection-start-column="139" selection-end-line="995" selection-end-column="139" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -94,8 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>not</find>
-      <find>No image</find>
       <find>ZoomableIm</find>
       <find>new</find>
       <find>ImageSour</find>
@@ -124,6 +121,8 @@
       <find>ImageSourc</find>
       <find>imagesource.</find>
       <find>imagesource.ga</find>
+      <find>Invalid</find>
+      <find>Invalid file fo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -833,8 +832,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="1049" column="47" lean-forward="true" selection-start-line="1049" selection-start-column="47" selection-end-line="1049" selection-end-column="47" />
+        <state relative-caret-position="184">
+          <caret line="995" column="139" lean-forward="false" selection-start-line="995" selection-start-column="139" selection-end-line="995" selection-end-column="139" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
