@@ -1435,11 +1435,12 @@ class ViewOrVoteState extends State<ViewOrVote>{
                     children: [
                       new Container(color:Colors.black54,height:1.0),
                       new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center)),
-                      new Container(color:Colors.black54,height:1.0),
+                      new Container(color:Colors.black87,height:1.0),
                       widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new GestureDetector(onTapUp: (t){
-                        Navigator.push(context,new MaterialPageRoute(builder: (context)=>new Scaffold(
-                            appBar:new AppBar(centerTitle:false,title:new Text(widget.code+" image",style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
-                            body: new Scrollbar(child:new ListView(children:[image]))
+                        Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new Scaffold(
+                            backgroundColor: colors[color],
+                            appBar:new AppBar(actions:[new IconButton(icon:new Icon(Icons.close),onPressed:(){Navigator.of(context).pop();})],automaticallyImplyLeading:false,centerTitle:false,title:new Text(widget.code+" image",style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
+                            body: new Scrollbar(child:new ListView(children:[new Image(image:image.image,fit:BoxFit.contain)]))
                         )));
                       },child:new FutureBuilder<ui.Image>(
                         future: completer.future,
