@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'dart:ui';
+import 'dart:ui' as ui;
 import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
@@ -161,7 +161,7 @@ class HomePageState extends State<HomePage>{
                       builder: (context){
                         return new Container(
                           width: MediaQuery.of(context).size.width * .7,
-                          child: new BackdropFilter(filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),child: new GridView.count(
+                          child: new BackdropFilter(filter: new ui.ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),child: new GridView.count(
                               crossAxisCount: 3,
                               childAspectRatio: 1.0,
                               padding: const EdgeInsets.all(4.0),
@@ -1261,9 +1261,6 @@ class ViewOrVoteState extends State<ViewOrVote>{
 
   Timer timer;
 
-  // ignore: conflicting_dart_import
-  Image image;
-
   int hexToInt(String colorStr)
   {
     colorStr = "FF" + colorStr;
@@ -1287,9 +1284,20 @@ class ViewOrVoteState extends State<ViewOrVote>{
     return val;
   }
 
+  Completer<ui.Image> completer;
+
   @override
   void initState(){
     super.initState();
+    if(widget.hasImage){
+      image = new Image.network(imageLink+widget.code,fit: BoxFit.fitWidth);
+      completer = new Completer<ui.Image>();
+      image.image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
+        if(!completer.isCompleted){
+          completer.complete(info.image);
+        }
+      });
+    }
     ultraTempMap = Map.fromIterables(widget.choices, widget.scores);
     sortedMap = new SplayTreeMap.from(ultraTempMap,(o1,o2)=>ultraTempMap[o2]-ultraTempMap[o1]!=0?ultraTempMap[o2]-ultraTempMap[o1]:widget.choices.indexOf(o1)-widget.choices.indexOf(o2));
     if(!widget.oneChoice){
@@ -1372,6 +1380,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
 
   bool isVoting = false;
 
+  Image image;
+
   @override
   Widget build(BuildContext context){
     if(MediaQuery.of(context).size.width>MediaQuery.of(context).size.height){
@@ -1426,7 +1436,25 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       new Container(color:Colors.black54,height:1.0),
                       new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center)),
                       new Container(color:Colors.black54,height:1.0),
-                      widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new CachedNetworkImage(fit: BoxFit.fill,imageUrl: imageLink+widget.code, placeholder: new Container(height:2.0,child:new LinearProgressIndicator()),errorWidget: new Icon(Icons.error))):new Container(),
+                      widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new GestureDetector(onTapUp: (t){
+                        Navigator.push(context,new MaterialPageRoute(builder: (context)=>new Scaffold(
+                            appBar:new AppBar(centerTitle:false,title:new Text(widget.code,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
+                            // ignore: conflicting_dart_import
+                            body: new Scrollbar(child:new ListView(children:[new Image(image:image.image,fit:BoxFit.fitWidth)]))
+                        )));
+                      },child:new FutureBuilder<ui.Image>(
+                        future: completer.future,
+                        builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
+                          if(snapshot.hasData){
+                            return new SizedBox(
+                              height:(snapshot.data.height<(MediaQuery.of(context).size.height/3))?snapshot.data.height*1.0:MediaQuery.of(context).size.height/3.0,
+                              child: image
+                            );
+                          }else{
+                            return new Container(height:2.0,child:new LinearProgressIndicator());
+                          }
+                        },
+                      ))):new Container(),
                       new Column(
                           children: widget.vote?(widget.oneChoice?choicesString.map((String key){
                             return new Padding(padding: EdgeInsets.only(top:widget.choices.indexOf(key)!=0?4.0:0.0),child: new Container(color:Colors.black26,child:new RadioListTile(

@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="916" column="71" lean-forward="true" selection-start-line="916" selection-start-column="71" selection-end-line="916" selection-end-column="71" />
+            <state relative-caret-position="399">
+              <caret line="1453" column="97" lean-forward="true" selection-start-line="1453" selection-start-column="97" selection-end-line="1453" selection-end-column="97" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -93,18 +93,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.toString().le</find>
-      <find>&lt;5</find>
-      <find>Camer</find>
-      <find>.put</find>
-      <find>print(</find>
-      <find>if(selec</find>
-      <find>Image</find>
-      <find>pickedImage</find>
       <find>[</find>
       <find>new Image.</find>
       <find>.75</find>
-      <find>Cache</find>
       <find>Image.fil</find>
       <find>Cached</find>
       <find>CachedNe</find>
@@ -123,6 +114,15 @@
       <find>AppBafr</find>
       <find>Image.file</find>
       <find>basename(pickedImage.pa</find>
+      <find>Cache</find>
+      <find>new Cach</find>
+      <find>Image.net</find>
+      <find>FutureBuil</find>
+      <find>FutureBu</find>
+      <find>onTapUp:(d)</find>
+      <find>onTapUp:(t)</find>
+      <find>CreatePolLSt</find>
+      <find>onTapI</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -814,14 +814,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/key.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="84" lean-forward="false" selection-start-line="3" selection-start-column="84" selection-end-line="3" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -830,10 +822,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/key.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="84" lean-forward="false" selection-start-line="3" selection-start-column="84" selection-end-line="3" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="916" column="71" lean-forward="true" selection-start-line="916" selection-start-column="71" selection-end-line="916" selection-end-column="71" />
+        <state relative-caret-position="399">
+          <caret line="1453" column="97" lean-forward="true" selection-start-line="1453" selection-start-column="97" selection-end-line="1453" selection-end-column="97" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
