@@ -23,6 +23,7 @@ import 'package:collection/collection.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:path/path.dart';
+import 'package:photo_view/photo_view.dart';
 
 int color;
 
@@ -756,6 +757,10 @@ class CreatePollState extends State<CreatePoll>{
 
   File pickedImage;
 
+  double width;
+
+  double height;
+
   ScrollController s = new ScrollController();
 
   @override
@@ -909,16 +914,27 @@ class CreatePollState extends State<CreatePoll>{
                             )),
                             new GestureDetector(onTapUp: (d) async{
                               if(pickedImage!=null){
-                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(new Scrollbar(child:new ListView(children:[new Image.file(pickedImage,width:MediaQuery.of(context).size.width,fit:BoxFit.fitWidth)])),basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path)));
+                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(new Center(child:new PhotoView(imageProvider:new Image.file(pickedImage).image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path)));
                               }else{
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+                                if(tempImage!=null){
+                                  new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
+                                    height = info.image.height*1.0;
+                                    width = info.image.height*1.0;
+                                  });
+                                }else{
+                                  height=null;
+                                  width=null;
+                                }
                                 setState((){pickedImage = tempImage;});
                               }
                             },onLongPress: (){
                               setState((){
                                 pickedImage = null;
+                                height = null;
+                                width = null;
                               });
-                            },child:new Container(
+                            },child: new Container(
                                 padding: EdgeInsets.only(left:5.0,right:5.0,top:5.0),
                                 child: new Container(
                                     height: 50.0,
@@ -940,7 +956,16 @@ class CreatePollState extends State<CreatePoll>{
                                       color: Colors.black26,
                                       onPressed: () async{
                                         File tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
-                                        setState((){pickedImage =  tempImage;});
+                                        if(tempImage!=null){
+                                          new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
+                                            height = info.image.height*1.0;
+                                            width = info.image.height*1.0;
+                                          });
+                                        }else{
+                                          height=null;
+                                          width=null;
+                                        }
+                                        setState((){pickedImage = tempImage;});
                                       },
                                       child: new Icon(Icons.add_a_photo,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
                                   ),
@@ -949,6 +974,15 @@ class CreatePollState extends State<CreatePoll>{
                                     color: Colors.black26,
                                     onPressed: () async{
                                       File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+                                      if(tempImage!=null){
+                                        new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
+                                          height = info.image.height*1.0;
+                                          width = info.image.height*1.0;
+                                        });
+                                      }else{
+                                        height=null;
+                                        width=null;
+                                      }
                                       setState((){pickedImage = tempImage;});
                                     },
                                     child: new Icon(Icons.photo_library,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
@@ -1353,6 +1387,10 @@ class ViewOrVoteState extends State<ViewOrVote>{
 
   Completer<ui.Image> completer;
 
+  double height;
+
+  double width;
+
   @override
   void initState(){
     super.initState();
@@ -1504,11 +1542,13 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center)),
                       new Container(color:Colors.black87,height:1.0),
                       widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new GestureDetector(onTapUp: (t){
-                        Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(new Scrollbar(child:new ListView(children:[image])),widget.code)));
+                        Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(new Center(child:new PhotoView(imageProvider:image.image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),widget.code)));
                       },child:new FutureBuilder<ui.Image>(
                         future: completer.future,
-                        builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
+                        builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot){
                           if(snapshot.hasData){
+                            height = snapshot.data.height*1.0;
+                            width = snapshot.data.width*1.0;
                             return new SizedBox(
                               height:MediaQuery.of(context).size.height/3.0,
                               child:new Image(image:image.image,fit:snapshot.data.height>=snapshot.data.width?BoxFit.fitWidth:BoxFit.fitHeight)
