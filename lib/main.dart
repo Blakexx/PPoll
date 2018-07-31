@@ -791,6 +791,8 @@ class CreatePollState extends State<CreatePoll>{
 
   TextEditingController c = new TextEditingController();
 
+  bool hasTapped = true;
+
   @override
   Widget build(BuildContext context) {
     if(MediaQuery.of(context).size.width>MediaQuery.of(context).size.height){
@@ -907,11 +909,7 @@ class CreatePollState extends State<CreatePoll>{
                             )),
                             new GestureDetector(onTapUp: (d) async{
                               if(pickedImage!=null){
-                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new Scaffold(
-                                    backgroundColor: colors[color],
-                                    appBar:new AppBar(actions:[new IconButton(icon:new Icon(Icons.close),onPressed:(){Navigator.of(context).pop();})],automaticallyImplyLeading:false,centerTitle:false,title:new Text(basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
-                                    body: new Scrollbar(child:new ListView(children:[new Image.file(pickedImage,width:MediaQuery.of(context).size.width,fit:BoxFit.fitWidth)]))
-                                )));
+                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(new Scrollbar(child:new ListView(children:[new Image.file(pickedImage,width:MediaQuery.of(context).size.width,fit:BoxFit.fitWidth)])),basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path)));
                               }else{
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                                 setState((){pickedImage = tempImage;});
@@ -1221,6 +1219,85 @@ class CreatePollState extends State<CreatePoll>{
   }
 }
 
+class ImageView extends StatefulWidget{
+  Widget child;
+  String name;
+  ImageView(this.child,this.name);
+
+  @override
+  ImageViewState createState() => new ImageViewState();
+}
+
+class ImageViewState extends State<ImageView>{
+
+  bool hasTapped = true;
+  bool isAnimating = false;
+  bool hasLeft = false;
+  Timer t;
+  Timer t2;
+  @override
+  Widget build(BuildContext context){
+    if(hasTapped){
+      if(t!=null){
+        t.cancel();
+      }
+      t = new Timer(new Duration(seconds:2),(){
+        if(!isAnimating&&!hasLeft){
+          setState((){isAnimating = true;});
+          t2 = new Timer(new Duration(milliseconds: 200),(){
+            if(!hasLeft){
+              isAnimating = false;
+              setState((){
+                hasTapped=false;
+              });
+            }
+          });
+        }
+      });
+    }
+    return new GestureDetector(onTap:(){
+        if(!isAnimating){
+          if(t2!=null){
+            t2.cancel;
+          }
+          setState((){isAnimating = true;});
+          t2 = new Timer(new Duration(milliseconds: 200),(){
+            if(!hasLeft){
+              isAnimating=false;
+              setState((){
+                hasTapped=!hasTapped;
+              });
+            }
+          });
+        }
+      },child:new Scaffold(
+        backgroundColor: colors[color],
+        body: new Stack(
+            children: hasTapped?[
+              new Positioned(
+                  top: 0.0,
+                  left: 0.0,
+                  bottom: 0.0,
+                  right: 0.0,
+                  child:widget.child
+              ),
+              new AnimatedOpacity(opacity:isAnimating?0.0:1.0,duration:new Duration(milliseconds: 200),child:new Container(color:Colors.black38)),
+              new AnimatedOpacity(opacity:isAnimating?0.0:1.0,duration:new Duration(milliseconds: 200),child:new AppBar(actions:[new IconButton(icon:new Icon(Icons.close),onPressed:(){hasLeft = true;Navigator.of(context).pop();})],automaticallyImplyLeading:false,centerTitle:false,title:new Text(widget.name,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.transparent,elevation: 0.0))
+            ]:[
+              new Positioned(
+                  top: 0.0,
+                  left: 0.0,
+                  bottom: 0.0,
+                  right: 0.0,
+                  child:widget.child
+              )
+            ]
+        )
+    ));
+  }
+}
+
+
 class ViewOrVote extends StatefulWidget{
   bool public;
   String question;
@@ -1437,11 +1514,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center)),
                       new Container(color:Colors.black87,height:1.0),
                       widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new GestureDetector(onTapUp: (t){
-                        Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new Scaffold(
-                            backgroundColor: colors[color],
-                            appBar:new AppBar(actions:[new IconButton(icon:new Icon(Icons.close),onPressed:(){Navigator.of(context).pop();})],automaticallyImplyLeading:false,centerTitle:false,title:new Text(widget.code+" image",style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
-                            body: new Scrollbar(child:new ListView(children:[image]))
-                        )));
+                        Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(new Scrollbar(child:new ListView(children:[image])),widget.code+" image")));
                       },child:new FutureBuilder<ui.Image>(
                         future: completer.future,
                         builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
