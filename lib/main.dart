@@ -761,6 +761,8 @@ class CreatePollState extends State<CreatePoll>{
 
   double height;
 
+  bool imageLoading = false;
+
   ScrollController s = new ScrollController();
 
   @override
@@ -913,14 +915,16 @@ class CreatePollState extends State<CreatePoll>{
                                 )
                             )),
                             new GestureDetector(onTapUp: (d) async{
-                              if(pickedImage!=null){
+                              if(pickedImage!=null&&width!=null){
                                 Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:new Image.file(pickedImage).image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),name:basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path)));
-                              }else{
+                              }else if(!imageLoading){
+                                setState((){imageLoading = true;});
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                                 if(tempImage!=null){
                                   new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                     height = info.image.height*1.0;
                                     width = info.image.width*1.0;
+                                    setState((){imageLoading = false;});
                                   });
                                 }else{
                                   height=null;
@@ -929,11 +933,13 @@ class CreatePollState extends State<CreatePoll>{
                                 setState((){pickedImage = tempImage;});
                               }
                             },onLongPress: (){
-                              setState((){
-                                pickedImage = null;
-                                height = null;
-                                width = null;
-                              });
+                              if(!imageLoading){
+                                setState((){
+                                  pickedImage = null;
+                                  height = null;
+                                  width = null;
+                                });
+                              }
                             },child: new Container(
                                 padding: EdgeInsets.only(left:5.0,right:5.0,top:5.0),
                                 child: new Container(
@@ -942,7 +948,7 @@ class CreatePollState extends State<CreatePoll>{
                                     child: new Row(
                                         children: [
                                           new Expanded(child: new Text(pickedImage!=null?"  Image selected":"  No image selected",style: new TextStyle(fontSize:17.0,color:Colors.white))),
-                                          pickedImage!=null?new Padding(padding:EdgeInsets.only(right:10.0),child:new SizedBox(height:40.0,width:40.0,child:new Image.file(pickedImage,fit:BoxFit.fitWidth))):new Container()
+                                          pickedImage!=null?new Padding(padding:EdgeInsets.only(right:10.0),child:new SizedBox(height:40.0,width:40.0,child:!imageLoading?new Image.file(pickedImage,fit:BoxFit.fitWidth):new CircularProgressIndicator())):new Container()
                                         ]
                                     )
                                 )
@@ -955,11 +961,13 @@ class CreatePollState extends State<CreatePoll>{
                                       height: 40.0*MediaQuery.of(context).size.width/360,minWidth: 75.0*MediaQuery.of(context).size.width/360,
                                       color: Colors.black26,
                                       onPressed: () async{
+                                        setState((){imageLoading = true;});
                                         File tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
                                         if(tempImage!=null){
                                           new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                             height = info.image.height*1.0;
                                             width = info.image.width*1.0;
+                                            setState((){imageLoading = false;});
                                           });
                                         }else{
                                           height=null;
@@ -974,10 +982,12 @@ class CreatePollState extends State<CreatePoll>{
                                     color: Colors.black26,
                                     onPressed: () async{
                                       File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+                                      setState((){imageLoading = true;});
                                       if(tempImage!=null){
                                         new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                           height = info.image.height*1.0;
                                           width = info.image.width*1.0;
+                                          setState((){imageLoading = false;});
                                         });
                                       }else{
                                         height=null;
@@ -1257,7 +1267,6 @@ class ImageView extends StatefulWidget{
   @required Widget child;
   @required String name;
   ImageView({this.child,this.name});
-
   @override
   ImageViewState createState() => new ImageViewState();
 }
@@ -1541,7 +1550,9 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       new Container(padding:EdgeInsets.only(top:10.0,bottom:10.0),color:Colors.black45,child:new Text(widget.question,style:new TextStyle(color:Colors.white,fontSize:25.0*MediaQuery.of(context).size.width/360.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center)),
                       new Container(color:Colors.black87,height:1.0),
                       widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new GestureDetector(onTapUp: (t){
-                        Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:image.image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),name:widget.code)));
+                        if(width!=null){
+                          Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:image.image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),name:widget.code)));
+                        }
                       },child:new FutureBuilder<ui.Image>(
                         future: completer.future,
                         builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot){
