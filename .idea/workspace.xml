@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" afterPath="$PROJECT_DIR$/ios/Podfile.lock" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" />
       <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -24,8 +26,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="1383" column="40" lean-forward="false" selection-start-line="1383" selection-start-column="40" selection-end-line="1383" selection-end-column="40" />
+            <state relative-caret-position="402">
+              <caret line="1506" column="145" lean-forward="false" selection-start-line="1506" selection-start-column="145" selection-end-line="1506" selection-end-column="145" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -36,8 +38,8 @@
       <file leaf-file-name="Info.plist" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ios/Runner/Info.plist">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="60" lean-forward="false" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
+            <state relative-caret-position="15">
+              <caret line="1" column="51" lean-forward="false" selection-start-line="1" selection-start-column="51" selection-end-line="1" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -94,8 +96,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>throw e</find>
-      <find>founderror = fal</find>
       <find>your poll</find>
       <find>AppBafr</find>
       <find>Image.file</find>
@@ -119,11 +119,13 @@
       <find>hasTapped=!</find>
       <find>new Rout</find>
       <find>+&quot; imag</find>
-      <find>ImageView</find>
       <find>+&quot; im</find>
       <find>ImageViewSt</find>
       <find>No image selec</find>
       <find>BoxFit.fitHeigh</find>
+      <find>ImageView</find>
+      <find>push</find>
+      <find>not</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -143,8 +145,8 @@
         <option value="$PROJECT_DIR$/lib/key.dart" />
         <option value="$PROJECT_DIR$/android/app/build.gradle" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
-        <option value="$PROJECT_DIR$/lib/main.dart" />
         <option value="$PROJECT_DIR$/ios/Runner/Info.plist" />
+        <option value="$PROJECT_DIR$/lib/main.dart" />
       </list>
     </option>
   </component>
@@ -825,8 +827,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="1383" column="40" lean-forward="false" selection-start-line="1383" selection-start-column="40" selection-end-line="1383" selection-end-column="40" />
+        <state relative-caret-position="402">
+          <caret line="1506" column="145" lean-forward="false" selection-start-line="1506" selection-start-column="145" selection-end-line="1506" selection-end-column="145" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -835,8 +837,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ios/Runner/Info.plist">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="60" lean-forward="false" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
+        <state relative-caret-position="15">
+          <caret line="1" column="51" lean-forward="false" selection-start-line="1" selection-start-column="51" selection-end-line="1" selection-end-column="51" />
           <folding />
         </state>
       </provider>
