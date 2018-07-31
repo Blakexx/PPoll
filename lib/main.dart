@@ -920,39 +920,43 @@ class CreatePollState extends State<CreatePoll>{
                               }else if(!imageLoading){
                                 setState((){imageLoading = true;});
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-                                if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
-                                  showDialog(
-                                      context: context,
-                                      barrierDismissible: true,
-                                      builder: (context){
-                                        return new AlertDialog(
-                                            title:new Text("Error"),
-                                            content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid filename format"),
-                                            actions: [
-                                              new RaisedButton(
-                                                  child: new Text("Okay",style:new TextStyle(color: Colors.black)),
-                                                  onPressed: (){
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  color: Colors.grey
-                                              )
-                                            ]
-                                        );
-                                      }
-                                  );
-                                  return;
-                                }
                                 if(tempImage!=null){
-                                  new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
-                                    height = info.image.height*1.0;
-                                    width = info.image.width*1.0;
-                                    setState((){imageLoading = false;});
-                                  });
+                                  if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (context){
+                                          return new AlertDialog(
+                                              title:new Text("Error"),
+                                              content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid filename format"),
+                                              actions: [
+                                                new RaisedButton(
+                                                    child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                    onPressed: (){
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    color: Colors.grey
+                                                )
+                                              ]
+                                          );
+                                        }
+                                    );
+                                    return;
+                                  }
+                                  if(tempImage!=null){
+                                    new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
+                                      height = info.image.height*1.0;
+                                      width = info.image.width*1.0;
+                                      setState((){imageLoading = false;});
+                                    });
+                                  }else{
+                                    height=null;
+                                    width=null;
+                                  }
+                                  setState((){pickedImage = tempImage;});
                                 }else{
-                                  height=null;
-                                  width=null;
+                                  pickedImage=null;
                                 }
-                                setState((){pickedImage = tempImage;});
                               }
                             },onLongPress: (){
                               if(!imageLoading){
@@ -986,6 +990,55 @@ class CreatePollState extends State<CreatePoll>{
                                         if(!imageLoading){
                                           setState((){imageLoading = true;});
                                           File tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
+                                          if(tempImage!=null){
+                                            if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                              showDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  builder: (context){
+                                                    return new AlertDialog(
+                                                        title:new Text("Error"),
+                                                        content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid filename format"),
+                                                        actions: [
+                                                          new RaisedButton(
+                                                              child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                              onPressed: (){
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              color: Colors.grey
+                                                          )
+                                                        ]
+                                                    );
+                                                  }
+                                              );
+                                              return;
+                                            }
+                                            if(tempImage!=null){
+                                              new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
+                                                height = info.image.height*1.0;
+                                                width = info.image.width*1.0;
+                                                setState((){imageLoading = false;});
+                                              });
+                                            }else{
+                                              height=null;
+                                              width=null;
+                                            }
+                                            setState((){pickedImage = tempImage;});
+                                          }else{
+                                            pickedImage=null;
+                                          }
+
+                                        }
+                                      },
+                                      child: new Icon(Icons.add_a_photo,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
+                                  ),
+                                  new MaterialButton(
+                                    height: 40.0*MediaQuery.of(context).size.width/360,minWidth: 75.0*MediaQuery.of(context).size.width/360,
+                                    color: Colors.black26,
+                                    onPressed: () async{
+                                      if(!imageLoading){
+                                        File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+                                        if(tempImage!=null){
                                           if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
                                             showDialog(
                                                 context: context,
@@ -1008,6 +1061,8 @@ class CreatePollState extends State<CreatePoll>{
                                             );
                                             return;
                                           }
+                                          print("big java");
+                                          setState((){imageLoading = true;});
                                           if(tempImage!=null){
                                             new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                               height = info.image.height*1.0;
@@ -1019,51 +1074,9 @@ class CreatePollState extends State<CreatePoll>{
                                             width=null;
                                           }
                                           setState((){pickedImage = tempImage;});
-                                        }
-                                      },
-                                      child: new Icon(Icons.add_a_photo,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
-                                  ),
-                                  new MaterialButton(
-                                    height: 40.0*MediaQuery.of(context).size.width/360,minWidth: 75.0*MediaQuery.of(context).size.width/360,
-                                    color: Colors.black26,
-                                    onPressed: () async{
-                                      if(!imageLoading){
-                                        File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-                                        if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
-                                          showDialog(
-                                              context: context,
-                                              barrierDismissible: true,
-                                              builder: (context){
-                                                return new AlertDialog(
-                                                    title:new Text("Error"),
-                                                    content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid filename format"),
-                                                    actions: [
-                                                      new RaisedButton(
-                                                          child: new Text("Okay",style:new TextStyle(color: Colors.black)),
-                                                          onPressed: (){
-                                                            Navigator.of(context).pop();
-                                                          },
-                                                          color: Colors.grey
-                                                      )
-                                                    ]
-                                                );
-                                              }
-                                          );
-                                          return;
-                                        }
-                                        print("big java");
-                                        setState((){imageLoading = true;});
-                                        if(tempImage!=null){
-                                          new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
-                                            height = info.image.height*1.0;
-                                            width = info.image.width*1.0;
-                                            setState((){imageLoading = false;});
-                                          });
                                         }else{
-                                          height=null;
-                                          width=null;
+                                          pickedImage=null;
                                         }
-                                        setState((){pickedImage = tempImage;});
                                       }
                                     },
                                     child: new Icon(Icons.photo_library,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)

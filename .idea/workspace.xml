@@ -24,7 +24,7 @@
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="184">
-              <caret line="995" column="139" lean-forward="false" selection-start-line="995" selection-start-column="139" selection-end-line="995" selection-end-column="139" />
+              <caret line="921" column="95" lean-forward="false" selection-start-line="921" selection-start-column="85" selection-end-line="921" selection-end-column="95" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -93,9 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ZoomableIm</find>
-      <find>new</find>
-      <find>ImageSour</find>
       <find>onLongPre</find>
       <find>ImageViewSt</find>
       <find>Ab</find>
@@ -112,17 +109,20 @@
       <find>ImageSource</find>
       <find>imageLoading = false</find>
       <find>print*</find>
-      <find>print(</find>
       <find>imageLoading =</find>
       <find>ImageView</find>
       <find>basename(</find>
       <find>ImageSource.</find>
       <find>invalid form</find>
-      <find>ImageSourc</find>
       <find>imagesource.</find>
       <find>imagesource.ga</find>
       <find>Invalid</find>
       <find>Invalid file fo</find>
+      <find>Imagesour</find>
+      <find>print(</find>
+      <find>Imagesrouce</find>
+      <find>Imagesourc</find>
+      <find>ImageSourc</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -833,7 +833,7 @@
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
-          <caret line="995" column="139" lean-forward="false" selection-start-line="995" selection-start-column="139" selection-end-line="995" selection-end-column="139" />
+          <caret line="921" column="95" lean-forward="false" selection-start-line="921" selection-start-column="85" selection-end-line="921" selection-end-column="95" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
