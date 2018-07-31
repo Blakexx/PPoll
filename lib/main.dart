@@ -1445,11 +1445,6 @@ class ViewOrVoteState extends State<ViewOrVote>{
                         future: completer.future,
                         builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
                           if(snapshot.hasData){
-                            print(MediaQuery.of(context).size.height/3);
-                            print(MediaQuery.of(context).size.width);
-                            print(snapshot.data.height/MediaQuery.of(context).devicePixelRatio);
-                            print(snapshot.data.width/MediaQuery.of(context).devicePixelRatio);
-                            print(((snapshot.data.width/MediaQuery.of(context).devicePixelRatio)>MediaQuery.of(context).size.width)&&((snapshot.data.height/MediaQuery.of(context).devicePixelRatio)<(MediaQuery.of(context).size.height/3)));
                             return new SizedBox(
                               height:MediaQuery.of(context).size.height/3.0,
                               child:new Image(image:image.image,fit:snapshot.data.height>=snapshot.data.width?BoxFit.fitWidth:BoxFit.fitHeight)
