@@ -1274,23 +1274,11 @@ class ImageViewState extends State<ImageView>{
         backgroundColor: colors[color],
         body: new Stack(
             children: hasTapped?[
-              new Positioned(
-                  top: 0.0,
-                  left: 0.0,
-                  bottom: 0.0,
-                  right: 0.0,
-                  child:widget.child
-              ),
+              widget.child,
               new AnimatedOpacity(opacity:isAnimating?0.0:1.0,duration:new Duration(milliseconds: 200),child:new Container(color:Colors.black38)),
               new AnimatedOpacity(opacity:isAnimating?0.0:1.0,duration:new Duration(milliseconds: 200),child:new AppBar(actions:[new IconButton(icon:new Icon(Icons.close),onPressed:(){hasLeft = true;Navigator.of(context).pop();})],automaticallyImplyLeading:false,centerTitle:false,title:new Text(widget.name,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.transparent,elevation: 0.0))
             ]:[
-              new Positioned(
-                  top: 0.0,
-                  left: 0.0,
-                  bottom: 0.0,
-                  right: 0.0,
-                  child:widget.child
-              )
+              widget.child
             ]
         )
     ));
