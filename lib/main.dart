@@ -920,6 +920,28 @@ class CreatePollState extends State<CreatePoll>{
                               }else if(!imageLoading){
                                 setState((){imageLoading = true;});
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+                                if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                  showDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      builder: (context){
+                                        return new AlertDialog(
+                                            title:new Text("Error"),
+                                            content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid file format"),
+                                            actions: [
+                                              new RaisedButton(
+                                                  child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                  onPressed: (){
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  color: Colors.grey
+                                              )
+                                            ]
+                                        );
+                                      }
+                                  );
+                                  return;
+                                }
                                 if(tempImage!=null){
                                   new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                     height = info.image.height*1.0;
@@ -964,6 +986,28 @@ class CreatePollState extends State<CreatePoll>{
                                         if(!imageLoading){
                                           setState((){imageLoading = true;});
                                           File tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
+                                          if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                            showDialog(
+                                                context: context,
+                                                barrierDismissible: true,
+                                                builder: (context){
+                                                  return new AlertDialog(
+                                                      title:new Text("Error"),
+                                                      content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid file format"),
+                                                      actions: [
+                                                        new RaisedButton(
+                                                            child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                            onPressed: (){
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            color: Colors.grey
+                                                        )
+                                                      ]
+                                                  );
+                                                }
+                                            );
+                                            return;
+                                          }
                                           if(tempImage!=null){
                                             new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                               height = info.image.height*1.0;
@@ -985,6 +1029,28 @@ class CreatePollState extends State<CreatePoll>{
                                     onPressed: () async{
                                       if(!imageLoading){
                                         File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+                                        if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                          showDialog(
+                                              context: context,
+                                              barrierDismissible: true,
+                                              builder: (context){
+                                                return new AlertDialog(
+                                                    title:new Text("Error"),
+                                                    content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid file format"),
+                                                    actions: [
+                                                      new RaisedButton(
+                                                          child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                          onPressed: (){
+                                                            Navigator.of(context).pop();
+                                                          },
+                                                          color: Colors.grey
+                                                      )
+                                                    ]
+                                                );
+                                              }
+                                          );
+                                          return;
+                                        }
                                         setState((){imageLoading = true;});
                                         if(tempImage!=null){
                                           new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){

@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -23,8 +24,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="993" column="45" lean-forward="false" selection-start-line="993" selection-start-column="45" selection-end-line="993" selection-end-column="45" />
+            <state relative-caret-position="421">
+              <caret line="1049" column="47" lean-forward="true" selection-start-line="1049" selection-start-column="47" selection-end-line="1049" selection-end-column="47" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -45,8 +46,8 @@
       <file leaf-file-name="key.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/key.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="84" lean-forward="false" selection-start-line="3" selection-start-column="84" selection-end-line="3" selection-end-column="84" />
+            <state relative-caret-position="60">
+              <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -93,10 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>+&quot; im</find>
-      <find>No image selec</find>
-      <find>BoxFit.fitHeigh</find>
-      <find>push</find>
       <find>not</find>
       <find>No image</find>
       <find>ZoomableIm</find>
@@ -108,13 +105,11 @@
       <find>width =</find>
       <find>new FutureBui</find>
       <find>width = inf</find>
-      <find>ImageView</find>
       <find>4.0*</find>
       <find>Ignore</find>
       <find>@requo</find>
       <find>ImageFilter</find>
       <find>new ImageView</find>
-      <find>ImageSource.</find>
       <find>imageLoading = true</find>
       <find>onLongPress</find>
       <find>ImageSource</find>
@@ -122,7 +117,13 @@
       <find>print*</find>
       <find>print(</find>
       <find>imageLoading =</find>
+      <find>ImageView</find>
+      <find>basename(</find>
+      <find>ImageSource.</find>
+      <find>invalid form</find>
       <find>ImageSourc</find>
+      <find>imagesource.</find>
+      <find>imagesource.ga</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -798,14 +799,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/key.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="84" lean-forward="false" selection-start-line="3" selection-start-column="84" selection-end-line="3" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ios/Runner/Info.plist">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -830,10 +823,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/key.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="993" column="45" lean-forward="false" selection-start-line="993" selection-start-column="45" selection-end-line="993" selection-end-column="45" />
+        <state relative-caret-position="421">
+          <caret line="1049" column="47" lean-forward="true" selection-start-line="1049" selection-start-column="47" selection-end-line="1049" selection-end-column="47" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
