@@ -961,8 +961,31 @@ class CreatePollState extends State<CreatePoll>{
                                       height: 40.0*MediaQuery.of(context).size.width/360,minWidth: 75.0*MediaQuery.of(context).size.width/360,
                                       color: Colors.black26,
                                       onPressed: () async{
+                                        if(!imageLoading){
+                                          setState((){imageLoading = true;});
+                                          File tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
+                                          if(tempImage!=null){
+                                            new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
+                                              height = info.image.height*1.0;
+                                              width = info.image.width*1.0;
+                                              setState((){imageLoading = false;});
+                                            });
+                                          }else{
+                                            height=null;
+                                            width=null;
+                                          }
+                                          setState((){pickedImage = tempImage;});
+                                        }
+                                      },
+                                      child: new Icon(Icons.add_a_photo,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
+                                  ),
+                                  new MaterialButton(
+                                    height: 40.0*MediaQuery.of(context).size.width/360,minWidth: 75.0*MediaQuery.of(context).size.width/360,
+                                    color: Colors.black26,
+                                    onPressed: () async{
+                                      if(!imageLoading){
+                                        File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                                         setState((){imageLoading = true;});
-                                        File tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
                                         if(tempImage!=null){
                                           new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                             height = info.image.height*1.0;
@@ -974,26 +997,7 @@ class CreatePollState extends State<CreatePoll>{
                                           width=null;
                                         }
                                         setState((){pickedImage = tempImage;});
-                                      },
-                                      child: new Icon(Icons.add_a_photo,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
-                                  ),
-                                  new MaterialButton(
-                                    height: 40.0*MediaQuery.of(context).size.width/360,minWidth: 75.0*MediaQuery.of(context).size.width/360,
-                                    color: Colors.black26,
-                                    onPressed: () async{
-                                      File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-                                      setState((){imageLoading = true;});
-                                      if(tempImage!=null){
-                                        new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
-                                          height = info.image.height*1.0;
-                                          width = info.image.width*1.0;
-                                          setState((){imageLoading = false;});
-                                        });
-                                      }else{
-                                        height=null;
-                                        width=null;
                                       }
-                                      setState((){pickedImage = tempImage;});
                                     },
                                     child: new Icon(Icons.photo_library,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
                                   )
