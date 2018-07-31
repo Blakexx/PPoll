@@ -907,10 +907,10 @@ class CreatePollState extends State<CreatePoll>{
                             )),
                             new GestureDetector(onTapUp: (d) async{
                               if(pickedImage!=null){
-                                Navigator.push(context,new MaterialPageRoute(builder: (context)=>new Scaffold(
-                                    appBar:new AppBar(centerTitle:false,title:new Text(basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
-                                    // ignore: conflicting_dart_import
-                                    body: new Scrollbar(child:new ListView(children:[new Image.file(pickedImage,width:MediaQuery.of(context).size.width,fit:BoxFit.fill)]))
+                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new Scaffold(
+                                    backgroundColor: colors[color],
+                                    appBar:new AppBar(actions:[new IconButton(icon:new Icon(Icons.close),onPressed:(){Navigator.of(context).pop();})],automaticallyImplyLeading:false,centerTitle:false,title:new Text(basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
+                                    body: new Scrollbar(child:new ListView(children:[new Image.file(pickedImage,width:MediaQuery.of(context).size.width,fit:BoxFit.fitWidth)]))
                                 )));
                               }else{
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
