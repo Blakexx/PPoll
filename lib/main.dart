@@ -1549,9 +1549,6 @@ class ViewOrVoteState extends State<ViewOrVote>{
                           if(snapshot.hasData){
                             height = snapshot.data.height*1.0;
                             width = snapshot.data.width*1.0;
-                            print(width);
-                            print(MediaQuery.of(context).size.width);
-                            print(MediaQuery.of(context).size.width/width);
                             return new SizedBox(
                               height:MediaQuery.of(context).size.height/3.0,
                               child:new Image(image:image.image,fit:snapshot.data.height>=snapshot.data.width?BoxFit.fitWidth:BoxFit.fitHeight)
