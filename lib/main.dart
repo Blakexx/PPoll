@@ -1438,8 +1438,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       new Container(color:Colors.black54,height:1.0),
                       widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new GestureDetector(onTapUp: (t){
                         Navigator.push(context,new MaterialPageRoute(builder: (context)=>new Scaffold(
-                            appBar:new AppBar(centerTitle:false,title:new Text(widget.code,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
-                            // ignore: conflicting_dart_import
+                            appBar:new AppBar(centerTitle:false,title:new Text(widget.code+" image",style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
                             body: new Scrollbar(child:new ListView(children:[new Image(image:image.image,fit:BoxFit.fitWidth)]))
                         )));
                       },child:new FutureBuilder<ui.Image>(
@@ -1447,7 +1446,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                         builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
                           if(snapshot.hasData){
                             return new SizedBox(
-                              height:(snapshot.data.height<(MediaQuery.of(context).size.height/3))?snapshot.data.height*1.0:MediaQuery.of(context).size.height/3.0,
+                              height:snapshot.data.width>MediaQuery.of(context).size.width&&(snapshot.data.height<(MediaQuery.of(context).size.height/3))?snapshot.data.height*1.0:MediaQuery.of(context).size.height/3.0,
                               child: image
                             );
                           }else{
