@@ -23,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="1516" column="140" lean-forward="false" selection-start-line="1516" selection-start-column="140" selection-end-line="1516" selection-end-column="140" />
+            <state relative-caret-position="328">
+              <caret line="1281" column="36" lean-forward="true" selection-start-line="1281" selection-start-column="36" selection-end-line="1281" selection-end-column="36" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -93,8 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>post</find>
-      <find>mime(</find>
       <find>please check</find>
       <find>if(found</find>
       <find>throw e</find>
@@ -120,9 +118,11 @@
       <find>hasTapped=</find>
       <find>ImageViewS</find>
       <find>hasTapped=!</find>
-      <find>ImageView</find>
       <find>new Rout</find>
       <find>+&quot; imag</find>
+      <find>ImageView</find>
+      <find>+&quot; im</find>
+      <find>ImageViewSt</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -832,8 +832,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="1516" column="140" lean-forward="false" selection-start-line="1516" selection-start-column="140" selection-end-line="1516" selection-end-column="140" />
+        <state relative-caret-position="328">
+          <caret line="1281" column="36" lean-forward="true" selection-start-line="1281" selection-start-column="36" selection-end-line="1281" selection-end-column="36" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
