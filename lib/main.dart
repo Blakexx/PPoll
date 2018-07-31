@@ -1257,18 +1257,20 @@ class ImageViewState extends State<ImageView>{
     }
     return new GestureDetector(onTap:(){
         if(!isAnimating){
-          if(t2!=null){
-            t2.cancel;
-          }
-          setState((){isAnimating = true;});
-          t2 = new Timer(new Duration(milliseconds: 200),(){
-            if(!hasLeft){
-              isAnimating=false;
-              setState((){
-                hasTapped=!hasTapped;
-              });
+          if(hasTapped){
+            if(t2!=null){
+              t2.cancel;
             }
-          });
+            setState((){isAnimating = true;});
+            t2 = new Timer(new Duration(milliseconds: 200),(){
+              if(!hasLeft){
+                isAnimating=false;
+                setState((){hasTapped=false;});
+              }
+            });
+          }else{
+            setState((){hasTapped=true;});
+          }
         }
       },child:new Scaffold(
         backgroundColor: colors[color],
