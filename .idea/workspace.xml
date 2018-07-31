@@ -24,7 +24,7 @@
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="184">
-              <caret line="920" column="97" lean-forward="false" selection-start-line="920" selection-start-column="85" selection-end-line="920" selection-end-column="97" />
+              <caret line="1104" column="136" lean-forward="false" selection-start-line="1104" selection-start-column="136" selection-end-line="1104" selection-end-column="136" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -93,8 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Ab</find>
-      <find>width =</find>
       <find>new FutureBui</find>
       <find>width = inf</find>
       <find>4.0*</find>
@@ -117,12 +115,14 @@
       <find>Invalid</find>
       <find>Invalid file fo</find>
       <find>Imagesour</find>
-      <find>print(</find>
       <find>Imagesrouce</find>
       <find>Imagesourc</find>
       <find>ImageSourc</find>
       <find>imageSource.gall</find>
       <find>Imagesource.</find>
+      <find>print(</find>
+      <find>imageLoading=false;</find>
+      <find>Invalid filen</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -833,7 +833,7 @@
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
-          <caret line="920" column="97" lean-forward="false" selection-start-line="920" selection-start-column="85" selection-end-line="920" selection-end-column="97" />
+          <caret line="1104" column="136" lean-forward="false" selection-start-line="1104" selection-start-column="136" selection-end-line="1104" selection-end-column="136" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
