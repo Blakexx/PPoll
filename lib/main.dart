@@ -918,10 +918,10 @@ class CreatePollState extends State<CreatePoll>{
                               if(pickedImage!=null&&width!=null){
                                 Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:new Image.file(pickedImage).image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),name:basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path)));
                               }else if(!imageLoading){
-                                setState((){imageLoading = true;});
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                                 if(tempImage!=null){
                                   if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                    imageLoading=false;
                                     showDialog(
                                         context: context,
                                         barrierDismissible: true,
@@ -943,6 +943,7 @@ class CreatePollState extends State<CreatePoll>{
                                     );
                                     return;
                                   }
+                                  setState((){imageLoading = true;});
                                   if(tempImage!=null){
                                     new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                       height = info.image.height*1.0;
@@ -955,6 +956,7 @@ class CreatePollState extends State<CreatePoll>{
                                   }
                                   setState((){pickedImage = tempImage;});
                                 }else{
+                                  imageLoading=false;
                                   pickedImage=null;
                                 }
                               }
@@ -988,10 +990,10 @@ class CreatePollState extends State<CreatePoll>{
                                       color: Colors.black26,
                                       onPressed: () async{
                                         if(!imageLoading){
-                                          setState((){imageLoading = true;});
                                           File tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
                                           if(tempImage!=null){
                                             if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                              imageLoading = false;
                                               showDialog(
                                                   context: context,
                                                   barrierDismissible: true,
@@ -1013,6 +1015,7 @@ class CreatePollState extends State<CreatePoll>{
                                               );
                                               return;
                                             }
+                                            setState((){imageLoading = true;});
                                             if(tempImage!=null){
                                               new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                                 height = info.image.height*1.0;
@@ -1025,6 +1028,7 @@ class CreatePollState extends State<CreatePoll>{
                                             }
                                             setState((){pickedImage = tempImage;});
                                           }else{
+                                            imageLoading=false;
                                             pickedImage=null;
                                           }
 
@@ -1040,6 +1044,7 @@ class CreatePollState extends State<CreatePoll>{
                                         File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                                         if(tempImage!=null){
                                           if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                            imageLoading = false;
                                             showDialog(
                                                 context: context,
                                                 barrierDismissible: true,
@@ -1061,7 +1066,6 @@ class CreatePollState extends State<CreatePoll>{
                                             );
                                             return;
                                           }
-                                          print("big java");
                                           setState((){imageLoading = true;});
                                           if(tempImage!=null){
                                             new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
@@ -1075,6 +1079,7 @@ class CreatePollState extends State<CreatePoll>{
                                           }
                                           setState((){pickedImage = tempImage;});
                                         }else{
+                                          imageLoading=false;
                                           pickedImage=null;
                                         }
                                       }
