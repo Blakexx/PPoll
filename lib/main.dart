@@ -1440,7 +1440,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                         Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new Scaffold(
                             backgroundColor: colors[color],
                             appBar:new AppBar(actions:[new IconButton(icon:new Icon(Icons.close),onPressed:(){Navigator.of(context).pop();})],automaticallyImplyLeading:false,centerTitle:false,title:new Text(widget.code+" image",style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
-                            body: new Scrollbar(child:new ListView(children:[new Image(image:image.image,fit:BoxFit.contain)]))
+                            body: new Scrollbar(child:new ListView(children:[image]))
                         )));
                       },child:new FutureBuilder<ui.Image>(
                         future: completer.future,
