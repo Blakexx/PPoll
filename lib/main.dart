@@ -1439,15 +1439,20 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new GestureDetector(onTapUp: (t){
                         Navigator.push(context,new MaterialPageRoute(builder: (context)=>new Scaffold(
                             appBar:new AppBar(centerTitle:false,title:new Text(widget.code+" image",style:new TextStyle(color:Colors.white)),backgroundColor: Colors.black54),
-                            body: new Scrollbar(child:new ListView(children:[new Image(image:image.image,fit:BoxFit.fitWidth)]))
+                            body: new Scrollbar(child:new ListView(children:[image]))
                         )));
                       },child:new FutureBuilder<ui.Image>(
                         future: completer.future,
                         builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
                           if(snapshot.hasData){
+                            print(MediaQuery.of(context).size.height/3);
+                            print(MediaQuery.of(context).size.width);
+                            print(snapshot.data.height/MediaQuery.of(context).devicePixelRatio);
+                            print(snapshot.data.width/MediaQuery.of(context).devicePixelRatio);
+                            print(((snapshot.data.width/MediaQuery.of(context).devicePixelRatio)>MediaQuery.of(context).size.width)&&((snapshot.data.height/MediaQuery.of(context).devicePixelRatio)<(MediaQuery.of(context).size.height/3)));
                             return new SizedBox(
-                              height:snapshot.data.width>MediaQuery.of(context).size.width&&(snapshot.data.height<(MediaQuery.of(context).size.height/3))?snapshot.data.height*1.0:MediaQuery.of(context).size.height/3.0,
-                              child: image
+                              height:MediaQuery.of(context).size.height/3.0,
+                              child:new Image(image:image.image,fit:snapshot.data.height>=snapshot.data.width?BoxFit.fitWidth:BoxFit.fitHeight)
                             );
                           }else{
                             return new Container(height:2.0,child:new LinearProgressIndicator());
