@@ -920,7 +920,7 @@ class CreatePollState extends State<CreatePoll>{
                                 if(tempImage!=null){
                                   new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                     height = info.image.height*1.0;
-                                    width = info.image.height*1.0;
+                                    width = info.image.width*1.0;
                                   });
                                 }else{
                                   height=null;
@@ -959,7 +959,7 @@ class CreatePollState extends State<CreatePoll>{
                                         if(tempImage!=null){
                                           new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                             height = info.image.height*1.0;
-                                            width = info.image.height*1.0;
+                                            width = info.image.width*1.0;
                                           });
                                         }else{
                                           height=null;
@@ -977,7 +977,7 @@ class CreatePollState extends State<CreatePoll>{
                                       if(tempImage!=null){
                                         new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                           height = info.image.height*1.0;
-                                          width = info.image.height*1.0;
+                                          width = info.image.width*1.0;
                                         });
                                       }else{
                                         height=null;
@@ -1311,7 +1311,7 @@ class ImageViewState extends State<ImageView>{
         body: new Stack(
             children: hasTapped?[
               widget.child,
-              new AnimatedOpacity(opacity:isAnimating?0.0:1.0,duration:new Duration(milliseconds: 200),child:new Container(color:Colors.black38)),
+              new IgnorePointer(child:new AnimatedOpacity(opacity:isAnimating?0.0:1.0,duration:new Duration(milliseconds: 200),child:new Container(color:Colors.black38))),
               new AnimatedOpacity(opacity:isAnimating?0.0:1.0,duration:new Duration(milliseconds: 200),child:new AppBar(actions:[new IconButton(icon:new Icon(Icons.close),onPressed:(){hasLeft = true;Navigator.of(context).pop();})],automaticallyImplyLeading:false,centerTitle:false,title:new Text(widget.name,style:new TextStyle(color:Colors.white)),backgroundColor: Colors.transparent,elevation: 0.0))
             ]:[
               widget.child
@@ -1549,6 +1549,9 @@ class ViewOrVoteState extends State<ViewOrVote>{
                           if(snapshot.hasData){
                             height = snapshot.data.height*1.0;
                             width = snapshot.data.width*1.0;
+                            print(width);
+                            print(MediaQuery.of(context).size.width);
+                            print(MediaQuery.of(context).size.width/width);
                             return new SizedBox(
                               height:MediaQuery.of(context).size.height/3.0,
                               child:new Image(image:image.image,fit:snapshot.data.height>=snapshot.data.width?BoxFit.fitWidth:BoxFit.fitHeight)
