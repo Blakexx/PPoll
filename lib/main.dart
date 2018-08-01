@@ -1650,7 +1650,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                             width = snapshot.data.width*1.0;
                             return new SizedBox(
                               height:MediaQuery.of(context).size.height/3.0,
-                              child:new Image(image:image.image,fit:snapshot.data.height>=snapshot.data.width?BoxFit.fitWidth:BoxFit.fitHeight)
+                              child:new Image(image:image.image,fit:BoxFit.cover)
                             );
                           }else{
                             return new Container(height:2.0,child:new LinearProgressIndicator());
