@@ -916,7 +916,7 @@ class CreatePollState extends State<CreatePoll>{
                             )),
                             new GestureDetector(onTapUp: (d) async{
                               if(pickedImage!=null&&width!=null){
-                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:new Image.file(pickedImage).image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),name:basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path)));
+                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:new Image.file(pickedImage).image,minScale: min(MediaQuery.of(context).size.width/width,MediaQuery.of(context).size.height/height),maxScale:4.0*min(MediaQuery.of(context).size.width/width,MediaQuery.of(context).size.height/height))),name:basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path)));
                               }else if(!imageLoading){
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                                 if(tempImage!=null){
@@ -1640,7 +1640,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                       new Container(color:Colors.black87,height:1.0),
                       widget.hasImage?new Padding(padding:EdgeInsets.only(bottom:4.0),child:new GestureDetector(onTapUp: (t){
                         if(width!=null){
-                          Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:image.image,minScale: MediaQuery.of(context).size.width/width,maxScale:4.0*MediaQuery.of(context).size.width/width)),name:widget.code)));
+                          Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:image.image,minScale: min(MediaQuery.of(context).size.width/width,MediaQuery.of(context).size.height/height), maxScale:4.0*min(MediaQuery.of(context).size.width/width,MediaQuery.of(context).size.height/height))),name:widget.code)));
                         }
                       },child:new FutureBuilder<ui.Image>(
                         future: completer.future,
