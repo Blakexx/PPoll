@@ -972,7 +972,7 @@ class CreatePollState extends State<CreatePoll>{
                                     child: new Row(
                                         children: [
                                           new Expanded(child: new Text(pickedImage!=null?"  Image selected":"  No image selected",style: new TextStyle(fontSize:17.0,color:Colors.white))),
-                                          pickedImage!=null?new Padding(padding:EdgeInsets.only(right:10.0),child:new SizedBox(height:40.0,width:40.0,child:!imageLoading?!removing?new Image.file(pickedImage,fit:BoxFit.fitWidth):new IconButton(icon: new Icon(Icons.delete),onPressed:(){
+                                          pickedImage!=null?new Padding(padding:EdgeInsets.only(right:10.0),child:new SizedBox(height:40.0,width:40.0,child:!imageLoading?!removing?new Image.file(pickedImage,fit:BoxFit.contain):new IconButton(icon: new Icon(Icons.delete),onPressed:(){
                                             setState((){
                                               pickedImage = null;
                                               height = null;

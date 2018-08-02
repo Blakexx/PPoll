@@ -24,8 +24,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="29">
-              <caret line="1886" column="32" lean-forward="true" selection-start-line="1886" selection-start-column="32" selection-end-line="1886" selection-end-column="32" />
+            <state relative-caret-position="205">
+              <caret line="974" column="225" lean-forward="false" selection-start-line="974" selection-start-column="225" selection-end-line="974" selection-end-column="225" />
               <folding />
             </state>
           </provider>
@@ -92,11 +92,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.width/wi</find>
-      <find>minScale:</find>
-      <find>.size.height/3</find>
-      <find>.size.height/2</find>
-      <find>int hexToInt</find>
       <find>Image imag</find>
       <find>Image ima</find>
       <find>min</find>
@@ -121,7 +116,12 @@
       <find>removing</find>
       <find>removing = false</find>
       <find>isRemoving</find>
+      <find>key:l</find>
       <find>Optionst</find>
+      <find>key:</find>
+      <find>ImageView</find>
+      <find>new ImageView</find>
+      <find>removing?</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -796,8 +796,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="1886" column="32" lean-forward="true" selection-start-line="1886" selection-start-column="32" selection-end-line="1886" selection-end-column="32" />
+        <state relative-caret-position="205">
+          <caret line="974" column="225" lean-forward="false" selection-start-line="974" selection-start-column="225" selection-end-line="974" selection-end-column="225" />
           <folding />
         </state>
       </provider>
