@@ -943,19 +943,15 @@ class CreatePollState extends State<CreatePoll>{
                                     );
                                     return;
                                   }
-                                  setState((){imageLoading = true;});
-                                  if(tempImage!=null){
-                                    new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
-                                      height = info.image.height*1.0;
-                                      width = info.image.width*1.0;
-                                      setState((){imageLoading = false;});
-                                    });
-                                  }else{
-                                    height=null;
-                                    width=null;
-                                  }
-                                  setState((){pickedImage = tempImage;});
+                                  setState((){imageLoading = true;pickedImage = tempImage;});
+                                  new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
+                                    height = info.image.height*1.0;
+                                    width = info.image.width*1.0;
+                                    setState((){imageLoading = false;});
+                                  });
                                 }else{
+                                  height=null;
+                                  width=null;
                                   imageLoading=false;
                                   pickedImage=null;
                                 }
@@ -1015,59 +1011,7 @@ class CreatePollState extends State<CreatePoll>{
                                               );
                                               return;
                                             }
-                                            setState((){imageLoading = true;});
-                                            if(tempImage!=null){
-                                              new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
-                                                height = info.image.height*1.0;
-                                                width = info.image.width*1.0;
-                                                setState((){imageLoading = false;});
-                                              });
-                                            }else{
-                                              height=null;
-                                              width=null;
-                                            }
-                                            setState((){pickedImage = tempImage;});
-                                          }else{
-                                            imageLoading=false;
-                                            pickedImage=null;
-                                          }
-
-                                        }
-                                      },
-                                      child: new Icon(Icons.add_a_photo,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
-                                  ),
-                                  new MaterialButton(
-                                    height: 40.0*MediaQuery.of(context).size.width/360,minWidth: 75.0*MediaQuery.of(context).size.width/360,
-                                    color: Colors.black26,
-                                    onPressed: () async{
-                                      if(!imageLoading){
-                                        File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-                                        if(tempImage!=null){
-                                          if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
-                                            imageLoading = false;
-                                            showDialog(
-                                                context: context,
-                                                barrierDismissible: true,
-                                                builder: (context){
-                                                  return new AlertDialog(
-                                                      title:new Text("Error"),
-                                                      content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid file type"),
-                                                      actions: [
-                                                        new RaisedButton(
-                                                            child: new Text("Okay",style:new TextStyle(color: Colors.black)),
-                                                            onPressed: (){
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                            color: Colors.grey
-                                                        )
-                                                      ]
-                                                  );
-                                                }
-                                            );
-                                            return;
-                                          }
-                                          setState((){imageLoading = true;});
-                                          if(tempImage!=null){
+                                            setState((){imageLoading = true;pickedImage = tempImage;});
                                             new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
                                               height = info.image.height*1.0;
                                               width = info.image.width*1.0;
@@ -1076,15 +1020,58 @@ class CreatePollState extends State<CreatePoll>{
                                           }else{
                                             height=null;
                                             width=null;
+                                            imageLoading=false;
+                                            pickedImage=null;
                                           }
-                                          setState((){pickedImage = tempImage;});
-                                        }else{
-                                          imageLoading=false;
-                                          pickedImage=null;
                                         }
-                                      }
-                                    },
-                                    child: new Icon(Icons.photo_library,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
+                                      },
+                                      child: new Icon(Icons.add_a_photo,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
+                                  ),
+                                  new MaterialButton(
+                                      height: 40.0*MediaQuery.of(context).size.width/360,minWidth: 75.0*MediaQuery.of(context).size.width/360,
+                                      color: Colors.black26,
+                                      onPressed: () async{
+                                        if(!imageLoading){
+                                          File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+                                          if(tempImage!=null){
+                                            if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                              imageLoading = false;
+                                              showDialog(
+                                                  context: context,
+                                                  barrierDismissible: true,
+                                                  builder: (context){
+                                                    return new AlertDialog(
+                                                        title:new Text("Error"),
+                                                        content:new Text(basename(tempImage.path)==null?"Invalid file path":"Invalid file type"),
+                                                        actions: [
+                                                          new RaisedButton(
+                                                              child: new Text("Okay",style:new TextStyle(color: Colors.black)),
+                                                              onPressed: (){
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              color: Colors.grey
+                                                          )
+                                                        ]
+                                                    );
+                                                  }
+                                              );
+                                              return;
+                                            }
+                                            setState((){imageLoading = true;pickedImage = tempImage;});
+                                            new Image.file(tempImage).image.resolve(new ImageConfiguration()).addListener((ImageInfo info, bool b){
+                                              height = info.image.height*1.0;
+                                              width = info.image.width*1.0;
+                                              setState((){imageLoading = false;});
+                                            });
+                                          }else{
+                                            height=null;
+                                            width=null;
+                                            imageLoading=false;
+                                            pickedImage=null;
+                                          }
+                                        }
+                                      },
+                                      child: new Icon(Icons.photo_library,color:Colors.white,size:24.0*MediaQuery.of(context).size.width/360)
                                   )
                                 ]
                             ),
@@ -1387,23 +1374,23 @@ class ImageViewState extends State<ImageView>{
       });
     }
     return new GestureDetector(onTap:(){
-        if(!isAnimating){
-          if(hasTapped){
-            if(t2!=null){
-              t2.cancel;
-            }
-            setState((){isAnimating = true;});
-            t2 = new Timer(new Duration(milliseconds: 200),(){
-              if(!hasLeft){
-                isAnimating=false;
-                setState((){hasTapped=false;});
-              }
-            });
-          }else{
-            setState((){hasTapped=true;});
+      if(!isAnimating){
+        if(hasTapped){
+          if(t2!=null){
+            t2.cancel;
           }
+          setState((){isAnimating = true;});
+          t2 = new Timer(new Duration(milliseconds: 200),(){
+            if(!hasLeft){
+              isAnimating=false;
+              setState((){hasTapped=false;});
+            }
+          });
+        }else{
+          setState((){hasTapped=true;});
         }
-      },child:new Scaffold(
+      }
+    },child:new Scaffold(
         backgroundColor: colors[color],
         body: new Stack(
             children: hasTapped?[
@@ -1649,8 +1636,8 @@ class ViewOrVoteState extends State<ViewOrVote>{
                             height = snapshot.data.height*1.0;
                             width = snapshot.data.width*1.0;
                             return new SizedBox(
-                              height:MediaQuery.of(context).size.height/3.0,
-                              child:new Image(image:image.image,fit:BoxFit.cover)
+                                height:MediaQuery.of(context).size.height/3.0,
+                                child:new Image(image:image.image,fit:BoxFit.cover)
                             );
                           }else{
                             return new Container(height:2.0,child:new LinearProgressIndicator());
