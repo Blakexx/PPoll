@@ -972,7 +972,13 @@ class CreatePollState extends State<CreatePoll>{
                                     child: new Row(
                                         children: [
                                           new Expanded(child: new Text(pickedImage!=null?"  Image selected":"  No image selected",style: new TextStyle(fontSize:17.0,color:Colors.white))),
-                                          pickedImage!=null?new Padding(padding:EdgeInsets.only(right:10.0),child:new SizedBox(height:40.0,width:40.0,child:!imageLoading?new Image.file(pickedImage,fit:BoxFit.fitWidth):new CircularProgressIndicator())):new Container()
+                                          pickedImage!=null?new Padding(padding:EdgeInsets.only(right:10.0),child:new SizedBox(height:40.0,width:40.0,child:!imageLoading?!removing?new Image.file(pickedImage,fit:BoxFit.fitWidth):new IconButton(icon: new Icon(Icons.delete),onPressed:(){
+                                            setState((){
+                                              pickedImage = null;
+                                              height = null;
+                                              width = null;
+                                            });
+                                          }):new CircularProgressIndicator())):new Container()
                                         ]
                                     )
                                 )
@@ -1873,7 +1879,7 @@ class OptionState extends State<Option>{
   FocusNode f = new FocusNode();
   @override
   Widget build(BuildContext context) {
-    return new AnimatedOpacity(opacity:widget.isRemoved?0.0:1.0,duration:new Duration(milliseconds:300),child:new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?24.0:0.0,right:24.0),child: new Row(children: [
+    return new AnimatedOpacity(opacity:widget.isRemoved?0.0:1.0,duration:new Duration(milliseconds:300),child:new Container(height: 50.0,padding: EdgeInsets.only(left:!removing?24.0:0.0,right:24.0),child: new Row(children:[
       removing?new IconButton(
           icon: new Icon(Icons.delete),
           onPressed: (){
