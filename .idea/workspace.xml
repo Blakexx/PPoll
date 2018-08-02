@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
+      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" afterPath="$PROJECT_DIR$/ios/Podfile.lock" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -24,8 +25,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-136">
-              <caret line="920" column="96" lean-forward="false" selection-start-line="920" selection-start-column="85" selection-end-line="920" selection-end-column="96" />
+            <state relative-caret-position="184">
+              <caret line="1717" column="53" lean-forward="false" selection-start-line="1717" selection-start-column="53" selection-end-line="1717" selection-end-column="53" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -94,14 +95,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Invalid file fo</find>
       <find>Imagesour</find>
       <find>Imagesrouce</find>
       <find>Imagesourc</find>
       <find>ImageSourc</find>
       <find>imageSource.gall</find>
       <find>Imagesource.</find>
-      <find>print(</find>
       <find>imageLoading=false;</find>
       <find>Invalid filen</find>
       <find>Invalid file path</find>
@@ -124,6 +123,8 @@
       <find>min(</find>
       <find>&quot;Submit&quot;</find>
       <find>ImageSource</find>
+      <find>post</find>
+      <find>print(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -830,8 +831,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="920" column="96" lean-forward="false" selection-start-line="920" selection-start-column="85" selection-end-line="920" selection-end-column="96" />
+        <state relative-caret-position="184">
+          <caret line="1717" column="53" lean-forward="false" selection-start-line="1717" selection-start-column="53" selection-end-line="1717" selection-end-column="53" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
