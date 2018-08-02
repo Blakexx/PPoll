@@ -1626,7 +1626,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
             });
             return c.future;
           },child:*/ new ListView(
-                    physics: new ClampingScrollPhysics(),
+                    physics: new AlwaysScrollableScrollPhysics(),
                     controller: s,
                     children: [
                       new Container(color:Colors.black54,height:1.0),
