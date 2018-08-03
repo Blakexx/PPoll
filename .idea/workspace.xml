@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" afterPath="$PROJECT_DIR$/ios/Podfile.lock" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -25,11 +24,11 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="1422" column="38" lean-forward="false" selection-start-line="1422" selection-start-column="38" selection-end-line="1422" selection-end-column="38" />
+            <state relative-caret-position="182">
+              <caret line="1415" column="27" lean-forward="true" selection-start-line="1415" selection-start-column="27" selection-end-line="1415" selection-end-column="27" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
-                <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+                <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
               </folding>
             </state>
           </provider>
@@ -96,7 +95,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Optionst</find>
       <find>key:</find>
       <find>ImageView</find>
       <find>new ImageView</find>
@@ -126,6 +124,7 @@
       <find>appBar =</find>
       <find>new AppBar</find>
       <find>centerStyle</find>
+      <find>print(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -443,7 +442,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -462,7 +461,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -481,7 +480,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -500,7 +499,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -519,7 +518,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -538,7 +537,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -557,7 +556,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -576,7 +575,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -595,7 +594,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -614,7 +613,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -633,7 +632,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -660,7 +659,7 @@
           <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -671,26 +670,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -709,7 +689,26 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -845,11 +844,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="1422" column="38" lean-forward="false" selection-start-line="1422" selection-start-column="38" selection-end-line="1422" selection-end-column="38" />
+        <state relative-caret-position="182">
+          <caret line="1415" column="27" lean-forward="true" selection-start-line="1415" selection-start-column="27" selection-end-line="1415" selection-end-column="27" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1533331402296" expanded="true" signature="89471:89493" ph="(...)" />
+            <marker date="1533331849752" expanded="true" signature="89503:89525" ph="(...)" />
           </folding>
         </state>
       </provider>
