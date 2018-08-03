@@ -125,7 +125,7 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
 
-  final c = TextEditingController();
+  TextEditingController c = TextEditingController();
 
   String input = "";
 

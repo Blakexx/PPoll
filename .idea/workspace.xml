@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -25,9 +24,9 @@
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="184">
-              <caret line="244" column="34" lean-forward="false" selection-start-line="244" selection-start-column="30" selection-end-line="244" selection-end-column="34" />
+              <caret line="127" column="23" lean-forward="false" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
               <folding>
-                <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+                <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
               </folding>
             </state>
           </provider>
@@ -94,8 +93,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>print(</find>
-      <find>new ViewOrVoteS</find>
       <find>Imageviewst</find>
       <find>appba</find>
       <find>height:</find>
@@ -124,6 +121,8 @@
       <find>TextField</find>
       <find>.length&lt;=</find>
       <find>c.va</find>
+      <find>c = new</find>
+      <find>final c =</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -431,7 +430,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -449,7 +448,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -467,7 +466,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -485,7 +484,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -503,7 +502,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -521,7 +520,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -539,7 +538,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -557,7 +556,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -575,7 +574,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -593,7 +592,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -611,7 +610,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -629,7 +628,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -655,7 +654,7 @@
         <state relative-caret-position="330">
           <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -665,25 +664,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -701,7 +682,25 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
@@ -830,9 +829,9 @@
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
-          <caret line="244" column="34" lean-forward="false" selection-start-line="244" selection-start-column="30" selection-end-line="244" selection-end-column="34" />
+          <caret line="127" column="23" lean-forward="false" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
           <folding>
-            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+            <marker date="1533275066104" expanded="true" signature="88776:88798" ph="(...)" />
           </folding>
         </state>
       </provider>
