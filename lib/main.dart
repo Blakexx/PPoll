@@ -249,8 +249,7 @@ class HomePageState extends State<HomePage>{
                                       extentOffset: c.selection.baseOffset-1,
                                       affinity: TextAffinity.downstream,
                                       isDirectional: false
-                                  ),
-                                  composing: new TextRange(start: 0, end: 4)
+                                  )
                               );
                             }
                           },
@@ -860,8 +859,7 @@ class CreatePollState extends State<CreatePoll>{
                                             extentOffset: c.selection.baseOffset-1,
                                             affinity: TextAffinity.downstream,
                                             isDirectional: false
-                                        ),
-                                        composing: new TextRange(start: 0, end: 4)
+                                        )
                                     );
                                   }
                                 },
@@ -1937,8 +1935,7 @@ class OptionState extends State<Option>{
                       extentOffset: c.selection.baseOffset-1,
                       affinity: TextAffinity.downstream,
                       isDirectional: false
-                  ),
-                  composing: new TextRange(start: 0, end: 4)
+                  )
               );
             }
           },
