@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -23,9 +24,11 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="1632" column="65" lean-forward="false" selection-start-line="1632" selection-start-column="65" selection-end-line="1632" selection-end-column="65" />
-              <folding />
+            <state relative-caret-position="184">
+              <caret line="244" column="34" lean-forward="false" selection-start-line="244" selection-start-column="30" selection-end-line="244" selection-end-column="34" />
+              <folding>
+                <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -91,11 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>min</find>
-      <find>min(</find>
-      <find>&quot;Submit&quot;</find>
-      <find>ImageSource</find>
-      <find>post</find>
       <find>print(</find>
       <find>new ViewOrVoteS</find>
       <find>Imageviewst</find>
@@ -121,6 +119,11 @@
       <find>removing?</find>
       <find>BoxFit.contai</find>
       <find>Clampin</find>
+      <find>Box</find>
+      <find>createSt</find>
+      <find>TextField</find>
+      <find>.length&lt;=</find>
+      <find>c.va</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -166,8 +169,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -196,8 +200,7 @@
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -427,7 +430,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -443,7 +448,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -459,7 +466,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -475,7 +484,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -491,7 +502,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -507,7 +520,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -523,7 +538,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -539,7 +556,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -555,7 +574,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -571,7 +592,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -587,7 +610,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -603,7 +628,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -627,7 +654,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -635,7 +664,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -651,7 +682,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -667,7 +700,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -781,7 +816,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="71" column="8" lean-forward="false" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -795,9 +829,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="1632" column="65" lean-forward="false" selection-start-line="1632" selection-start-column="65" selection-end-line="1632" selection-end-column="65" />
-          <folding />
+        <state relative-caret-position="184">
+          <caret line="244" column="34" lean-forward="false" selection-start-line="244" selection-start-column="30" selection-end-line="244" selection-end-column="34" />
+          <folding>
+            <marker date="1533274933475" expanded="true" signature="88760:88782" ph="(...)" />
+          </folding>
         </state>
       </provider>
     </entry>

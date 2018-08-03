@@ -242,9 +242,16 @@ class HomePageState extends State<HomePage>{
                             if(s.length<=4){
                               input = s;
                             }else{
-                              int offset = c.selection.extentOffset-1;
-                              c.text = input;
-                              c.selection = new TextSelection.fromPosition(new TextPosition(offset:offset));
+                              c.value = new TextEditingValue(
+                                  text: input,
+                                  selection: new TextSelection(
+                                      baseOffset: c.selection.baseOffset-1,
+                                      extentOffset: c.selection.baseOffset-1,
+                                      affinity: TextAffinity.downstream,
+                                      isDirectional: false
+                                  ),
+                                  composing: new TextRange(start: 0, end: 4)
+                              );
                             }
                           },
                           focusNode: f,
@@ -846,9 +853,16 @@ class CreatePollState extends State<CreatePoll>{
                                   if(s.length<=128){
                                     question = s;
                                   }else{
-                                    int off = c.selection.extentOffset-1;
-                                    c.text = question;
-                                    c.selection = new TextSelection.fromPosition(new TextPosition(offset:off));
+                                    c.value = new TextEditingValue(
+                                        text: question,
+                                        selection: new TextSelection(
+                                            baseOffset: c.selection.baseOffset-1,
+                                            extentOffset: c.selection.baseOffset-1,
+                                            affinity: TextAffinity.downstream,
+                                            isDirectional: false
+                                        ),
+                                        composing: new TextRange(start: 0, end: 4)
+                                    );
                                   }
                                 },
                                 controller: c
@@ -1916,9 +1930,16 @@ class OptionState extends State<Option>{
             if(s.length<=64){
               CreatePollState.choices[widget.position] = s;
             }else{
-              int off = c.selection.extentOffset-1;
-              c.text = CreatePollState.choices[widget.position];
-              c.selection = new TextSelection.fromPosition(new TextPosition(offset:off));
+              c.value = new TextEditingValue(
+                  text: CreatePollState.choices[widget.position],
+                  selection: new TextSelection(
+                      baseOffset: c.selection.baseOffset-1,
+                      extentOffset: c.selection.baseOffset-1,
+                      affinity: TextAffinity.downstream,
+                      isDirectional: false
+                  ),
+                  composing: new TextRange(start: 0, end: 4)
+              );
             }
           },
           controller: c
