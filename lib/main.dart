@@ -1095,9 +1095,9 @@ class CreatePollState extends State<CreatePoll>{
                             ),
                             // ignore: conflicting_dart_import
                             new Container(height:30.0),
-                            new Container(height:60.0,width:200.0,child:new RaisedButton(
-                                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                                child: new Text("Submit",style: new TextStyle(fontSize:25.0,color:Colors.white)),
+                            new Container(height:60.0*MediaQuery.of(context).size.width/360,width:200.0*MediaQuery.of(context).size.width/360,child:new RaisedButton(
+                                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0*MediaQuery.of(context).size.width/360)),
+                                child: new Text("Submit",style: new TextStyle(fontSize:25.0*MediaQuery.of(context).size.width/360,color:Colors.white)),
                                 onPressed: ()  async{
                                   if(question!=null && !choices.contains(null)&&choices.toSet().length==choices.length&&question!=""&&!choices.contains("")&&(pickedImage==null||(pickedImage!=null&&((await pickedImage.length())<5000000)))){
                                     if(pickedImage!=null&&(basename(pickedImage.path)==null||mime(basename(pickedImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(pickedImage.path))))){
@@ -1416,9 +1416,9 @@ class ImageViewState extends State<ImageView>{
               widget.child,
               new IgnorePointer(child:new AnimatedOpacity(opacity:isAnimating?0.0:1.0,duration:new Duration(milliseconds: 200),child:new Container(color:Colors.black38))),
               new Positioned(
-                right:10.0,
-                top:MediaQuery.of(context).padding.top,
-                child: new AnimatedOpacity(opacity:isAnimating?0.0:1.0,duration:new Duration(milliseconds:200),child:new IconButton(iconSize:30.0*MediaQuery.of(context).size.width/375.0,color:Colors.white,icon:new Icon(Icons.close),onPressed:(){hasLeft = true;Navigator.of(context).pop();}))
+                  right:10.0,
+                  top:MediaQuery.of(context).padding.top,
+                  child: new AnimatedOpacity(opacity:isAnimating?0.0:1.0,duration:new Duration(milliseconds:200),child:new IconButton(iconSize:30.0*MediaQuery.of(context).size.width/375.0,color:Colors.white,icon:new Icon(Icons.close),onPressed:(){hasLeft = true;Navigator.of(context).pop();}))
               ),
               new Positioned(
                   left:15.0,
