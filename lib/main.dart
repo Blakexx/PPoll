@@ -928,7 +928,7 @@ class CreatePollState extends State<CreatePoll>{
                             )),
                             new GestureDetector(onTapUp: (d) async{
                               if(pickedImage!=null&&width!=null){
-                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:new Image.file(pickedImage).image,minScale: min(MediaQuery.of(context).size.width/width,MediaQuery.of(context).size.height/height),maxScale:4.0*min(MediaQuery.of(context).size.width/width,MediaQuery.of(context).size.height/height))),name:basename(pickedImage.path)!=null?basename(pickedImage.path):pickedImage.path)));
+                                Navigator.push(context,new PageRouteBuilder(opaque:false,pageBuilder: (context,a1,a2)=>new ImageView(child:new Center(child:new PhotoView(imageProvider:new Image.file(pickedImage).image,minScale: min(MediaQuery.of(context).size.width/width,MediaQuery.of(context).size.height/height),maxScale:4.0*min(MediaQuery.of(context).size.width/width,MediaQuery.of(context).size.height/height))),name:"Image")));
                               }else if(!imageLoading){
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                                 if(tempImage!=null){
