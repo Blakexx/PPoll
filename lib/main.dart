@@ -133,8 +133,6 @@ class HomePageState extends State<HomePage>{
 
   bool isConnectingForVV = false;
 
-  bool firstRun = true;
-
   @override
   Widget build(BuildContext context){
     if(MediaQuery.of(context).size.width>MediaQuery.of(context).size.height){
