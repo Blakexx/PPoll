@@ -18,7 +18,7 @@ dependencies:
   flutter_circular_chart:
   image_picker:
   mime_type:
-  photo_view: ^0.0.3
+  photo_view:
   dynamic_theme:
       git:
         url: git://github.com/Norbert515/dynamic_theme.git
