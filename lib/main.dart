@@ -914,7 +914,7 @@ class CreatePollState extends State<CreatePoll>{
                                     color:Colors.black12,
                                     child: new Row(
                                         children: [
-                                          new Expanded(child: new Text("  Public",style: new TextStyle(fontSize:17.0,color:Colors.white))),
+                                          new Expanded(child: new Text("  Publicly searchable",style: new TextStyle(fontSize:17.0,color:Colors.white))),
                                           new Switch(
                                               value: public,
                                               onChanged: (s){
