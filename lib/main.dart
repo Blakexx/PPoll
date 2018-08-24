@@ -718,10 +718,7 @@ class SearchPageState extends State<SearchPage>{
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue){
-    if(newValue.text.length>4){
-      return oldValue.copyWith(text: oldValue.text.toUpperCase().replaceAll(" ", ""));
-    }
-    return newValue.copyWith(text: newValue.text.toUpperCase().replaceAll(" ", ""));
+    return newValue.text.length>4?oldValue.copyWith(text: oldValue.text.toUpperCase().replaceAll(" ", "")):newValue.copyWith(text: newValue.text.toUpperCase().replaceAll(" ", ""));
   }
 }
 
@@ -730,10 +727,7 @@ class MaxInputFormatter extends TextInputFormatter {
   MaxInputFormatter(this.max);
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue){
-    if(newValue.text.length>max){
-      return oldValue.copyWith(text: oldValue.text);
-    }
-    return newValue.copyWith(text: newValue.text);
+    return newValue.text.length>max?oldValue.copyWith(text: oldValue.text):newValue.copyWith(text: newValue.text);
   }
 }
 

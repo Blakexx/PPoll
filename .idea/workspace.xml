@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/ios/Podfile.lock" afterPath="$PROJECT_DIR$/ios/Podfile.lock" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -26,8 +23,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="1928" column="12" lean-forward="true" selection-start-line="1928" selection-start-column="12" selection-end-line="1928" selection-end-column="12" />
+            <state relative-caret-position="323">
+              <caret line="728" column="86" lean-forward="false" selection-start-line="728" selection-start-column="86" selection-end-line="728" selection-end-column="86" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -123,9 +120,9 @@
       <find>Question</find>
       <find>question</find>
       <find>TextField</find>
-      <find>InputForm</find>
       <find>'Question</find>
       <find>'Option</find>
+      <find>InputForm</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -784,8 +781,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="1928" column="12" lean-forward="true" selection-start-line="1928" selection-start-column="12" selection-end-line="1928" selection-end-column="12" />
+        <state relative-caret-position="323">
+          <caret line="728" column="86" lean-forward="false" selection-start-line="728" selection-start-column="86" selection-end-line="728" selection-end-column="86" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
