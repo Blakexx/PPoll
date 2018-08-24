@@ -237,19 +237,7 @@ class HomePageState extends State<HomePage>{
                               fillColor: Colors.white24
                           ),
                           onChanged: (s){
-                            if(s.length<=4){
-                              input = s;
-                            }else{
-                              c.value = new TextEditingValue(
-                                  text: input,
-                                  selection: new TextSelection(
-                                      baseOffset: c.selection.baseOffset-1,
-                                      extentOffset: c.selection.baseOffset-1,
-                                      affinity: TextAffinity.downstream,
-                                      isDirectional: false
-                                  )
-                              );
-                            }
+                            input=s;
                           },
                           focusNode: f,
                           inputFormatters: [new UpperCaseTextFormatter()]
@@ -729,8 +717,23 @@ class SearchPageState extends State<SearchPage>{
 
 class UpperCaseTextFormatter extends TextInputFormatter {
   @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    return newValue.copyWith(text: newValue.text.toUpperCase());
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue){
+    if(newValue.text.length>4){
+      return oldValue.copyWith(text: oldValue.text.toUpperCase().replaceAll(" ", ""));
+    }
+    return newValue.copyWith(text: newValue.text.toUpperCase().replaceAll(" ", ""));
+  }
+}
+
+class MaxInputFormatter extends TextInputFormatter {
+  int max;
+  MaxInputFormatter(this.max);
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue){
+    if(newValue.text.length>max){
+      return oldValue.copyWith(text: oldValue.text);
+    }
+    return newValue.copyWith(text: newValue.text);
   }
 }
 
@@ -847,21 +850,10 @@ class CreatePollState extends State<CreatePoll>{
                                     counterText: ""
                                 ),
                                 onChanged: (s){
-                                  if(s.length<=128){
-                                    question = s;
-                                  }else{
-                                    c.value = new TextEditingValue(
-                                        text: question,
-                                        selection: new TextSelection(
-                                            baseOffset: c.selection.baseOffset-1,
-                                            extentOffset: c.selection.baseOffset-1,
-                                            affinity: TextAffinity.downstream,
-                                            isDirectional: false
-                                        )
-                                    );
-                                  }
+                                  question = s;
                                 },
-                                controller: c
+                                controller: c,
+                                inputFormatters: [new MaxInputFormatter(128)],
                             ))),
                             new Column(
                                 children: list
@@ -1933,21 +1925,10 @@ class OptionState extends State<Option>{
               counterText: ""
           ),
           onChanged: (s){
-            if(s.length<=64){
-              CreatePollState.choices[widget.position] = s;
-            }else{
-              c.value = new TextEditingValue(
-                  text: CreatePollState.choices[widget.position],
-                  selection: new TextSelection(
-                      baseOffset: c.selection.baseOffset-1,
-                      extentOffset: c.selection.baseOffset-1,
-                      affinity: TextAffinity.downstream,
-                      isDirectional: false
-                  )
-              );
-            }
+            CreatePollState.choices[widget.position] = s;
           },
-          controller: c
+          controller: c,
+          inputFormatters: [new MaxInputFormatter(64)],
       ))])));
   }
 }
