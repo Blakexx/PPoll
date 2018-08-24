@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -23,8 +24,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="728" column="86" lean-forward="false" selection-start-line="728" selection-start-column="86" selection-end-line="728" selection-end-column="86" />
+            <state relative-caret-position="469">
+              <caret line="855" column="49" lean-forward="true" selection-start-line="855" selection-start-column="49" selection-end-line="855" selection-end-column="49" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -93,11 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>firstRun</find>
-      <find>minscale</find>
-      <find>Photoview</find>
-      <find>PhotoView</find>
-      <find>.pickim</find>
       <find>.pickIm</find>
       <find>print(</find>
       <find>data</find>
@@ -123,6 +119,11 @@
       <find>'Question</find>
       <find>'Option</find>
       <find>InputForm</find>
+      <find>'cod</find>
+      <find>Text</find>
+      <find>OptioNSt</find>
+      <find>TextEditting</find>
+      <find>'question</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -781,8 +782,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="728" column="86" lean-forward="false" selection-start-line="728" selection-start-column="86" selection-end-line="728" selection-end-column="86" />
+        <state relative-caret-position="469">
+          <caret line="855" column="49" lean-forward="true" selection-start-line="855" selection-start-column="49" selection-end-line="855" selection-end-column="49" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

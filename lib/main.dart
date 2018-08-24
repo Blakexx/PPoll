@@ -125,8 +125,6 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
 
-  TextEditingController c = TextEditingController();
-
   String input = "";
 
   FocusNode f = new FocusNode();
@@ -228,7 +226,6 @@ class HomePageState extends State<HomePage>{
                       new Container(),new Container(),
                       new Container(width: 120.0*MediaQuery.of(context).size.width/360,child: new Center(child: new TextField(
                           style: new TextStyle(fontSize: 25.0*MediaQuery.of(context).size.width/360,color:Colors.black),
-                          controller: c,
                           textAlign: TextAlign.center,
                           autocorrect: false,
                           decoration: InputDecoration(
@@ -1881,7 +1878,6 @@ class Option extends StatefulWidget{
 bool isRemoving = false;
 
 class OptionState extends State<Option>{
-  TextEditingController c = new TextEditingController();
   FocusNode f = new FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -1921,7 +1917,6 @@ class OptionState extends State<Option>{
           onChanged: (s){
             CreatePollState.choices[widget.position] = s;
           },
-          controller: c,
           inputFormatters: [new MaxInputFormatter(64)],
       ))])));
   }
