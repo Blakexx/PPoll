@@ -164,26 +164,7 @@ class HomePageState extends State<HomePage>{
                               padding: const EdgeInsets.all(4.0),
                               mainAxisSpacing: 4.0,
                               crossAxisSpacing: 4.0,
-                              children: [
-                                new ColorSelection(0),
-                                new ColorSelection(1),
-                                new ColorSelection(2),
-                                new ColorSelection(3),
-                                new ColorSelection(4),
-                                new ColorSelection(5),
-                                new ColorSelection(6),
-                                new ColorSelection(7),
-                                new ColorSelection(8),
-                                new ColorSelection(9),
-                                new ColorSelection(10),
-                                new ColorSelection(11),
-                                new ColorSelection(12),
-                                new ColorSelection(13),
-                                new ColorSelection(14),
-                                new ColorSelection(15),
-                                new ColorSelection(16),
-                                new ColorSelection(17)
-                              ]
+                              children: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17].map((i)=>new ColorSelection(i)).toList()
                           )),
                         );
                       }

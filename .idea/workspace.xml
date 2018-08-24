@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
@@ -23,8 +24,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="846" column="46" lean-forward="true" selection-start-line="846" selection-start-column="46" selection-end-line="846" selection-end-column="46" />
+            <state relative-caret-position="139">
+              <caret line="164" column="51" lean-forward="true" selection-start-line="164" selection-start-column="51" selection-end-line="164" selection-end-column="51" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -93,9 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>json.d</find>
-      <find>(){}</find>
-      <find>(){</find>
       <find>onPressed</find>
       <find>json.deco</find>
       <find>serverda</find>
@@ -123,6 +121,9 @@
       <find>TextEditIngControl</find>
       <find>controller</find>
       <find>TextEd</find>
+      <find>64</find>
+      <find>128</find>
+      <find>new ColorS</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -781,8 +782,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="846" column="46" lean-forward="true" selection-start-line="846" selection-start-column="46" selection-end-line="846" selection-end-column="46" />
+        <state relative-caret-position="139">
+          <caret line="164" column="51" lean-forward="true" selection-start-line="164" selection-start-column="51" selection-end-line="164" selection-end-column="51" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
