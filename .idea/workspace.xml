@@ -4,10 +4,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" afterPath="$PROJECT_DIR$/lib/main.dart" />
-    </list>
+    <list default="true" id="2a7e66f4-94e0-47c9-93d4-5af8f2be44a2" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
     <ignored path="$PROJECT_DIR$/.pub/" />
@@ -24,8 +21,8 @@
       <file leaf-file-name="main.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="855" column="49" lean-forward="true" selection-start-line="855" selection-start-column="49" selection-end-line="855" selection-end-column="49" />
+            <state relative-caret-position="255">
+              <caret line="141" column="75" lean-forward="true" selection-start-line="141" selection-start-column="75" selection-end-line="141" selection-end-column="75" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -94,9 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.pickIm</find>
-      <find>print(</find>
-      <find>data</find>
       <find>HomepageSt</find>
       <find>json.d</find>
       <find>(){}</find>
@@ -124,6 +118,9 @@
       <find>OptioNSt</find>
       <find>TextEditting</find>
       <find>'question</find>
+      <find>TextEdit</find>
+      <find>TextEditIngControl</find>
+      <find>controller</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -782,8 +779,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="855" column="49" lean-forward="true" selection-start-line="855" selection-start-column="49" selection-end-line="855" selection-end-column="49" />
+        <state relative-caret-position="255">
+          <caret line="141" column="75" lean-forward="true" selection-start-line="141" selection-start-column="75" selection-end-line="141" selection-end-column="75" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
