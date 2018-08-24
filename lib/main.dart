@@ -794,8 +794,6 @@ class CreatePollState extends State<CreatePoll>{
     )));
   }
 
-  TextEditingController c = new TextEditingController();
-
   bool hasTapped = true;
 
   @override
@@ -843,7 +841,6 @@ class CreatePollState extends State<CreatePoll>{
                                 onChanged: (s){
                                   question = s;
                                 },
-                                controller: c,
                                 inputFormatters: [new MaxInputFormatter(128)],
                             ))),
                             new Column(
