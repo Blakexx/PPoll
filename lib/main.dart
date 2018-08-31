@@ -694,6 +694,7 @@ class SearchPageState extends State<SearchPage>{
 }
 
 class UpperCaseTextFormatter extends TextInputFormatter {
+
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue){
     return newValue.text.length>4?oldValue.copyWith(text: oldValue.text.toUpperCase().replaceAll(" ", "")):newValue.copyWith(text: newValue.text.toUpperCase().replaceAll(" ", ""));
