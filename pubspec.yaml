@@ -9,15 +9,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons:
   path_provider:
-  url_launcher:
-  flutter_list_drag_and_drop:
   charts_flutter:
-  flutter_launcher_icons:
-  cached_network_image:
-  flutter_cache_manager:
   flutter_circular_chart:
   image_picker:
-  mime_type:
+  mime:
   photo_view:
   dynamic_theme:
       git:

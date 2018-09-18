@@ -8,20 +8,14 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:intl/intl.dart';
-import 'package:flutter/gestures.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:collection';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'key.dart';
 import 'package:collection/collection.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mime_type/mime_type.dart';
+import 'package:mime/mime.dart';
 import 'package:path/path.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -153,7 +147,7 @@ class HomePageState extends State<HomePage>{
             leading: new IconButton(
                 icon: new Icon(Icons.palette),
                 onPressed: (){
-                  return showDialog<Null>(
+                  showDialog(
                       context: context,
                       builder: (context){
                         return new Container(
@@ -169,6 +163,7 @@ class HomePageState extends State<HomePage>{
                         );
                       }
                   );
+                  return;
                 }
             ),
             actions: [
@@ -232,7 +227,7 @@ class HomePageState extends State<HomePage>{
                                     if(input==null||input.length<4){
                                       isConnectingForVV = false;
                                       f.unfocus();
-                                      return showDialog(
+                                      showDialog(
                                           context: context,
                                           builder: (context){
                                             return new AlertDialog(
@@ -250,6 +245,7 @@ class HomePageState extends State<HomePage>{
                                             );
                                           }
                                       );
+                                      return;
                                     }
                                     http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
                                       isConnectingForVV = false;
@@ -293,7 +289,7 @@ class HomePageState extends State<HomePage>{
                                     if(input==null||input.length<4){
                                       f.unfocus();
                                       isConnectingForVV = false;
-                                      return showDialog(
+                                      showDialog(
                                           context: context,
                                           builder: (context){
                                             return new AlertDialog(
@@ -311,6 +307,7 @@ class HomePageState extends State<HomePage>{
                                             );
                                           }
                                       );
+                                      return;
                                     }
                                     http.get(Uri.encodeFull(database+"/data/"+input+".json?auth="+secretKey)).then((r){
                                       f.unfocus();
@@ -892,7 +889,7 @@ class CreatePollState extends State<CreatePoll>{
                               }else if(!imageLoading){
                                 File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                                 if(tempImage!=null){
-                                  if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                  if(tempImage!=null&&(basename(tempImage.path)==null||lookupMimeType(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(lookupMimeType(basename(tempImage.path))))){
                                     imageLoading=false;
                                     showDialog(
                                         context: context,
@@ -966,7 +963,7 @@ class CreatePollState extends State<CreatePoll>{
                                         if(!imageLoading){
                                           File tempImage = await ImagePicker.pickImage(source: ImageSource.camera);
                                           if(tempImage!=null){
-                                            if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                            if(tempImage!=null&&(basename(tempImage.path)==null||lookupMimeType(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(lookupMimeType(basename(tempImage.path))))){
                                               imageLoading = false;
                                               showDialog(
                                                   context: context,
@@ -1012,7 +1009,7 @@ class CreatePollState extends State<CreatePoll>{
                                         if(!imageLoading){
                                           File tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                                           if(tempImage!=null){
-                                            if(tempImage!=null&&(basename(tempImage.path)==null||mime(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(tempImage.path))))){
+                                            if(tempImage!=null&&(basename(tempImage.path)==null||lookupMimeType(basename(tempImage.path))==null||!["image/png","image/jpeg"].contains(lookupMimeType(basename(tempImage.path))))){
                                               imageLoading = false;
                                               showDialog(
                                                   context: context,
@@ -1060,7 +1057,7 @@ class CreatePollState extends State<CreatePoll>{
                                 child: new Text("Submit",style: new TextStyle(fontSize:25.0*MediaQuery.of(context).size.width/360,color:Colors.white)),
                                 onPressed: ()  async{
                                   if(question!=null && !choices.contains(null)&&choices.toSet().length==choices.length&&question!=""&&!choices.contains("")&&(pickedImage==null||(pickedImage!=null&&((await pickedImage.length())<5000000)))){
-                                    if(pickedImage!=null&&(basename(pickedImage.path)==null||mime(basename(pickedImage.path))==null||!["image/png","image/jpeg"].contains(mime(basename(pickedImage.path))))){
+                                    if(pickedImage!=null&&(basename(pickedImage.path)==null||lookupMimeType(basename(pickedImage.path))==null||!["image/png","image/jpeg"].contains(lookupMimeType(basename(pickedImage.path))))){
                                       showDialog(
                                           context: context,
                                           barrierDismissible: true,
@@ -1159,7 +1156,7 @@ class CreatePollState extends State<CreatePoll>{
                                     });
                                     String serverData = "{\n\t\"q\": \""+question.replaceAll("\\","\\\\").replaceAll("\"","\\\"")+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1 ":"0 ")+(pickedImage!=null?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
                                     if(pickedImage!=null){
-                                      await http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":mime(basename(pickedImage.path))},body:await pickedImage.readAsBytes()).catchError((e){
+                                      await http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":lookupMimeType(basename(pickedImage.path))},body:await pickedImage.readAsBytes()).catchError((e){
                                         Navigator.of(context).pop();
                                         showDialog(
                                             context: context,
@@ -1749,7 +1746,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                                     });
                                   });
                                 }else if(widget.oneChoice&&choice==null){
-                                  return showDialog(
+                                  showDialog(
                                       context: context,
                                       builder: (context){
                                         return new AlertDialog(
@@ -1767,6 +1764,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
                                         );
                                       }
                                   );
+                                  return;
                                 }
                               },
                               child: new Text("Submit",style:new TextStyle(color:Colors.white,fontSize:25.0))
