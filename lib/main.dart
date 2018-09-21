@@ -403,6 +403,7 @@ class ColorSelection extends StatelessWidget{
 }
 
 class SearchPage extends StatefulWidget{
+
   bool onlyCreated;
 
   SearchPage(this.onlyCreated);
@@ -1332,7 +1333,7 @@ class ImageViewState extends State<ImageView>{
   @override
   Widget build(BuildContext context){
     if(hasTapped){
-      if(t!=null){
+      if(t!=null&&t.isActive){
         t.cancel();
       }
       t = new Timer(new Duration(seconds:2),(){
@@ -1342,7 +1343,7 @@ class ImageViewState extends State<ImageView>{
             if(!hasLeft){
               isAnimating = false;
               setState((){
-                hasTapped=false;
+                hasTapped = false;
               });
             }
           });
@@ -1352,8 +1353,8 @@ class ImageViewState extends State<ImageView>{
     return new GestureDetector(onTap:(){
       if(!isAnimating){
         if(hasTapped){
-          if(t2!=null){
-            t2.cancel;
+          if(t2!=null&&t2.isActive){
+            t2.cancel();
           }
           setState((){isAnimating = true;});
           t2 = new Timer(new Duration(milliseconds: 200),(){
@@ -1393,16 +1394,9 @@ class ImageViewState extends State<ImageView>{
 
 
 class ViewOrVote extends StatefulWidget{
-  bool public;
-  String question;
-  List<dynamic> choices;
-  bool oneResponse;
-  bool oneChoice;
-  List<dynamic> scores;
-  String code;
-  bool vote;
-  bool hasVoted;
-  bool hasImage;
+  bool public,oneResponse,oneChoice,vote,hasVoted,hasImage;
+  String question,code;
+  List<dynamic> choices,scores;
   ViewOrVote(this.code,this.vote,this.question,this.choices,this.oneResponse,this.oneChoice,this.scores,this.public,this.hasVoted,this.hasImage);
   @override
   ViewOrVoteState createState() => new ViewOrVoteState();
@@ -1438,7 +1432,7 @@ class ViewOrVoteState extends State<ViewOrVote>{
     colorStr = colorStr.replaceAll("#", "");
     int val = 0;
     int length = colorStr.length;
-    for(int i = 0; i < length; i++){
+    for(int i = 0; i<length; i++){
       int hexDigit = colorStr.codeUnitAt(i);
       if(hexDigit>=48&&hexDigit<=57){
         val+=(hexDigit-48)*(1<<(4*(length-1-i)));
