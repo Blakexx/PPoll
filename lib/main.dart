@@ -1829,12 +1829,6 @@ class PieChartState extends State<PieChart>{
   }
 }
 
-class VoteOption{
-  final String name;
-  final int score;
-  VoteOption(this.score, this.name);
-}
-
 class Option extends StatefulWidget{
   bool isRemoved = false;
   GlobalKey key;
