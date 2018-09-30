@@ -504,8 +504,7 @@ class SearchPageState extends State<SearchPage>{
           backgroundColor: Colors.black38,
         ):new Container(),
         appBar: new AppBar(
-            title:data==null||(!inSearch&&!hasSearched)?new Text(
-                !widget.onlyCreated?"Search":"Created",style: new TextStyle(color:Colors.white)
+            title:data==null||(!inSearch&&!hasSearched)?new Text(!widget.onlyCreated?"Search":"Created",style: new TextStyle(color:Colors.white)
             ):new TextField(
               style: new TextStyle(fontSize:20.0,color: Colors.white),
               controller: c,
@@ -1155,7 +1154,7 @@ class CreatePollState extends State<CreatePoll>{
                                       );
                                       throw e;
                                     });
-                                    String serverData = "{\n\t\"q\": \""+question.replaceAll("\\","\\\\").replaceAll("\"","\\\"")+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1 ":"0 ")+(pickedImage!=null?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
+                                    String serverData = "{\n\t\"q\": \""+question.replaceAll("\\","\\\\").replaceAll("\"","\\\"")+"\",\n\t\"c\": "+"["+listPrint+"]"+",\n\t\"b\": "+((oneChoice?"1 ":"0 ")+(perm?"1 ":"0 ")+(public?"1 ":"0 ")+(pickedImage!=null?"1":"0")).split(" ").toString()+",\n\t\"a\": "+answers.toString()+(public?",\n\t\"t\": "+(DateTime.parse(json.decode(responseTime.body)["currentDateTime"]).add(new Duration(seconds:new DateTime.now().second)).millisecondsSinceEpoch/1000).floor().toString():"")+"\n}";
                                     if(pickedImage!=null){
                                       await http.post(Uri.encodeFull(cloudUploadDatabase+"/o?uploadType=media&name="+key),headers:{"content-type":lookupMimeType(basename(pickedImage.path))},body:await pickedImage.readAsBytes()).catchError((e){
                                         Navigator.of(context).pop();
