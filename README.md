@@ -1,9 +1,20 @@
-# ppoll
-
-Survey platform
-
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
 # PPoll
+
+PPoll is an anonymous ad-free cross-platform solution for polling groups of any size. Our simple to use interface makes it easy for new users to answer and create polls instantly! Choose between 18 theme colors to customize the look and feel of PPoll. Discover publicly created polls with our browse feature. 
+
+### Installing
+
+Apple app store: https://itunes.apple.com/us/app/ppoll-create-polls/id1411244031?ls=1&mt=8
+
+Google play store: https://play.google.com/store/apps/details?id=platypus.ppoll
+
+Amazon app store: https://www.amazon.com/dp/B07FMH1G7X/
+
+## Built With
+
+Flutter - Google's app development framework. (https://flutter.io)
+
+## Authors
+
+Blake Bottum
+Caleb Jiang
